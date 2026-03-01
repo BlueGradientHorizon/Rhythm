@@ -532,10 +532,17 @@ class AppUpdaterViewModel(application: Application) : AndroidViewModel(applicati
         Log.d(TAG, "Parsed whatsNew: ${releaseContent.whatsNew}")
         Log.d(TAG, "Parsed knownIssues: ${releaseContent.knownIssues}")
         
-        // Find the APK asset if available
-        val apkAsset = release.assets.firstOrNull { 
-            it.name.endsWith(".apk") && it.state == "uploaded"
+        // Find the APK asset: prefer github-flavored APKs (arm64-v8a > universal > any github),
+        // explicitly excluding fdroid variants so the in-app updater always pulls the github build.
+        val githubApks = release.assets.filter {
+            it.name.contains("-github-", ignoreCase = true) &&
+            it.name.endsWith(".apk") &&
+            it.state == "uploaded"
         }
+        val apkAsset = githubApks.firstOrNull { it.name.contains("arm64-v8a", ignoreCase = true) }
+            ?: githubApks.firstOrNull { it.name.contains("universal", ignoreCase = true) }
+            ?: githubApks.firstOrNull()
+            ?: release.assets.firstOrNull { it.name.endsWith(".apk") && it.state == "uploaded" }
         
         // Get download URL, preferring an APK asset if available
         val downloadUrl = apkAsset?.browser_download_url ?: release.html_url
