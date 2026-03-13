@@ -257,7 +257,7 @@ fun FestiveSettingsScreen(
                         Icon(
                             imageVector = Icons.Default.Info,
                             contentDescription = null,
-                            tint = MaterialTheme.colorScheme.primary,
+                            
                             modifier = Modifier.size(24.dp)
                         )
                         Column {
@@ -391,7 +391,7 @@ private fun FestiveTypeOption(
                 Icon(
                     imageVector = Icons.Default.Check,
                     contentDescription = "Selected",
-                    tint = MaterialTheme.colorScheme.primary,
+                    
                     modifier = Modifier.size(24.dp)
                 )
             }

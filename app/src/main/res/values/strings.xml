@@ -77,6 +77,8 @@
     <string name="settings_remember_shuffle_mode">Remember Shuffle Mode</string>
     <string name="settings_remember_shuffle_mode_desc">Save shuffle on/off state between app restarts</string>
     <string name="settings_audio_effects">Audio Effects</string>
+    <string name="settings_resume_on_device_reconnect">Auto Resume</string>
+    <string name="settings_resume_on_device_reconnect_desc">Auto-resume when audio devices reconnect</string>
     <string name="settings_crossfade">Crossfade</string>
     <string name="settings_crossfade_desc">Smooth transition between songs</string>
     <string name="settings_crossfade_duration">Crossfade Duration</string>

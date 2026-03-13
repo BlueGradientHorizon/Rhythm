@@ -1948,7 +1948,7 @@ private fun WelcomeFeatureChip(
             Icon(
                 imageVector = icon,
                 contentDescription = null,
-                tint = MaterialTheme.colorScheme.primary,
+                
                 modifier = Modifier.size(16.dp)
             )
             Spacer(modifier = Modifier.width(6.dp))
@@ -2079,7 +2079,7 @@ fun EnhancedPermissionContent(
                 // Permission tips card
                 Card(
                     colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.4f)
+                        containerColor = MaterialTheme.colorScheme.primaryContainer
                     ),
                     modifier = Modifier.fillMaxWidth()
                 ) {
@@ -2093,7 +2093,6 @@ fun EnhancedPermissionContent(
                             Icon(
                                 imageVector = Icons.Filled.Info,
                                 contentDescription = null,
-                                tint = MaterialTheme.colorScheme.onPrimaryContainer,
                                 modifier = Modifier.size(24.dp)
                             )
                             Spacer(modifier = Modifier.width(12.dp))
@@ -2190,7 +2189,7 @@ fun EnhancedPermissionContent(
                                 Icon(
                                     imageVector = Icons.Filled.BugReport,
                                     contentDescription = null,
-                                    tint = MaterialTheme.colorScheme.primary,
+                                    
                                     modifier = Modifier.size(20.dp)
                                 )
                                 Spacer(modifier = Modifier.width(8.dp))
@@ -2298,7 +2297,7 @@ fun EnhancedPermissionContent(
                             Icon(
                                 imageVector = Icons.Filled.BugReport,
                                 contentDescription = null,
-                                tint = MaterialTheme.colorScheme.primary,
+                                
                                 modifier = Modifier.size(20.dp)
                             )
                             Spacer(modifier = Modifier.width(8.dp))
@@ -2570,7 +2569,7 @@ fun EnhancedBackupRestoreContent(
                         Icon(
                             imageVector = Icons.Filled.Backup,
                             contentDescription = "Backup & Restore",
-                            tint = MaterialTheme.colorScheme.primary,
+                            
                             modifier = Modifier.size(48.dp)
                         )
                     }
@@ -2596,7 +2595,7 @@ fun EnhancedBackupRestoreContent(
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(18.dp),
                     colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.4f)
+                        containerColor = MaterialTheme.colorScheme.primaryContainer
                     )
                 ) {
                     Column(
@@ -2608,7 +2607,6 @@ fun EnhancedBackupRestoreContent(
                             Icon(
                                 imageVector = Icons.Filled.Info,
                                 contentDescription = null,
-                                tint = MaterialTheme.colorScheme.onPrimaryContainer,
                                 modifier = Modifier.size(24.dp)
                             )
                             Spacer(modifier = Modifier.width(12.dp))
@@ -2686,7 +2684,7 @@ fun EnhancedBackupRestoreContent(
                         Icon(
                             imageVector = Icons.Filled.Backup,
                             contentDescription = null,
-                            tint = MaterialTheme.colorScheme.onTertiaryContainer,
+                            
                             modifier = Modifier.size(24.dp)
                         )
                         Spacer(modifier = Modifier.width(12.dp))
@@ -2706,7 +2704,7 @@ fun EnhancedBackupRestoreContent(
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowForward,
                             contentDescription = "Open backup & restore",
-                            tint = MaterialTheme.colorScheme.onTertiaryContainer,
+                            
                             modifier = Modifier.size(20.dp)
                         )
                     }
@@ -2722,7 +2720,7 @@ fun EnhancedBackupRestoreContent(
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(18.dp),
                         colors = CardDefaults.cardColors(
-                            containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.4f)
+                            containerColor = MaterialTheme.colorScheme.primaryContainer
                         )
                     ) {
                         Row(
@@ -2731,8 +2729,9 @@ fun EnhancedBackupRestoreContent(
                         ) {
                             Icon(
                                 imageVector = Icons.Filled.Lightbulb,
-                                contentDescription = null,
                                 tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                                contentDescription = null,
+                                
                                 modifier = Modifier.size(20.dp)
                             )
                             Spacer(modifier = Modifier.width(12.dp))
@@ -2774,7 +2773,7 @@ fun EnhancedBackupRestoreContent(
                         Icon(
                             imageVector = Icons.Filled.Backup,
                             contentDescription = "Backup & Restore",
-                            tint = MaterialTheme.colorScheme.primary,
+                            
                             modifier = Modifier.size(40.dp)
                         )
                     }
@@ -2836,7 +2835,7 @@ fun EnhancedBackupRestoreContent(
                         Icon(
                             imageVector = Icons.Filled.Backup,
                             contentDescription = null,
-                            tint = MaterialTheme.colorScheme.onTertiaryContainer,
+                            
                             modifier = Modifier.size(24.dp)
                         )
                         Spacer(modifier = Modifier.width(12.dp))
@@ -2856,7 +2855,7 @@ fun EnhancedBackupRestoreContent(
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowForward,
                             contentDescription = "Open backup & restore",
-                            tint = MaterialTheme.colorScheme.onTertiaryContainer,
+                            
                             modifier = Modifier.size(20.dp)
                         )
                     }
@@ -2872,7 +2871,7 @@ fun EnhancedBackupRestoreContent(
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(18.dp),
                         colors = CardDefaults.cardColors(
-                            containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.4f)
+                            containerColor = MaterialTheme.colorScheme.primaryContainer
                         )
                     ) {
                         Row(
@@ -2881,8 +2880,9 @@ fun EnhancedBackupRestoreContent(
                         ) {
                             Icon(
                                 imageVector = Icons.Filled.Lightbulb,
-                                contentDescription = null,
                                 tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                                contentDescription = null,
+                                
                                 modifier = Modifier.size(20.dp)
                             )
                             Spacer(modifier = Modifier.width(12.dp))
@@ -2900,7 +2900,7 @@ fun EnhancedBackupRestoreContent(
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(18.dp),
                     colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.4f)
+                        containerColor = MaterialTheme.colorScheme.primaryContainer
                     )
                 ) {
                     Column(
@@ -2912,7 +2912,6 @@ fun EnhancedBackupRestoreContent(
                             Icon(
                                 imageVector = Icons.Filled.Info,
                                 contentDescription = null,
-                                tint = MaterialTheme.colorScheme.onPrimaryContainer,
                                 modifier = Modifier.size(24.dp)
                             )
                             Spacer(modifier = Modifier.width(12.dp))
@@ -3042,7 +3041,7 @@ fun EnhancedAudioPlaybackContent(
                         Icon(
                             imageVector = RhythmIcons.Player.VolumeUp,
                             contentDescription = "Audio & Playback Settings",
-                            tint = MaterialTheme.colorScheme.primary,
+                            
                             modifier = Modifier.size(48.dp)
                         )
                     }
@@ -3080,7 +3079,6 @@ fun EnhancedAudioPlaybackContent(
                             Icon(
                                 imageVector = Icons.Filled.Info,
                                 contentDescription = null,
-                                tint = MaterialTheme.colorScheme.onPrimaryContainer,
                                 modifier = Modifier.size(24.dp)
                             )
                             Spacer(modifier = Modifier.width(12.dp))
@@ -3178,8 +3176,9 @@ fun EnhancedAudioPlaybackContent(
                             ) {
                                 Icon(
                                     imageVector = Icons.Filled.Lightbulb,
+                                tint = MaterialTheme.colorScheme.onPrimaryContainer,
                                     contentDescription = null,
-                                    tint = MaterialTheme.colorScheme.onTertiaryContainer,
+                                    
                                     modifier = Modifier.size(18.dp)
                                 )
                                 Spacer(modifier = Modifier.width(12.dp))
@@ -3217,7 +3216,7 @@ fun EnhancedAudioPlaybackContent(
                     Icon(
                         imageVector = RhythmIcons.Player.VolumeUp,
                         contentDescription = "Audio & Playback Settings",
-                        tint = MaterialTheme.colorScheme.primary,
+                        
                         modifier = Modifier.size(40.dp)
                     )
                 }
@@ -3303,8 +3302,9 @@ fun EnhancedAudioPlaybackContent(
                             ) {
                                 Icon(
                                     imageVector = Icons.Filled.Lightbulb,
+                                tint = MaterialTheme.colorScheme.onPrimaryContainer,
                                     contentDescription = null,
-                                    tint = MaterialTheme.colorScheme.onTertiaryContainer,
+                                    
                                     modifier = Modifier.size(18.dp)
                                 )
                                 Spacer(modifier = Modifier.width(12.dp))
@@ -3339,7 +3339,6 @@ fun EnhancedAudioPlaybackContent(
                         Icon(
                             imageVector = Icons.Filled.Info,
                             contentDescription = null,
-                            tint = MaterialTheme.colorScheme.onPrimaryContainer,
                             modifier = Modifier.size(24.dp)
                         )
                         Spacer(modifier = Modifier.width(12.dp))
@@ -3416,7 +3415,7 @@ fun EnhancedLibrarySetupContent(
                         Icon(
                             imageVector = Icons.Filled.LibraryMusic,
                             contentDescription = "Library Setup",
-                            tint = MaterialTheme.colorScheme.primary,
+                            
                             modifier = Modifier.size(48.dp)
                         )
                     }
@@ -3442,7 +3441,7 @@ fun EnhancedLibrarySetupContent(
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(18.dp),
                     colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.4f)
+                        containerColor = MaterialTheme.colorScheme.primaryContainer
                     )
                 ) {
                     Column(
@@ -3454,7 +3453,6 @@ fun EnhancedLibrarySetupContent(
                             Icon(
                                 imageVector = Icons.Filled.Info,
                                 contentDescription = null,
-                                tint = MaterialTheme.colorScheme.onPrimaryContainer,
                                 modifier = Modifier.size(24.dp)
                             )
                             Spacer(modifier = Modifier.width(12.dp))
@@ -3540,7 +3538,7 @@ fun EnhancedLibrarySetupContent(
                     Icon(
                         imageVector = Icons.Filled.LibraryMusic,
                         contentDescription = "Library Setup",
-                        tint = MaterialTheme.colorScheme.primary,
+                        
                         modifier = Modifier.size(40.dp)
                     )
                 }
@@ -3583,7 +3581,7 @@ fun EnhancedLibrarySetupContent(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(18.dp),
                 colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.4f)
+                    containerColor = MaterialTheme.colorScheme.primaryContainer
                 )
             ) {
                 Column(
@@ -3595,7 +3593,6 @@ fun EnhancedLibrarySetupContent(
                         Icon(
                             imageVector = Icons.Filled.Info,
                             contentDescription = null,
-                            tint = MaterialTheme.colorScheme.onPrimaryContainer,
                             modifier = Modifier.size(24.dp)
                         )
                         Spacer(modifier = Modifier.width(12.dp))
@@ -3773,7 +3770,7 @@ private fun FolderManagementCard(
                 Icon(
                     imageVector = Icons.Default.Add,
                     contentDescription = null,
-                    tint = MaterialTheme.colorScheme.primary,
+                    
                     modifier = Modifier.size(24.dp)
                 )
             }
@@ -3795,7 +3792,7 @@ private fun FolderManagementCard(
                     Icon(
                         imageVector = Icons.Default.Folder,
                         contentDescription = null,
-                        tint = MaterialTheme.colorScheme.primary,
+                        
                         modifier = Modifier.size(20.dp)
                     )
                     Text(
@@ -4217,7 +4214,7 @@ fun EnhancedThemingContent(
                         Icon(
                             imageVector = Icons.Filled.Palette,
                             contentDescription = "Theming",
-                            tint = MaterialTheme.colorScheme.primary,
+                            
                             modifier = Modifier.size(48.dp)
                         )
                     }
@@ -4243,7 +4240,7 @@ fun EnhancedThemingContent(
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(18.dp),
                     colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.4f)
+                        containerColor = MaterialTheme.colorScheme.primaryContainer
                     )
                 ) {
                     Column(
@@ -4255,7 +4252,6 @@ fun EnhancedThemingContent(
                             Icon(
                                 imageVector = Icons.Filled.Settings,
                                 contentDescription = null,
-                                tint = MaterialTheme.colorScheme.onPrimaryContainer,
                                 modifier = Modifier.size(24.dp)
                             )
                             Spacer(modifier = Modifier.width(12.dp))
@@ -4535,7 +4531,6 @@ fun EnhancedThemingContent(
 //                        Icon(
 //                            imageVector = Icons.Filled.FontDownload,
 //                            contentDescription = null,
-//                            tint = MaterialTheme.colorScheme.onPrimaryContainer,
 //                            modifier = Modifier.size(24.dp)
 //                        )
 //                        Spacer(modifier = Modifier.width(12.dp))
@@ -4597,7 +4592,7 @@ fun EnhancedThemingContent(
                     Icon(
                         imageVector = Icons.Filled.Palette,
                         contentDescription = "Theming",
-                        tint = MaterialTheme.colorScheme.primary,
+                        
                         modifier = Modifier.size(40.dp)
                     )
                 }
@@ -4815,7 +4810,6 @@ fun EnhancedThemingContent(
                     Icon(
                         imageVector = Icons.Filled.FontDownload,
                         contentDescription = null,
-                        tint = MaterialTheme.colorScheme.onPrimaryContainer,
                         modifier = Modifier.size(24.dp)
                     )
                     Spacer(modifier = Modifier.width(12.dp))
@@ -4848,7 +4842,7 @@ fun EnhancedThemingContent(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(18.dp),
                 colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.4f)
+                    containerColor = MaterialTheme.colorScheme.primaryContainer
                 )
             ) {
                 Column(
@@ -4860,7 +4854,6 @@ fun EnhancedThemingContent(
                         Icon(
                             imageVector = Icons.Filled.Settings,
                             contentDescription = null,
-                            tint = MaterialTheme.colorScheme.onPrimaryContainer,
                             modifier = Modifier.size(24.dp)
                         )
                         Spacer(modifier = Modifier.width(12.dp))
@@ -4943,7 +4936,7 @@ fun EnhancedThemeOption(
                 Icon(
                     imageVector = icon,
                     contentDescription = null,
-                    tint = MaterialTheme.colorScheme.primary,
+                    
                     modifier = Modifier.size(20.dp)
                 )
             }
@@ -5023,7 +5016,7 @@ fun OnboardingDropdownOption(
                 Icon(
                     imageVector = icon,
                     contentDescription = null,
-                    tint = MaterialTheme.colorScheme.primary,
+                    
                     modifier = Modifier.size(20.dp)
                 )
             }
@@ -5066,7 +5059,6 @@ fun OnboardingDropdownOption(
                     Icon(
                         imageVector = Icons.Filled.KeyboardArrowDown,
                         contentDescription = "Show options",
-                        tint = MaterialTheme.colorScheme.onPrimaryContainer,
                         modifier = Modifier.size(16.dp)
                     )
                 }
@@ -5116,7 +5108,7 @@ fun OnboardingDropdownOption(
                                     Icon(
                                         imageVector = Icons.Filled.Check,
                                         contentDescription = "Selected",
-                                        tint = MaterialTheme.colorScheme.primary,
+                                        
                                         modifier = Modifier.size(20.dp)
                                     )
                                 }
@@ -5890,7 +5882,7 @@ fun EnhancedUpdateOption(
                 Icon(
                     imageVector = icon,
                     contentDescription = null,
-                    tint = MaterialTheme.colorScheme.primary,
+                    
                     modifier = Modifier.size(20.dp)
                 )
             }
@@ -5970,7 +5962,7 @@ fun EnhancedUpdateChannelOption(
                     Icon(
                         imageVector = Icons.Filled.Check,
                         contentDescription = "Selected",
-                        tint = MaterialTheme.colorScheme.primary,
+                        
                         modifier = Modifier.size(16.dp)
                     )
                 }
@@ -6019,7 +6011,7 @@ fun SettingsDropdownItem(
                 Icon(
                     imageVector = icon,
                     contentDescription = null,
-                    tint = MaterialTheme.colorScheme.primary,
+                    
                     modifier = Modifier.size(20.dp)
                 )
             }
@@ -6356,7 +6348,7 @@ fun EnhancedMediaScanContent(
                         Icon(
                             imageVector = Icons.Filled.FilterList,
                             contentDescription = "Media Scan Filtering",
-                            tint = MaterialTheme.colorScheme.primary,
+                            
                             modifier = Modifier.size(48.dp)
                         )
                     }
@@ -6395,7 +6387,6 @@ fun EnhancedMediaScanContent(
                             Icon(
                                 imageVector = Icons.Filled.Info,
                                 contentDescription = null,
-                                tint = MaterialTheme.colorScheme.onPrimaryContainer,
                                 modifier = Modifier.size(24.dp)
                             )
                             Spacer(modifier = Modifier.width(12.dp))
@@ -6485,7 +6476,7 @@ fun EnhancedMediaScanContent(
                     Icon(
                         imageVector = Icons.Filled.FilterList,
                         contentDescription = "Media Scan Filtering",
-                        tint = MaterialTheme.colorScheme.primary,
+                        
                         modifier = Modifier.size(40.dp)
                     )
                 }
@@ -6550,7 +6541,6 @@ fun EnhancedMediaScanContent(
                         Icon(
                             imageVector = Icons.Filled.Info,
                             contentDescription = null,
-                            tint = MaterialTheme.colorScheme.onPrimaryContainer,
                             modifier = Modifier.size(24.dp)
                         )
                         Spacer(modifier = Modifier.width(12.dp))
@@ -6775,7 +6765,7 @@ fun MediaScanModeOption(
                 Icon(
                     imageVector = Icons.Filled.CheckCircle,
                     contentDescription = "Selected",
-                    tint = MaterialTheme.colorScheme.primary,
+                    
                     modifier = Modifier.size(24.dp)
                 )
             }
@@ -6832,7 +6822,7 @@ fun EnhancedSetupFinishedContent(
                         Icon(
                             imageVector = Icons.Filled.CheckCircle,
                             contentDescription = "Setup Complete",
-                            tint = MaterialTheme.colorScheme.primary,
+                            
                             modifier = Modifier.size(48.dp)
                         )
                     }
@@ -6858,7 +6848,7 @@ fun EnhancedSetupFinishedContent(
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(18.dp),
                     colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.4f)
+                        containerColor = MaterialTheme.colorScheme.primaryContainer
                     )
                 ) {
                     Column(
@@ -6869,8 +6859,9 @@ fun EnhancedSetupFinishedContent(
                         ) {
                             Icon(
                                 imageVector = Icons.Filled.Lightbulb,
-                                contentDescription = null,
                                 tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                                contentDescription = null,
+                                
                                 modifier = Modifier.size(24.dp)
                             )
                             Spacer(modifier = Modifier.width(12.dp))
@@ -6990,7 +6981,7 @@ fun EnhancedSetupFinishedContent(
                     Icon(
                         imageVector = Icons.Filled.CheckCircle,
                         contentDescription = "Setup Complete",
-                        tint = MaterialTheme.colorScheme.primary,
+                        
                         modifier = Modifier.size(40.dp)
                     )
                 }
@@ -7045,7 +7036,7 @@ fun EnhancedSetupFinishedContent(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(18.dp),
                 colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.4f)
+                    containerColor = MaterialTheme.colorScheme.primaryContainer
                 )
             ) {
                 Column(
@@ -7056,8 +7047,9 @@ fun EnhancedSetupFinishedContent(
                     ) {
                         Icon(
                             imageVector = Icons.Filled.Lightbulb,
+                                tint = MaterialTheme.colorScheme.onPrimaryContainer,
                             contentDescription = null,
-                            tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                            
                             modifier = Modifier.size(24.dp)
                         )
                         Spacer(modifier = Modifier.width(12.dp))
@@ -7434,7 +7426,7 @@ private fun SetupCompleteFeature(
             Icon(
                 imageVector = icon,
                 contentDescription = null,
-                tint = MaterialTheme.colorScheme.primary,
+                
                 modifier = Modifier.size(24.dp)
             )
 
@@ -7459,7 +7451,7 @@ private fun SetupCompleteFeature(
             Icon(
                 imageVector = Icons.Filled.Check,
                 contentDescription = "Completed",
-                tint = MaterialTheme.colorScheme.primary,
+                
                 modifier = Modifier.size(20.dp)
             )
         }
@@ -7512,7 +7504,7 @@ fun EnhancedNotificationsContent(
                         Icon(
                             imageVector = Icons.Filled.Notifications,
                             contentDescription = "Notifications",
-                            tint = MaterialTheme.colorScheme.primary,
+                            
                             modifier = Modifier.size(48.dp)
                         )
                     }
@@ -7578,7 +7570,7 @@ fun EnhancedNotificationsContent(
                     Icon(
                         imageVector = Icons.Filled.Notifications,
                         contentDescription = "Notifications",
-                        tint = MaterialTheme.colorScheme.primary,
+                        
                         modifier = Modifier.size(40.dp)
                     )
                 }
@@ -7652,7 +7644,7 @@ private fun NotificationInfoCard() {
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(18.dp),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.4f)
+            containerColor = MaterialTheme.colorScheme.primaryContainer
         )
     ) {
         Column(modifier = Modifier.padding(20.dp)) {
@@ -7660,7 +7652,6 @@ private fun NotificationInfoCard() {
                 Icon(
                     imageVector = Icons.Filled.Info,
                     contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onPrimaryContainer,
                     modifier = Modifier.size(24.dp)
                 )
                 Spacer(modifier = Modifier.width(12.dp))
@@ -7736,7 +7727,7 @@ fun EnhancedGesturesContent(
                         Icon(
                             imageVector = Icons.Filled.Gesture,
                             contentDescription = "Gestures",
-                            tint = MaterialTheme.colorScheme.primary,
+                            
                             modifier = Modifier.size(48.dp)
                         )
                     }
@@ -7804,7 +7795,7 @@ fun EnhancedGesturesContent(
                     Icon(
                         imageVector = Icons.Filled.Gesture,
                         contentDescription = "Gestures",
-                        tint = MaterialTheme.colorScheme.primary,
+                        
                         modifier = Modifier.size(40.dp)
                     )
                 }
@@ -7954,15 +7945,16 @@ private fun GestureTipsCard() {
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(18.dp),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.4f)
+            containerColor = MaterialTheme.colorScheme.primaryContainer
         )
     ) {
         Column(modifier = Modifier.padding(20.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Icon(
                     imageVector = Icons.Filled.Lightbulb,
+                                tint = MaterialTheme.colorScheme.onPrimaryContainer,
                     contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                    
                     modifier = Modifier.size(24.dp)
                 )
                 Spacer(modifier = Modifier.width(12.dp))
@@ -8034,7 +8026,7 @@ fun EnhancedWidgetsContent(
                         Icon(
                             imageVector = Icons.Filled.Widgets,
                             contentDescription = "Widgets",
-                            tint = MaterialTheme.colorScheme.primary,
+                            
                             modifier = Modifier.size(48.dp)
                         )
                     }
@@ -8102,7 +8094,7 @@ fun EnhancedWidgetsContent(
                     Icon(
                         imageVector = Icons.Filled.Widgets,
                         contentDescription = "Widgets",
-                        tint = MaterialTheme.colorScheme.primary,
+                        
                         modifier = Modifier.size(40.dp)
                     )
                 }
@@ -8229,7 +8221,7 @@ private fun WidgetTipsCard() {
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(18.dp),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.4f)
+            containerColor = MaterialTheme.colorScheme.primaryContainer
         )
     ) {
         Column(modifier = Modifier.padding(20.dp)) {
@@ -8237,7 +8229,6 @@ private fun WidgetTipsCard() {
                 Icon(
                     imageVector = Icons.Filled.Info,
                     contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onPrimaryContainer,
                     modifier = Modifier.size(24.dp)
                 )
                 Spacer(modifier = Modifier.width(12.dp))
@@ -8316,7 +8307,7 @@ fun EnhancedIntegrationsContent(
                         Icon(
                             imageVector = Icons.Filled.Api,
                             contentDescription = "Integrations",
-                            tint = MaterialTheme.colorScheme.primary,
+                            
                             modifier = Modifier.size(48.dp)
                         )
                     }
@@ -8390,7 +8381,7 @@ fun EnhancedIntegrationsContent(
                     Icon(
                         imageVector = Icons.Filled.Api,
                         contentDescription = "Integrations",
-                        tint = MaterialTheme.colorScheme.primary,
+                        
                         modifier = Modifier.size(40.dp)
                     )
                 }
@@ -8609,7 +8600,7 @@ private fun IntegrationsInfoCard() {
                 Icon(
                     imageVector = Icons.Filled.Info,
                     contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onTertiaryContainer,
+                    
                     modifier = Modifier.size(24.dp)
                 )
                 Spacer(modifier = Modifier.width(12.dp))
@@ -8677,7 +8668,7 @@ fun EnhancedRhythmStatsContent(
                         Icon(
                             imageVector = Icons.Filled.AutoGraph,
                             contentDescription = "Rhythm Stats",
-                            tint = MaterialTheme.colorScheme.primary,
+                            
                             modifier = Modifier.size(48.dp)
                         )
                     }
@@ -8741,7 +8732,7 @@ fun EnhancedRhythmStatsContent(
                     Icon(
                         imageVector = Icons.Filled.AutoGraph,
                         contentDescription = "Rhythm Stats",
-                        tint = MaterialTheme.colorScheme.primary,
+                        
                         modifier = Modifier.size(40.dp)
                     )
                 }
@@ -8832,7 +8823,7 @@ private fun StatsFeaturesAndInfoCard() {
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(18.dp),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.4f)
+            containerColor = MaterialTheme.colorScheme.primaryContainer
         )
     ) {
         Column(modifier = Modifier.padding(20.dp)) {
@@ -8841,7 +8832,6 @@ private fun StatsFeaturesAndInfoCard() {
                 Icon(
                     imageVector = Icons.Filled.Stars,
                     contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onPrimaryContainer,
                     modifier = Modifier.size(24.dp)
                 )
                 Spacer(modifier = Modifier.width(12.dp))
@@ -8882,7 +8872,6 @@ private fun StatsFeaturesAndInfoCard() {
 //                Icon(
 //                    imageVector = Icons.Filled.Info,
 //                    contentDescription = null,
-//                    tint = MaterialTheme.colorScheme.onPrimaryContainer,
 //                    modifier = Modifier.size(24.dp)
 //                )
 //                Spacer(modifier = Modifier.width(12.dp))

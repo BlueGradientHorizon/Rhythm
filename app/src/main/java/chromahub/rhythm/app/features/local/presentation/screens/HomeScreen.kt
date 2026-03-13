@@ -1644,7 +1644,7 @@ private fun ModernRecentSongCard(
             Icon(
                 imageVector = Icons.Rounded.PlayArrow,
                 contentDescription = context.getString(R.string.cd_play),
-                tint = MaterialTheme.colorScheme.primary,
+                
                 modifier = Modifier.size(16.dp)
             )
         }
@@ -2575,7 +2575,7 @@ private fun ModernListeningStatsSection(
                         Icon(
                             imageVector = Icons.Rounded.BarChart,
                             contentDescription = null,
-                            tint = MaterialTheme.colorScheme.primary,
+                            
                             modifier = Modifier.size(28.dp)
                         )
                     }
@@ -2918,7 +2918,7 @@ private fun ModernEmptyState(
                     Icon(
                         imageVector = icon,
                         contentDescription = null,
-                        tint = MaterialTheme.colorScheme.primary,
+                        
                         modifier = Modifier.size(iconSize)
                     )
                 }

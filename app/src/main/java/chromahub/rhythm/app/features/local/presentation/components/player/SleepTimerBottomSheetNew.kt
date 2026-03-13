@@ -232,7 +232,7 @@ fun SleepTimerBottomSheetNew(
                         Icon(
                             imageVector = Icons.Rounded.Timer,
                             contentDescription = null,
-                            tint = MaterialTheme.colorScheme.primary,
+                            
                             modifier = Modifier
                                 .size(32.dp)
                                 .rotate(rotationAngle)
@@ -559,7 +559,7 @@ fun SleepTimerBottomSheetNew(
                                             Icon(
                                                 imageVector = Icons.Rounded.CheckCircle,
                                                 contentDescription = null,
-                                                tint = MaterialTheme.colorScheme.primary,
+                                                
                                                 modifier = Modifier.size(20.dp)
                                             )
                                         }

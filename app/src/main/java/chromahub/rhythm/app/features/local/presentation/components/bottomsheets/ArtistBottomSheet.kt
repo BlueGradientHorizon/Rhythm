@@ -1394,7 +1394,6 @@ private fun EnhancedArtistSongItem(
                                 Icon(
                                     imageVector = androidx.compose.material.icons.Icons.Rounded.SkipNext,
                                     contentDescription = null,
-                                    tint = MaterialTheme.colorScheme.onPrimaryContainer,
                                     modifier = Modifier
                                         .fillMaxSize()
                                         .padding(6.dp)
@@ -1435,7 +1434,6 @@ private fun EnhancedArtistSongItem(
                                 Icon(
                                     imageVector = RhythmIcons.Queue,
                                     contentDescription = null,
-                                    tint = MaterialTheme.colorScheme.onPrimaryContainer,
                                     modifier = Modifier
                                         .fillMaxSize()
                                         .padding(6.dp)
@@ -1476,7 +1474,7 @@ private fun EnhancedArtistSongItem(
                                 Icon(
                                     imageVector = if (isFavorite) androidx.compose.material.icons.Icons.Filled.Favorite else androidx.compose.material.icons.Icons.Rounded.FavoriteBorder,
                                     contentDescription = null,
-                                    tint = MaterialTheme.colorScheme.onTertiaryContainer,
+                                    
                                     modifier = Modifier
                                         .fillMaxSize()
                                         .padding(6.dp)
@@ -1517,7 +1515,6 @@ private fun EnhancedArtistSongItem(
                                 Icon(
                                     imageVector = RhythmIcons.AddToPlaylist,
                                     contentDescription = null,
-                                    tint = MaterialTheme.colorScheme.onPrimaryContainer,
                                     modifier = Modifier
                                         .fillMaxSize()
                                         .padding(6.dp)

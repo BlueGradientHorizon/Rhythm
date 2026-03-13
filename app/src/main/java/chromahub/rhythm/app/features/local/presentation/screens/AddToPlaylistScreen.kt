@@ -277,7 +277,7 @@ fun AddToPlaylistScreen(
                         Icon(
                             imageVector = Icons.Filled.Info,
                             contentDescription = null,
-                            tint = MaterialTheme.colorScheme.primary,
+                            
                             modifier = Modifier.size(24.dp)
                         )
                         Spacer(modifier = Modifier.width(12.dp))
@@ -470,7 +470,7 @@ private fun SongSelectionItem(
                         Icon(
                             imageVector = Icons.Filled.Add,
                             contentDescription = "Add song",
-                            tint = MaterialTheme.colorScheme.primary,
+                            
                             modifier = Modifier.size(20.dp)
                         )
                     }

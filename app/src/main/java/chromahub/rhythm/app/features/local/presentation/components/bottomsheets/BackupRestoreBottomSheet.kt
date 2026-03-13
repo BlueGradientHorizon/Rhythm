@@ -214,7 +214,7 @@ fun BackupRestoreBottomSheet(
                 Icon(
                     imageVector = Icons.Filled.Backup,
                     contentDescription = null,
-                    tint = MaterialTheme.colorScheme.primary,
+                    
                     modifier = Modifier.size(32.dp)
                 )
                 Spacer(modifier = Modifier.width(16.dp))
@@ -520,7 +520,7 @@ fun BackupRestoreBottomSheet(
 //                                Icon(
 //                                    imageVector = Icons.Filled.PlayArrow,
 //                                    contentDescription = null,
-//                                    tint = MaterialTheme.colorScheme.onTertiaryContainer,
+//                                    
 //                                    modifier = Modifier.size(24.dp)
 //                                )
 //
@@ -543,7 +543,7 @@ fun BackupRestoreBottomSheet(
 //                                Icon(
 //                                    imageVector = Icons.Filled.ChevronRight,
 //                                    contentDescription = null,
-//                                    tint = MaterialTheme.colorScheme.onTertiaryContainer,
+//                                    
 //                                    modifier = Modifier.size(20.dp)
 //                                )
 //                            }
@@ -589,7 +589,7 @@ fun BackupRestoreBottomSheet(
                                 Icon(
                                     imageVector = Icons.Filled.Backup,
                                     contentDescription = null,
-                                    tint = MaterialTheme.colorScheme.primary,
+                                    
                                     modifier = Modifier.size(24.dp)
                                 )
                             }
@@ -817,7 +817,7 @@ fun BackupRestoreBottomSheet(
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(18.dp),
                         colors = CardDefaults.cardColors(
-                            containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.4f)
+                            containerColor = MaterialTheme.colorScheme.primaryContainer
                         )
                     ) {
                         Column(
@@ -828,8 +828,8 @@ fun BackupRestoreBottomSheet(
                             ) {
                                 Icon(
                                     imageVector = Icons.Filled.Lightbulb,
+                                tint = MaterialTheme.colorScheme.onPrimaryContainer,
                                     contentDescription = null,
-                                    tint = MaterialTheme.colorScheme.onPrimaryContainer,
                                     modifier = Modifier.size(24.dp)
                                 )
                                 Spacer(modifier = Modifier.width(12.dp))
@@ -1046,7 +1046,7 @@ private fun InfoItem(
         Icon(
             imageVector = icon,
             contentDescription = null,
-            tint = MaterialTheme.colorScheme.primary,
+            
             modifier = Modifier.size(16.dp)
         )
         Spacer(modifier = Modifier.width(12.dp))
@@ -1071,7 +1071,7 @@ private fun CompactInfoItem(
         Icon(
             imageVector = icon,
             contentDescription = null,
-            tint = MaterialTheme.colorScheme.primary,
+            
             modifier = Modifier.size(12.dp)
         )
         Spacer(modifier = Modifier.width(8.dp))

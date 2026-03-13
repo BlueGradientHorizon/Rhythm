@@ -374,7 +374,6 @@ private fun CreateNewPlaylistCard(
                 Icon(
                     imageVector = Icons.Default.Add,
                     contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onPrimaryContainer,
                     modifier = Modifier.size(24.dp)
                 )
             }
@@ -468,7 +467,7 @@ private fun PlaylistCard(
                     Icon(
                         imageVector = RhythmIcons.PlaylistFilled,
                         contentDescription = null,
-                        tint = MaterialTheme.colorScheme.primary,
+                        
                         modifier = Modifier.size(28.dp)
                     )
                 }
@@ -533,7 +532,7 @@ private fun PlaylistCard(
                     Icon(
                         imageVector = Icons.Default.Add,
                         contentDescription = "Add to playlist",
-                        tint = MaterialTheme.colorScheme.primary,
+                        
                         modifier = Modifier.size(20.dp)
                     )
                 }

@@ -219,7 +219,7 @@ fun HomeSectionOrderBottomSheet(
                                     Icon(
                                         imageVector = Icons.Default.PushPin,
                                         contentDescription = null,
-                                        tint = MaterialTheme.colorScheme.onTertiaryContainer,
+                                        
                                         modifier = Modifier.size(18.dp)
                                     )
                                 }

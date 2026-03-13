@@ -285,7 +285,7 @@ private fun CastHeader(
             Icon(
                 imageVector = Icons.Rounded.CastConnected,
                 contentDescription = null,
-                tint = MaterialTheme.colorScheme.primary,
+                
                 modifier = Modifier.size(32.dp)
             )
         }
@@ -375,7 +375,7 @@ private fun CurrentDeviceCard(
 //            Icon(
 //                imageVector = Icons.Default.Check,
 //                contentDescription = context.getString(R.string.bottomsheet_active_device),
-//                tint = MaterialTheme.colorScheme.primary,
+//                
 //                modifier = Modifier.size(24.dp)
 //            )
 //        }
@@ -410,7 +410,7 @@ private fun OutputSwitcherCard(
                 Icon(
                     imageVector = Icons.Default.Cast,
                     contentDescription = null,
-                    tint = MaterialTheme.colorScheme.primary,
+                    
                     modifier = Modifier.size(28.dp)
                 )
                 

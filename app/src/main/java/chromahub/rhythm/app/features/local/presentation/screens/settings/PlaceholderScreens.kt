@@ -52,6 +52,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.draw.shadow
@@ -975,7 +976,7 @@ fun QueuePlaybackSettingsScreen(onBackClick: () -> Unit) {
                                 Icon(
                                     imageVector = Icons.Filled.CheckCircle,
                                     contentDescription = context.getString(R.string.ui_selected),
-                                    tint = MaterialTheme.colorScheme.primary,
+                                    
                                     modifier = Modifier.size(28.dp)
                                 )
                             }
@@ -1062,7 +1063,7 @@ fun QueuePlaybackSettingsScreen(onBackClick: () -> Unit) {
                                 Icon(
                                     imageVector = Icons.Filled.CheckCircle,
                                     contentDescription = "Selected",
-                                    tint = MaterialTheme.colorScheme.primary,
+                                    
                                     modifier = Modifier.size(28.dp)
                                 )
                             }
@@ -1149,7 +1150,7 @@ fun QueuePlaybackSettingsScreen(onBackClick: () -> Unit) {
                                 Icon(
                                     imageVector = Icons.Filled.CheckCircle,
                                     contentDescription = "Selected",
-                                    tint = MaterialTheme.colorScheme.primary,
+                                    
                                     modifier = Modifier.size(28.dp)
                                 )
                             }
@@ -1318,7 +1319,7 @@ fun QueuePlaybackSettingsScreen(onBackClick: () -> Unit) {
                                 Icon(
                                     imageVector = Icons.Filled.CheckCircle,
                                     contentDescription = "Selected",
-                                    tint = MaterialTheme.colorScheme.primary,
+                                    
                                     modifier = Modifier.size(28.dp)
                                 )
                             }
@@ -1405,7 +1406,7 @@ fun QueuePlaybackSettingsScreen(onBackClick: () -> Unit) {
                                 Icon(
                                     imageVector = Icons.Filled.CheckCircle,
                                     contentDescription = "Selected",
-                                    tint = MaterialTheme.colorScheme.primary,
+                                    
                                     modifier = Modifier.size(28.dp)
                                 )
                             }
@@ -2276,7 +2277,7 @@ fun MediaScanSettingsScreen(onBackClick: () -> Unit) {
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(18.dp),
                     colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.4f)
+                        containerColor = MaterialTheme.colorScheme.primaryContainer
                     )
                 ) {
                     Column(
@@ -2287,8 +2288,8 @@ fun MediaScanSettingsScreen(onBackClick: () -> Unit) {
                         ) {
                             Icon(
                                 imageVector = Icons.Filled.Lightbulb,
-                                contentDescription = null,
                                 tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                                contentDescription = null,
                                 modifier = Modifier.size(24.dp)
                             )
                             Spacer(modifier = Modifier.width(12.dp))
@@ -2451,7 +2452,7 @@ fun MediaScanSettingsScreen(onBackClick: () -> Unit) {
                             Icon(
                                 imageVector = Icons.Default.MusicNote,
                                 contentDescription = null,
-                                tint = MaterialTheme.colorScheme.primary,
+                                
                                 modifier = Modifier.size(32.dp)
                             )
                             Spacer(modifier = Modifier.height(8.dp))
@@ -3000,7 +3001,7 @@ fun ArtistSeparatorsSettingsScreen(onBackClick: () -> Unit) {
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(18.dp),
                     colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.4f)
+                        containerColor = MaterialTheme.colorScheme.primaryContainer
                     )
                 ) {
                     Column(
@@ -3012,7 +3013,6 @@ fun ArtistSeparatorsSettingsScreen(onBackClick: () -> Unit) {
                             Icon(
                                 imageVector = Icons.Default.Info,
                                 contentDescription = null,
-                                tint = MaterialTheme.colorScheme.onPrimaryContainer,
                                 modifier = Modifier.size(24.dp)
                             )
                             Spacer(modifier = Modifier.width(12.dp))
@@ -3542,7 +3542,7 @@ fun AboutScreen(
 //                            Icon(
 //                                imageVector = RhythmIcons.Actions.Info,
 //                                contentDescription = null,
-//                                tint = MaterialTheme.colorScheme.primary,
+//                                
 //                                modifier = Modifier.size(20.dp)
 //                            )
 //                            Spacer(modifier = Modifier.width(12.dp))
@@ -3590,7 +3590,7 @@ fun AboutScreen(
                             Icon(
                                 imageVector = RhythmIcons.ArtistFilled,
                                 contentDescription = null,
-                                tint = MaterialTheme.colorScheme.primary,
+                                
                                 modifier = Modifier.size(20.dp)
                             )
                             Spacer(modifier = Modifier.width(12.dp))
@@ -3720,7 +3720,7 @@ fun AboutScreen(
                             Icon(
                                 imageVector = RhythmIcons.FavoriteFilled,
                                 contentDescription = null,
-                                tint = MaterialTheme.colorScheme.primary,
+                                
                                 modifier = Modifier.size(20.dp)
                             )
                             Spacer(modifier = Modifier.width(12.dp))
@@ -3830,7 +3830,7 @@ fun AboutScreen(
                             Icon(
                                 imageVector = RhythmIcons.FavoriteFilled,
                                 contentDescription = null,
-                                tint = MaterialTheme.colorScheme.primary,
+                                
                                 modifier = Modifier.size(20.dp)
                             )
                             Spacer(modifier = Modifier.width(12.dp))
@@ -3890,7 +3890,7 @@ fun AboutScreen(
                         Icon(
                             imageVector = RhythmIcons.Settings,
                             contentDescription = null,
-                            tint = MaterialTheme.colorScheme.primary,
+                            
                             modifier = Modifier.size(20.dp)
                         )
                         Spacer(modifier = Modifier.width(12.dp))
@@ -3935,7 +3935,7 @@ fun AboutScreen(
                             Icon(
                                 imageVector = RhythmIcons.Download,
                                 contentDescription = null,
-                                tint = MaterialTheme.colorScheme.primary,
+                                
                                 modifier = Modifier.size(20.dp)
                             )
                             Spacer(modifier = Modifier.width(12.dp))
@@ -4249,7 +4249,7 @@ private fun CommunityMember(
         Icon(
             imageVector = RhythmIcons.ArtistFilled,
             contentDescription = "View GitHub Profile",
-            tint = MaterialTheme.colorScheme.primary,
+            
             modifier = Modifier.size(18.dp)
         )
     }
@@ -4275,7 +4275,6 @@ private fun FeatureItem(
             Icon(
                 imageVector = icon,
                 contentDescription = null,
-                tint = MaterialTheme.colorScheme.onPrimaryContainer,
                 modifier = Modifier
                     .padding(8.dp)
                     .size(20.dp)
@@ -4778,7 +4777,7 @@ fun UpdatesSettingsScreen(onBackClick: () -> Unit) {
                                     Icon(
                                         imageVector = RhythmIcons.Check,
                                         contentDescription = null,
-                                        tint = MaterialTheme.colorScheme.primary,
+                                        
                                         modifier = Modifier.size(40.dp)
                                     )
                                     Spacer(modifier = Modifier.height(8.dp))
@@ -4837,7 +4836,7 @@ fun UpdatesSettingsScreen(onBackClick: () -> Unit) {
                                     Icon(
                                         imageVector = RhythmIcons.Refresh,
                                         contentDescription = context.getString(R.string.updates_manual_check),
-                                        tint = MaterialTheme.colorScheme.primary,
+                                        
                                         modifier = Modifier.size(40.dp)
                                     )
                                     Spacer(modifier = Modifier.height(8.dp))
@@ -4889,7 +4888,7 @@ fun UpdatesSettingsScreen(onBackClick: () -> Unit) {
                                     Icon(
                                         imageVector = RhythmIcons.Check,
                                         contentDescription = context.getString(R.string.updates_up_to_date),
-                                        tint = MaterialTheme.colorScheme.primary,
+                                        
                                         modifier = Modifier.size(40.dp)
                                     )
                                     Spacer(modifier = Modifier.height(8.dp))
@@ -5672,7 +5671,7 @@ fun ExperimentalFeaturesScreen(onBackClick: () -> Unit) {
                             Icon(
                                 imageVector = Icons.Default.CheckCircle,
                                 contentDescription = "Selected",
-                                tint = MaterialTheme.colorScheme.primary,
+                                
                                 modifier = Modifier.size(24.dp)
                             )
                         }
@@ -5739,7 +5738,7 @@ fun ExperimentalFeaturesScreen(onBackClick: () -> Unit) {
                             Icon(
                                 imageVector = Icons.Default.CheckCircle,
                                 contentDescription = "Selected",
-                                tint = MaterialTheme.colorScheme.primary,
+                                
                                 modifier = Modifier.size(24.dp)
                             )
                         }
@@ -6002,7 +6001,7 @@ private fun FestivalSelectionBottomSheet(
                                 Icon(
                                     imageVector = Icons.Default.CheckCircle,
                                     contentDescription = "Selected",
-                                    tint = MaterialTheme.colorScheme.primary,
+                                    
                                     modifier = Modifier.size(24.dp)
                                 )
                             }
@@ -6028,7 +6027,7 @@ private fun FestivalSelectionBottomSheet(
                     Icon(
                         imageVector = Icons.Default.Info,
                         contentDescription = null,
-                        tint = MaterialTheme.colorScheme.primary,
+                        
                         modifier = Modifier.size(20.dp)
                     )
                     Spacer(modifier = Modifier.width(12.dp))
@@ -6204,7 +6203,7 @@ fun LyricsSourceDialog(
                             Icon(
                                 imageVector = Icons.Default.CheckCircle,
                                 contentDescription = "Selected",
-                                tint = MaterialTheme.colorScheme.primary,
+                                
                                 modifier = Modifier.size(24.dp)
                             )
                         }
@@ -6755,7 +6754,6 @@ fun CacheManagementSettingsScreen(onBackClick: () -> Unit) {
                             Icon(
                                 imageVector = Icons.Filled.Info,
                                 contentDescription = null,
-                                tint = MaterialTheme.colorScheme.onPrimaryContainer,
                                 modifier = Modifier.size(24.dp)
                             )
                             Spacer(modifier = Modifier.width(12.dp))
@@ -7417,7 +7415,7 @@ fun BackupRestoreSettingsScreen(onBackClick: () -> Unit) {
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(18.dp),
                     colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.4f)
+                        containerColor = MaterialTheme.colorScheme.primaryContainer
                     )
                 ) {
                     Column(
@@ -7428,8 +7426,8 @@ fun BackupRestoreSettingsScreen(onBackClick: () -> Unit) {
                         ) {
                             Icon(
                                 imageVector = Icons.Filled.Lightbulb,
-                                contentDescription = null,
                                 tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                                contentDescription = null,
                                 modifier = Modifier.size(24.dp)
                             )
                             Spacer(modifier = Modifier.width(12.dp))
@@ -7935,7 +7933,7 @@ fun GesturesSettingsScreen(onBackClick: () -> Unit) {
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(18.dp),
                     colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.4f)
+                        containerColor = MaterialTheme.colorScheme.primaryContainer
                     )
                 ) {
                     Column(
@@ -7946,8 +7944,8 @@ fun GesturesSettingsScreen(onBackClick: () -> Unit) {
                         ) {
                             Icon(
                                 imageVector = Icons.Filled.Lightbulb,
-                                contentDescription = null,
                                 tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                                contentDescription = null,
                                 modifier = Modifier.size(24.dp)
                             )
                             Spacer(modifier = Modifier.width(12.dp))
@@ -8294,7 +8292,7 @@ fun MiniPlayerCustomizationSettingsScreen(onBackClick: () -> Unit) {
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(18.dp),
                     colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.4f)
+                        containerColor = MaterialTheme.colorScheme.primaryContainer
                     )
                 ) {
                     Column(
@@ -8306,7 +8304,6 @@ fun MiniPlayerCustomizationSettingsScreen(onBackClick: () -> Unit) {
                             Icon(
                                 imageVector = Icons.Default.Info,
                                 contentDescription = null,
-                                tint = MaterialTheme.colorScheme.onPrimaryContainer,
                                 modifier = Modifier.size(24.dp)
                             )
                             Spacer(modifier = Modifier.width(12.dp))
@@ -9013,7 +9010,7 @@ fun PlayerCustomizationSettingsScreen(onBackClick: () -> Unit) {
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(18.dp),
                     colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.4f)
+                        containerColor = MaterialTheme.colorScheme.primaryContainer
                     )
                 ) {
                     Column(
@@ -9025,7 +9022,6 @@ fun PlayerCustomizationSettingsScreen(onBackClick: () -> Unit) {
                             Icon(
                                 imageVector = Icons.Default.Info,
                                 contentDescription = null,
-                                tint = MaterialTheme.colorScheme.onPrimaryContainer,
                                 modifier = Modifier.size(24.dp)
                             )
                             Spacer(modifier = Modifier.width(12.dp))
@@ -9053,7 +9049,7 @@ fun PlayerCustomizationSettingsScreen(onBackClick: () -> Unit) {
             //         modifier = Modifier.fillMaxWidth(),
             //         shape = RoundedCornerShape(18.dp),
             //         colors = CardDefaults.cardColors(
-            //             containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.4f)
+            //             containerColor = MaterialTheme.colorScheme.primaryContainer
             //         )
             //     ) {
             //         Column(
@@ -9065,7 +9061,6 @@ fun PlayerCustomizationSettingsScreen(onBackClick: () -> Unit) {
             //                 Icon(
             //                     imageVector = Icons.Filled.Lightbulb,
             //                     contentDescription = null,
-            //                     tint = MaterialTheme.colorScheme.onPrimaryContainer,
             //                     modifier = Modifier.size(24.dp)
             //                 )
             //                 Spacer(modifier = Modifier.width(12.dp))
@@ -9192,7 +9187,7 @@ fun PlayerCustomizationSettingsScreen(onBackClick: () -> Unit) {
                                 Icon(
                                     imageVector = Icons.Default.Check,
                                     contentDescription = "Selected",
-                                    tint = MaterialTheme.colorScheme.primary,
+                                    
                                     modifier = Modifier.size(20.dp)
                                 )
                             }
@@ -9594,7 +9589,7 @@ private fun ProgressStyleBottomSheet(
                                 Icon(
                                     imageVector = Icons.Default.Check,
                                     contentDescription = "Selected",
-                                    tint = MaterialTheme.colorScheme.primary,
+                                    
                                     modifier = Modifier.size(16.dp)
                                 )
                             }
@@ -9794,7 +9789,7 @@ private fun ThumbStyleBottomSheet(
                                 Icon(
                                     imageVector = Icons.Default.Check,
                                     contentDescription = "Selected",
-                                    tint = MaterialTheme.colorScheme.primary,
+                                    
                                     modifier = Modifier.size(16.dp)
                                 )
                             }
@@ -10504,7 +10499,7 @@ fun ThemeCustomizationSettingsScreen(onBackClick: () -> Unit) {
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(18.dp),
                     colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.4f)
+                        containerColor = MaterialTheme.colorScheme.primaryContainer
                     )
                 ) {
                     Column(
@@ -10515,8 +10510,8 @@ fun ThemeCustomizationSettingsScreen(onBackClick: () -> Unit) {
                         ) {
                             Icon(
                                 imageVector = Icons.Filled.Lightbulb,
-                                contentDescription = null,
                                 tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                                contentDescription = null,
                                 modifier = Modifier.size(24.dp)
                             )
                             Spacer(modifier = Modifier.width(12.dp))
@@ -10703,7 +10698,7 @@ fun ThemeCustomizationSettingsScreen(onBackClick: () -> Unit) {
                                         Icon(
                                             imageVector = Icons.Filled.CheckCircle,
                                             contentDescription = "Selected",
-                                            tint = MaterialTheme.colorScheme.primary,
+                                            
                                             modifier = Modifier.size(24.dp)
                                         )
                                     }
@@ -11040,7 +11035,7 @@ private fun ColorSourceDialog(
                                     Icon(
                                         imageVector = Icons.Filled.CheckCircle,
                                         contentDescription = "Selected",
-                                        tint = MaterialTheme.colorScheme.primary,
+                                        
                                         modifier = Modifier.size(28.dp)
                                     )
                                 }
@@ -11230,7 +11225,7 @@ private fun FontSourceDialog(
                                     Icon(
                                         imageVector = Icons.Filled.CheckCircle,
                                         contentDescription = "Selected",
-                                        tint = MaterialTheme.colorScheme.primary,
+                                        
                                         modifier = Modifier.size(28.dp)
                                     )
                                 }
@@ -11287,7 +11282,7 @@ private fun FontSourceDialog(
 //                                    Icon(
 //                                        imageVector = Icons.Filled.CheckCircle,
 //                                        contentDescription = "Selected",
-//                                        tint = MaterialTheme.colorScheme.primary,
+//                                        
 //                                        modifier = Modifier.size(24.dp)
 //                                    )
 //                                }
@@ -11389,29 +11384,40 @@ private fun ColorSchemesDialog(
                 Spacer(modifier = Modifier.height(16.dp))
 
                 if (selectedColorSource != ColorSource.CUSTOM) {
-                    Column(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalAlignment = Alignment.CenterHorizontally
+                    Card(
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.surfaceContainerHigh
+                        ),
+                        shape = RoundedCornerShape(16.dp),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 0.dp)
                     ) {
-                        Icon(
-                            imageVector = Icons.Filled.Info,
-                            contentDescription = null,
-                            tint = MaterialTheme.colorScheme.primary,
-                            modifier = Modifier.size(48.dp)
-                        )
-                        Spacer(modifier = Modifier.height(16.dp))
-                        Text(
-                            text = context.getString(R.string.theme_color_schemes_unavailable),
-                            style = MaterialTheme.typography.bodyLarge,
-                            textAlign = TextAlign.Center
-                        )
-                        Spacer(modifier = Modifier.height(8.dp))
-                        Text(
-                            text = context.getString(R.string.theme_color_schemes_switch),
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            textAlign = TextAlign.Center
-                        )
+                        Column(
+                            modifier = Modifier.padding(24.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Icon(
+                                imageVector = Icons.Filled.Info,
+                                contentDescription = null,
+                                
+                                modifier = Modifier.size(48.dp)
+                            )
+                            Spacer(modifier = Modifier.height(16.dp))
+                            Text(
+                                text = context.getString(R.string.theme_color_schemes_unavailable),
+                                style = MaterialTheme.typography.titleMedium,
+                                fontWeight = FontWeight.SemiBold,
+                                textAlign = TextAlign.Center
+                            )
+                            Spacer(modifier = Modifier.height(8.dp))
+                            Text(
+                                text = context.getString(R.string.theme_color_schemes_switch),
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                textAlign = TextAlign.Center
+                            )
+                        }
                     }
                 } else {
                     LazyColumn(
@@ -11562,7 +11568,7 @@ private fun ColorSchemeCard(
                 Icon(
                     imageVector = Icons.Filled.CheckCircle,
                     contentDescription = "Selected",
-                    tint = MaterialTheme.colorScheme.primary,
+                    
                     modifier = Modifier.size(28.dp)
                 )
             }
@@ -11638,195 +11644,238 @@ private fun CustomColorsDialog(
                     color = MaterialTheme.colorScheme.primary
                 )
             },
-            containerColor = MaterialTheme.colorScheme.surfaceContainer
+            containerColor = MaterialTheme.colorScheme.surfaceContainer,
+            tonalElevation = 0.dp
         ) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 24.dp)
                     .padding(bottom = 24.dp)
-                    .graphicsLayer(alpha = contentAlpha)
             ) {
                 // Header
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 0.dp, vertical = 16.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Column {
-                        Text(
-                            text = context.getString(R.string.theme_custom_picker),
-                            style = MaterialTheme.typography.displayMedium,
-                            fontWeight = FontWeight.Medium,
-                            color = MaterialTheme.colorScheme.onSurface
-                        )
-                        Box(
-                            modifier = Modifier
-                                .padding(top = 6.dp)
-                                .background(
-                                    color = MaterialTheme.colorScheme.surfaceContainerHigh,
-                                    shape = CircleShape
-                                )
-                        ) {
-                            Text(
-                                modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
-                                style = MaterialTheme.typography.labelLarge,
-                                text = context.getString(R.string.theme_custom_picker_desc),
-                                overflow = TextOverflow.Ellipsis,
-                                maxLines = 1,
-                                color = MaterialTheme.colorScheme.onSurface
-                            )
-                        }
-                    }
+                AnimateIn {
+                    StandardBottomSheetHeader(
+                        title = context.getString(R.string.theme_custom_picker),
+                        subtitle = context.getString(R.string.theme_custom_picker_desc),
+                        visible = showContent
+                    )
                 }
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                if (selectedColorSource != ColorSource.CUSTOM) {
-                    Column(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Icon(
-                            imageVector = Icons.Filled.Info,
-                            contentDescription = null,
-                            tint = MaterialTheme.colorScheme.primary,
-                            modifier = Modifier.size(48.dp)
-                        )
-                        Spacer(modifier = Modifier.height(16.dp))
-                        Text(
-                            text = context.getString(R.string.theme_custom_colors_unavailable),
-                            style = MaterialTheme.typography.bodyLarge,
-                            textAlign = TextAlign.Center
-                        )
-                        Spacer(modifier = Modifier.height(8.dp))
-                        Text(
-                            text = context.getString(R.string.theme_custom_colors_switch),
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            textAlign = TextAlign.Center
-                        )
-                    }
-                } else {
-                    LazyColumn(
-                        modifier = Modifier.fillMaxWidth(),
-                        verticalArrangement = Arrangement.spacedBy(16.dp)
-                    ) {
-                        // Color preview row with selection
+                // Scrollable content
+                LazyColumn(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalArrangement = Arrangement.spacedBy(20.dp)
+                ) {
+                    if (selectedColorSource != ColorSource.CUSTOM) {
+                        // Unavailable state
                         item {
-                            Row(
-                                modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.spacedBy(12.dp)
-                            ) {
-                                ColorPreviewItem(
-                                    label = "Primary",
-                                    color = primaryColor,
-                                    isSelected = selectedColorType == ColorType.PRIMARY,
-                                    onClick = {
-                                        HapticUtils.performHapticFeedback(context, haptic, HapticFeedbackType.TextHandleMove)
-                                        selectedColorType = ColorType.PRIMARY
-                                    }
-                                )
-                                ColorPreviewItem(
-                                    label = "Secondary",
-                                    color = secondaryColor,
-                                    isSelected = selectedColorType == ColorType.SECONDARY,
-                                    onClick = {
-                                        HapticUtils.performHapticFeedback(context, haptic, HapticFeedbackType.TextHandleMove)
-                                        selectedColorType = ColorType.SECONDARY
-                                    }
-                                )
-                                ColorPreviewItem(
-                                    label = "Tertiary",
-                                    color = tertiaryColor,
-                                    isSelected = selectedColorType == ColorType.TERTIARY,
-                                    onClick = {
-                                        HapticUtils.performHapticFeedback(context, haptic, HapticFeedbackType.TextHandleMove)
-                                        selectedColorType = ColorType.TERTIARY
-                                    }
-                                )
-                            }
-                        }
-
-                        // Color picker controls
-                        item {
-                            when (selectedColorType) {
-                                ColorType.PRIMARY -> ColorPickerControls(
-                                    color = primaryColor,
-                                    onColorChange = { primaryColor = it }
-                                )
-                                ColorType.SECONDARY -> ColorPickerControls(
-                                    color = secondaryColor,
-                                    onColorChange = { secondaryColor = it }
-                                )
-                                ColorType.TERTIARY -> ColorPickerControls(
-                                    color = tertiaryColor,
-                                    onColorChange = { tertiaryColor = it }
-                                )
-                            }
-                        }
-
-                        // Preset colors section
-                        item {
-                            Text(
-                                text = context.getString(R.string.theme_quick_presets),
-                                style = MaterialTheme.typography.titleSmall,
-                                fontWeight = FontWeight.SemiBold,
-                                color = MaterialTheme.colorScheme.onSurface
-                            )
-                        }
-
-                        val presetColors = listOf(
-                            Color(0xFF5C4AD5), Color(0xFFFF6B35), Color(0xFF1E88E5),
-                            Color(0xFF2E7D32), Color(0xFFE91E63), Color(0xFF424242),
-                            Color(0xFF7C4DFF), Color(0xFF006064), Color(0xFF00C853),
-                            Color(0xFFFF6F00), Color(0xFFB71C1C), Color(0xFF0097A7)
-                        )
-
-                        // Preset color grid
-                        presetColors.chunked(6).forEach { rowColors ->
-                            item {
-                                Row(
-                                    modifier = Modifier.fillMaxWidth(),
-                                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                            AnimateIn {
+                                Card(
+                                    colors = CardDefaults.cardColors(
+                                        containerColor = MaterialTheme.colorScheme.surfaceContainerHigh
+                                    ),
+                                    shape = RoundedCornerShape(16.dp),
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(horizontal = 24.dp)
                                 ) {
-                                    rowColors.forEach { presetColor ->
-                                        Surface(
-                                            shape = RoundedCornerShape(12.dp),
-                                            color = presetColor,
-                                            modifier = Modifier
-                                                .size(48.dp)
-                                                .weight(1f)
-                                                .clickable {
-                                                    HapticUtils.performHapticFeedback(context, haptic, HapticFeedbackType.TextHandleMove)
-                                                    when (selectedColorType) {
-                                                        ColorType.PRIMARY -> primaryColor = presetColor
-                                                        ColorType.SECONDARY -> secondaryColor = presetColor
-                                                        ColorType.TERTIARY -> tertiaryColor = presetColor
-                                                    }
-                                                }
-                                        ) {}
+                                    Column(
+                                        modifier = Modifier.padding(24.dp),
+                                        horizontalAlignment = Alignment.CenterHorizontally
+                                    ) {
+                                        Icon(
+                                            imageVector = Icons.Filled.Info,
+                                            contentDescription = null,
+                                            
+                                            modifier = Modifier.size(48.dp)
+                                        )
+                                        Spacer(modifier = Modifier.height(16.dp))
+                                        Text(
+                                            text = context.getString(R.string.theme_custom_colors_unavailable),
+                                            style = MaterialTheme.typography.titleMedium,
+                                            fontWeight = FontWeight.SemiBold,
+                                            textAlign = TextAlign.Center
+                                        )
+                                        Spacer(modifier = Modifier.height(8.dp))
+                                        Text(
+                                            text = context.getString(R.string.theme_custom_colors_switch),
+                                            style = MaterialTheme.typography.bodyMedium,
+                                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                            textAlign = TextAlign.Center
+                                        )
                                     }
-                                    // Fill remaining space if row is not full
-                                    repeat(6 - rowColors.size) {
-                                        Spacer(modifier = Modifier.weight(1f))
+                                }
+                            }
+                        }
+                    } else {
+                        // Main Color Customization Card
+                        item {
+                            AnimateIn {
+                                Card(
+                                    colors = CardDefaults.cardColors(
+                                        containerColor = MaterialTheme.colorScheme.surface
+                                    ),
+                                    shape = RoundedCornerShape(20.dp),
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(horizontal = 24.dp)
+                                ) {
+                                    Column(modifier = Modifier.padding(24.dp)) {
+                                        // Color Preview Section
+                                        Text(
+                                            text = "Color Preview",
+                                            style = MaterialTheme.typography.titleMedium,
+                                            fontWeight = FontWeight.SemiBold,
+                                            color = MaterialTheme.colorScheme.onSurface,
+                                            modifier = Modifier.padding(bottom = 16.dp)
+                                        )
+
+                                        // Color row
+                                        Row(
+                                            modifier = Modifier.fillMaxWidth(),
+                                            horizontalArrangement = Arrangement.spacedBy(16.dp)
+                                        ) {
+                                            ColorPreviewItem(
+                                                label = "Primary",
+                                                color = primaryColor,
+                                                isSelected = selectedColorType == ColorType.PRIMARY,
+                                                onClick = {
+                                                    HapticUtils.performHapticFeedback(context, haptic, HapticFeedbackType.TextHandleMove)
+                                                    selectedColorType = ColorType.PRIMARY
+                                                }
+                                            )
+                                            ColorPreviewItem(
+                                                label = "Secondary",
+                                                color = secondaryColor,
+                                                isSelected = selectedColorType == ColorType.SECONDARY,
+                                                onClick = {
+                                                    HapticUtils.performHapticFeedback(context, haptic, HapticFeedbackType.TextHandleMove)
+                                                    selectedColorType = ColorType.SECONDARY
+                                                }
+                                            )
+                                            ColorPreviewItem(
+                                                label = "Tertiary",
+                                                color = tertiaryColor,
+                                                isSelected = selectedColorType == ColorType.TERTIARY,
+                                                onClick = {
+                                                    HapticUtils.performHapticFeedback(context, haptic, HapticFeedbackType.TextHandleMove)
+                                                    selectedColorType = ColorType.TERTIARY
+                                                }
+                                            )
+                                        }
+
+                                        Spacer(modifier = Modifier.height(24.dp))
+
+                                        // Color Picker Section
+                                        Text(
+                                            text = "Color Picker",
+                                            style = MaterialTheme.typography.titleMedium,
+                                            fontWeight = FontWeight.SemiBold,
+                                            color = MaterialTheme.colorScheme.onSurface,
+                                            modifier = Modifier.padding(bottom = 16.dp)
+                                        )
+
+                                        when (selectedColorType) {
+                                            ColorType.PRIMARY -> ColorPickerControls(
+                                                color = primaryColor,
+                                                onColorChange = { primaryColor = it }
+                                            )
+                                            ColorType.SECONDARY -> ColorPickerControls(
+                                                color = secondaryColor,
+                                                onColorChange = { secondaryColor = it }
+                                            )
+                                            ColorType.TERTIARY -> ColorPickerControls(
+                                                color = tertiaryColor,
+                                                onColorChange = { tertiaryColor = it }
+                                            )
+                                        }
+
+                                        Spacer(modifier = Modifier.height(24.dp))
+
+                                        // Color Inspirations Section
+                                        Text(
+                                            text = "Color Inspirations",
+                                            style = MaterialTheme.typography.titleMedium,
+                                            fontWeight = FontWeight.SemiBold,
+                                            color = MaterialTheme.colorScheme.onSurface,
+                                            modifier = Modifier.padding(bottom = 16.dp)
+                                        )
+
+                                        // Warm colors
+                                        PresetColorRow(
+                                            title = "Warm & Cozy",
+                                            colors = listOf(
+                                                Color(0xFFFF6B35), Color(0xFFFF8F00), Color(0xFFFF6F00),
+                                                Color(0xFFFF5722), Color(0xFFE91E63), Color(0xFF9C27B0)
+                                            ),
+                                            onColorSelected = { color ->
+                                                HapticUtils.performHapticFeedback(context, haptic, HapticFeedbackType.TextHandleMove)
+                                                when (selectedColorType) {
+                                                    ColorType.PRIMARY -> primaryColor = color
+                                                    ColorType.SECONDARY -> secondaryColor = color
+                                                    ColorType.TERTIARY -> tertiaryColor = color
+                                                }
+                                            }
+                                        )
+
+                                        Spacer(modifier = Modifier.height(16.dp))
+
+                                        // Cool colors
+                                        PresetColorRow(
+                                            title = "Cool & Fresh",
+                                            colors = listOf(
+                                                Color(0xFF1E88E5), Color(0xFF0097A7), Color(0xFF00ACC1),
+                                                Color(0xFF00BCD4), Color(0xFF4DD0E1), Color(0xFF26A69A)
+                                            ),
+                                            onColorSelected = { color ->
+                                                HapticUtils.performHapticFeedback(context, haptic, HapticFeedbackType.TextHandleMove)
+                                                when (selectedColorType) {
+                                                    ColorType.PRIMARY -> primaryColor = color
+                                                    ColorType.SECONDARY -> secondaryColor = color
+                                                    ColorType.TERTIARY -> tertiaryColor = color
+                                                }
+                                            }
+                                        )
+
+                                        Spacer(modifier = Modifier.height(16.dp))
+
+                                        // Nature colors
+                                        PresetColorRow(
+                                            title = "Nature & Earth",
+                                            colors = listOf(
+                                                Color(0xFF2E7D32), Color(0xFF388E3C), Color(0xFF4CAF50),
+                                                Color(0xFF66BB6A), Color(0xFF81C784), Color(0xFFA5D6A7)
+                                            ),
+                                            onColorSelected = { color ->
+                                                HapticUtils.performHapticFeedback(context, haptic, HapticFeedbackType.TextHandleMove)
+                                                when (selectedColorType) {
+                                                    ColorType.PRIMARY -> primaryColor = color
+                                                    ColorType.SECONDARY -> secondaryColor = color
+                                                    ColorType.TERTIARY -> tertiaryColor = color
+                                                }
+                                            }
+                                        )
                                     }
                                 }
                             }
                         }
 
-                        // Buttons
+                        // Action Buttons
                         item {
+                            Spacer(modifier = Modifier.height(24.dp))
+
                             Row(
-                                modifier = Modifier.fillMaxWidth(),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(horizontal = 24.dp),
                                 horizontalArrangement = Arrangement.spacedBy(12.dp)
                             ) {
                                 OutlinedButton(
                                     onClick = onDismiss,
                                     modifier = Modifier.weight(1f),
-                                    border = BorderStroke(2.dp, MaterialTheme.colorScheme.outline)
+                                    shape = RoundedCornerShape(16.dp)
                                 ) {
                                     Icon(
                                         imageVector = Icons.Filled.Close,
@@ -11849,6 +11898,7 @@ private fun CustomColorsDialog(
                                         onDismiss()
                                     },
                                     modifier = Modifier.weight(1f),
+                                    shape = RoundedCornerShape(16.dp),
                                     colors = ButtonDefaults.buttonColors(
                                         containerColor = MaterialTheme.colorScheme.primary
                                     )
@@ -11876,65 +11926,573 @@ private fun CustomColorsDialog(
 }
 
 @Composable
-private fun ColorPreviewItem(
-    label: String,
-    color: Color,
-    isSelected: Boolean,
-    onClick: () -> Unit
+private fun AnimateIn(
+    delay: Int = 50,
+    modifier: Modifier = Modifier,
+    content: @Composable () -> Unit
 ) {
+    var visible by remember { mutableStateOf(false) }
+    LaunchedEffect(Unit) {
+        delay(delay.toLong())
+        visible = true
+    }
+
+    val alpha by animateFloatAsState(
+        targetValue = if (visible) 1f else 0f,
+        animationSpec = tween(durationMillis = 350, delayMillis = 0),
+        label = "alpha"
+    )
+
     val scale by animateFloatAsState(
-        targetValue = if (isSelected) 1.1f else 1f,
+        targetValue = if (visible) 1f else 0.92f,
         animationSpec = spring(
             dampingRatio = Spring.DampingRatioMediumBouncy,
-            stiffness = Spring.StiffnessMedium
+            stiffness = Spring.StiffnessMediumLow
         ),
         label = "scale"
     )
 
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier
-            .clickable(onClick = onClick)
-            .graphicsLayer {
-                scaleX = scale
-                scaleY = scale
-            }
+    val translationY by animateFloatAsState(
+        targetValue = if (visible) 0f else 20f,
+        animationSpec = spring(
+            dampingRatio = Spring.DampingRatioMediumBouncy,
+            stiffness = Spring.StiffnessMediumLow
+        ),
+        label = "translationY"
+    )
+
+    Box(
+        modifier = modifier.graphicsLayer(
+            alpha = alpha,
+            scaleX = scale,
+            scaleY = scale,
+            translationY = translationY
+        )
     ) {
+        content()
+    }
+}
+
+@Composable
+private fun ExpressiveColorPickerControls(
+    color: Color,
+    onColorChange: (Color) -> Unit
+) {
+    val context = LocalContext.current
+    val hsl = remember(color) { color.toHSL() }
+
+    var hue by remember(color) { mutableStateOf(hsl.hue) }
+    var saturation by remember(color) { mutableStateOf(hsl.saturation) }
+    var lightness by remember(color) { mutableStateOf(hsl.lightness) }
+
+    var showAdvanced by remember { mutableStateOf(false) }
+
+    // Update color when HSL values change
+    LaunchedEffect(hue, saturation, lightness) {
+        val newColor = HSLColor(hue, saturation, lightness).toColor()
+        onColorChange(newColor)
+    }
+
+    Column(modifier = Modifier.fillMaxWidth()) {
+        // Enhanced Current color display with gradient background
         Surface(
-            shape = RoundedCornerShape(16.dp),
+            shape = RoundedCornerShape(24.dp),
             color = color,
-            border = if (isSelected) {
-                androidx.compose.foundation.BorderStroke(3.dp, MaterialTheme.colorScheme.primary)
-            } else {
-                androidx.compose.foundation.BorderStroke(2.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
-            },
-            modifier = Modifier.size(64.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(80.dp),
+            shadowElevation = 4.dp,
+            border = BorderStroke(2.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.3f))
         ) {
             Box(
                 contentAlignment = Alignment.Center,
                 modifier = Modifier.fillMaxSize()
             ) {
-                if (isSelected) {
-                    Icon(
-                        imageVector = Icons.Filled.Check,
-                        contentDescription = "Selected",
-                        tint = if (color.luminance() > 0.5f) Color.Black.copy(alpha = 0.6f) else Color.White.copy(alpha = 0.9f),
-                        modifier = Modifier.size(28.dp)
+                // Subtle pattern overlay
+                Surface(
+                    shape = RoundedCornerShape(20.dp),
+                    color = if (color.luminance() > 0.5f) Color.Black.copy(alpha = 0.05f) else Color.White.copy(alpha = 0.1f),
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(8.dp)
+                ) {
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center,
+                        modifier = Modifier.fillMaxSize()
+                    ) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.Center
+                        ) {
+                            Icon(
+                                imageVector = Icons.Filled.Palette,
+                                contentDescription = null,
+                                tint = if (color.luminance() > 0.5f) Color.Black.copy(alpha = 0.7f) else Color.White.copy(alpha = 0.9f),
+                                modifier = Modifier.size(20.dp)
+                            )
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text(
+                                text = String.format("#%06X", (color.toArgb() and 0xFFFFFF)),
+                                style = MaterialTheme.typography.titleMedium,
+                                fontWeight = FontWeight.Bold,
+                                color = if (color.luminance() > 0.5f) Color.Black.copy(alpha = 0.9f) else Color.White,
+                                fontFamily = androidx.compose.ui.text.font.FontFamily.Monospace
+                            )
+                        }
+
+                        Spacer(modifier = Modifier.height(4.dp))
+
+                        // Color properties
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(16.dp),
+                            modifier = Modifier.alpha(0.8f)
+                        ) {
+                            Text(
+                                text = "H:${hue.toInt()}°",
+                                style = MaterialTheme.typography.labelSmall,
+                                color = if (color.luminance() > 0.5f) Color.Black.copy(alpha = 0.7f) else Color.White.copy(alpha = 0.9f)
+                            )
+                            Text(
+                                text = "S:${(saturation * 100).toInt()}%",
+                                style = MaterialTheme.typography.labelSmall,
+                                color = if (color.luminance() > 0.5f) Color.Black.copy(alpha = 0.7f) else Color.White.copy(alpha = 0.9f)
+                            )
+                            Text(
+                                text = "L:${(lightness * 100).toInt()}%",
+                                style = MaterialTheme.typography.labelSmall,
+                                color = if (color.luminance() > 0.5f) Color.Black.copy(alpha = 0.7f) else Color.White.copy(alpha = 0.9f)
+                            )
+                        }
+                    }
+                }
+            }
+        }
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+        // Enhanced Hue Slider with gradient preview
+        Column {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "Hue",
+                    style = MaterialTheme.typography.titleSmall,
+                    fontWeight = FontWeight.SemiBold,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+                Surface(
+                    shape = RoundedCornerShape(12.dp),
+                    color = MaterialTheme.colorScheme.surfaceContainerHighest,
+                    modifier = Modifier.shadow(2.dp, RoundedCornerShape(12.dp))
+                ) {
+                    Text(
+                        text = "${hue.toInt()}°",
+                        style = MaterialTheme.typography.labelLarge,
+                        fontWeight = FontWeight.Medium,
+                        color = MaterialTheme.colorScheme.onSurface,
+                        fontFamily = androidx.compose.ui.text.font.FontFamily.Monospace,
+                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp)
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            // Hue slider with enhanced gradient
+            Surface(
+                shape = RoundedCornerShape(20.dp),
+                modifier = Modifier.fillMaxWidth(),
+                shadowElevation = 2.dp
+            ) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(48.dp)
+                        .background(
+                            brush = Brush.horizontalGradient(
+                                colors = (0..360 step 10).map { h ->
+                                    HSLColor(h.toFloat(), 1f, 0.5f).toColor()
+                                }
+                            )
+                        )
+                ) {
+                    Slider(
+                        value = hue,
+                        onValueChange = { hue = it },
+                        valueRange = 0f..360f,
+                        modifier = Modifier.fillMaxSize(),
+                        colors = SliderDefaults.colors(
+                            thumbColor = Color.White,
+                            activeTrackColor = Color.Transparent,
+                            inactiveTrackColor = Color.Transparent
+                        )
                     )
                 }
             }
         }
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(
-            text = label,
-            style = MaterialTheme.typography.labelLarge,
-            fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium,
-            color = if (isSelected)
-                MaterialTheme.colorScheme.primary
-            else
-                MaterialTheme.colorScheme.onSurfaceVariant
-        )
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+        // Enhanced Saturation Slider
+        Column {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "Saturation",
+                    style = MaterialTheme.typography.titleSmall,
+                    fontWeight = FontWeight.SemiBold,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+                Surface(
+                    shape = RoundedCornerShape(12.dp),
+                    color = MaterialTheme.colorScheme.surfaceContainerHighest,
+                    modifier = Modifier.shadow(2.dp, RoundedCornerShape(12.dp))
+                ) {
+                    Text(
+                        text = "${(saturation * 100).toInt()}%",
+                        style = MaterialTheme.typography.labelLarge,
+                        fontWeight = FontWeight.Medium,
+                        color = MaterialTheme.colorScheme.onSurface,
+                        fontFamily = androidx.compose.ui.text.font.FontFamily.Monospace,
+                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp)
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            Surface(
+                shape = RoundedCornerShape(20.dp),
+                modifier = Modifier.fillMaxWidth(),
+                shadowElevation = 2.dp
+            ) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(48.dp)
+                        .background(
+                            brush = Brush.horizontalGradient(
+                                colors = listOf(
+                                    Color.LightGray,
+                                    HSLColor(hue, 1f, lightness).toColor()
+                                )
+                            )
+                        )
+                ) {
+                    Slider(
+                        value = saturation,
+                        onValueChange = { saturation = it },
+                        valueRange = 0f..1f,
+                        modifier = Modifier.fillMaxSize(),
+                        colors = SliderDefaults.colors(
+                            thumbColor = Color.White,
+                            activeTrackColor = Color.Transparent,
+                            inactiveTrackColor = Color.Transparent
+                        )
+                    )
+                }
+            }
+        }
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+        // Enhanced Lightness Slider
+        Column {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "Lightness",
+                    style = MaterialTheme.typography.titleSmall,
+                    fontWeight = FontWeight.SemiBold,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+                Surface(
+                    shape = RoundedCornerShape(12.dp),
+                    color = MaterialTheme.colorScheme.surfaceContainerHighest,
+                    modifier = Modifier.shadow(2.dp, RoundedCornerShape(12.dp))
+                ) {
+                    Text(
+                        text = "${(lightness * 100).toInt()}%",
+                        style = MaterialTheme.typography.labelLarge,
+                        fontWeight = FontWeight.Medium,
+                        color = MaterialTheme.colorScheme.onSurface,
+                        fontFamily = androidx.compose.ui.text.font.FontFamily.Monospace,
+                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp)
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            Surface(
+                shape = RoundedCornerShape(20.dp),
+                modifier = Modifier.fillMaxWidth(),
+                shadowElevation = 2.dp
+            ) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(48.dp)
+                        .background(
+                            brush = Brush.horizontalGradient(
+                                colors = listOf(
+                                    Color.Black,
+                                    HSLColor(hue, saturation, 0.5f).toColor(),
+                                    Color.White
+                                )
+                            )
+                        )
+                ) {
+                    Slider(
+                        value = lightness,
+                        onValueChange = { lightness = it },
+                        valueRange = 0f..1f,
+                        modifier = Modifier.fillMaxSize(),
+                        colors = SliderDefaults.colors(
+                            thumbColor = Color.White,
+                            activeTrackColor = Color.Transparent,
+                            inactiveTrackColor = Color.Transparent
+                        )
+                    )
+                }
+            }
+        }
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+        // Advanced RGB controls toggle with enhanced design
+        Surface(
+            shape = RoundedCornerShape(16.dp),
+            color = MaterialTheme.colorScheme.surfaceContainerHigh,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Icon(
+                        imageVector = Icons.Filled.Tune,
+                        contentDescription = null,
+                        
+                        modifier = Modifier.size(20.dp)
+                    )
+                    Spacer(modifier = Modifier.width(12.dp))
+                    Text(
+                        text = context.getString(R.string.theme_advanced_rgb),
+                        style = MaterialTheme.typography.titleSmall,
+                        fontWeight = FontWeight.SemiBold,
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                }
+                TunerAnimatedSwitch(
+                    checked = showAdvanced,
+                    onCheckedChange = { showAdvanced = it }
+                )
+            }
+        }
+
+        // Advanced RGB controls with enhanced design
+        AnimatedVisibility(
+            visible = showAdvanced,
+            enter = expandVertically() + fadeIn(),
+            exit = shrinkVertically() + fadeOut()
+        ) {
+            Surface(
+                shape = RoundedCornerShape(16.dp),
+                color = MaterialTheme.colorScheme.surfaceContainerHighest,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp)
+            ) {
+                Column(modifier = Modifier.padding(16.dp)) {
+                    val red = (color.red * 255).toInt()
+                    val green = (color.green * 255).toInt()
+                    val blue = (color.blue * 255).toInt()
+
+                    var redValue by remember(color) { mutableStateOf(red.toFloat()) }
+                    var greenValue by remember(color) { mutableStateOf(green.toFloat()) }
+                    var blueValue by remember(color) { mutableStateOf(blue.toFloat()) }
+
+                    // Update HSL when RGB changes
+                    LaunchedEffect(redValue, greenValue, blueValue) {
+                        val rgbColor = Color(
+                            red = redValue / 255f,
+                            green = greenValue / 255f,
+                            blue = blueValue / 255f
+                        )
+                        val newHsl = rgbColor.toHSL()
+                        hue = newHsl.hue
+                        saturation = newHsl.saturation
+                        lightness = newHsl.lightness
+                    }
+
+                    Text(
+                        text = "RGB Values",
+                        style = MaterialTheme.typography.titleSmall,
+                        fontWeight = FontWeight.SemiBold,
+                        color = MaterialTheme.colorScheme.onSurface,
+                        modifier = Modifier.padding(bottom = 12.dp)
+                    )
+
+                    ExpressiveColorSlider(
+                        label = "Red",
+                        value = redValue,
+                        onValueChange = { redValue = it },
+                        color = Color.Red,
+                        valueRange = 0f..255f
+                    )
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    ExpressiveColorSlider(
+                        label = "Green",
+                        value = greenValue,
+                        onValueChange = { greenValue = it },
+                        color = Color.Green,
+                        valueRange = 0f..255f
+                    )
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    ExpressiveColorSlider(
+                        label = "Blue",
+                        value = blueValue,
+                        onValueChange = { blueValue = it },
+                        color = Color.Blue,
+                        valueRange = 0f..255f
+                    )
+                }
+            }
+        }
     }
+}
+
+@Composable
+private fun PresetColorRow(
+    title: String,
+    colors: List<Color>,
+    onColorSelected: (Color) -> Unit
+) {
+    Column {
+        Text(
+            text = title,
+            style = MaterialTheme.typography.titleSmall,
+            fontWeight = FontWeight.SemiBold,
+            color = MaterialTheme.colorScheme.onSurface,
+            modifier = Modifier.padding(bottom = 12.dp)
+        )
+
+        LazyRow(
+            contentPadding = PaddingValues(0.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            items(colors) { color ->
+                Surface(
+                    shape = RoundedCornerShape(12.dp),
+                    color = color,
+                    modifier = Modifier
+                        .size(48.dp)
+                        .clickable { onColorSelected(color) },
+                    border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
+                ) {
+                    // Empty content
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun ExpressiveColorSlider(
+    label: String,
+    value: Float,
+    onValueChange: (Float) -> Unit,
+    color: Color,
+    valueRange: ClosedFloatingPointRange<Float>
+) {
+    Column(modifier = Modifier.fillMaxWidth()) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = label,
+                style = MaterialTheme.typography.titleSmall,
+                fontWeight = FontWeight.SemiBold,
+                color = MaterialTheme.colorScheme.onSurface
+            )
+            Surface(
+                shape = RoundedCornerShape(12.dp),
+                color = MaterialTheme.colorScheme.surfaceContainerHighest,
+                modifier = Modifier.shadow(2.dp, RoundedCornerShape(12.dp))
+            ) {
+                Text(
+                    text = value.toInt().toString(),
+                    style = MaterialTheme.typography.labelLarge,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    fontFamily = androidx.compose.ui.text.font.FontFamily.Monospace,
+                    modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp)
+                )
+            }
+        }
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        Surface(
+            shape = RoundedCornerShape(16.dp),
+            color = color.copy(alpha = 0.1f),
+            modifier = Modifier.fillMaxWidth(),
+            border = BorderStroke(1.dp, color.copy(alpha = 0.3f))
+        ) {
+            Slider(
+                value = value,
+                onValueChange = onValueChange,
+                valueRange = valueRange,
+                colors = SliderDefaults.colors(
+                    thumbColor = color,
+                    activeTrackColor = color,
+                    inactiveTrackColor = color.copy(alpha = 0.3f),
+                    activeTickColor = color,
+                    inactiveTickColor = color.copy(alpha = 0.3f)
+                ),
+                modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+            )
+        }
+    }
+}
+
+// Helper function to get color temperature (approximate)
+private fun getColorTemperature(color: Color): Int {
+    // Simplified color temperature calculation
+    val r = color.red
+    val g = color.green
+    val b = color.blue
+
+    // Rough approximation using RGB ratios
+    val temperature = if (r > g && r > b) {
+        2000 + (r - b) * 3000 // Warm
+    } else if (b > r && b > g) {
+        6000 + (b - r) * 4000 // Cool
+    } else {
+        4000 + (g - r) * 2000 // Neutral
+    }
+
+    return temperature.toInt().coerceIn(2000, 10000)
 }
 
 @Composable
@@ -12419,7 +12977,7 @@ private fun FontSelectionDialog(
                         Icon(
                             imageVector = Icons.Filled.Info,
                             contentDescription = null,
-                            tint = MaterialTheme.colorScheme.primary,
+                            
                             modifier = Modifier.size(48.dp)
                         )
                         Spacer(modifier = Modifier.height(16.dp))
@@ -12518,7 +13076,7 @@ private fun FontCard(
                     Icon(
                         imageVector = Icons.Filled.CheckCircle,
                         contentDescription = "Selected",
-                        tint = MaterialTheme.colorScheme.primary,
+                        
                         modifier = Modifier.size(28.dp)
                     )
                 }
@@ -12700,7 +13258,7 @@ fun ApiManagementSettingsScreen(onBackClick: () -> Unit) {
                             Icon(
                                 imageVector = Icons.Filled.Info,
                                 contentDescription = null,
-                                tint = MaterialTheme.colorScheme.onTertiaryContainer,
+                                
                                 modifier = Modifier.size(24.dp)
                             )
                             Spacer(modifier = Modifier.width(12.dp))
@@ -13159,7 +13717,7 @@ fun LyricsSourceSettingsScreen(onBackClick: () -> Unit) {
                             Icon(
                                 imageVector = Icons.Filled.CheckCircle,
                                 contentDescription = "Selected",
-                                tint = MaterialTheme.colorScheme.primary,
+                                
                                 modifier = Modifier.size(28.dp)
                             )
                         }
@@ -13185,7 +13743,7 @@ fun LyricsSourceSettingsScreen(onBackClick: () -> Unit) {
                             Icon(
                                 imageVector = Icons.Filled.Info,
                                 contentDescription = null,
-                                tint = MaterialTheme.colorScheme.onTertiaryContainer,
+                                
                                 modifier = Modifier.size(24.dp)
                             )
                             Spacer(modifier = Modifier.width(12.dp))
@@ -13989,7 +14547,7 @@ fun HomeScreenCustomizationSettingsScreen(onBackClick: () -> Unit) {
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(18.dp),
                     colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.4f)
+                        containerColor = MaterialTheme.colorScheme.primaryContainer
                     )
                 ) {
                     Column(
@@ -14000,8 +14558,9 @@ fun HomeScreenCustomizationSettingsScreen(onBackClick: () -> Unit) {
                         ) {
                             Icon(
                                 imageVector = Icons.Filled.Lightbulb,
-                                contentDescription = null,
                                 tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                                contentDescription = null,
+                                
                                 modifier = Modifier.size(24.dp)
                             )
                             Spacer(modifier = Modifier.width(12.dp))
@@ -14741,7 +15300,7 @@ fun ExpressiveShapesSettingsScreen(onBackClick: () -> Unit) {
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(18.dp),
                     colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.4f)
+                        containerColor = MaterialTheme.colorScheme.primaryContainer
                     )
                 ) {
                     Column(
@@ -14752,8 +15311,8 @@ fun ExpressiveShapesSettingsScreen(onBackClick: () -> Unit) {
                         ) {
                             Icon(
                                 imageVector = Icons.Filled.Lightbulb,
-                                contentDescription = null,
                                 tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                                contentDescription = null,
                                 modifier = Modifier.size(24.dp)
                             )
                             Spacer(modifier = Modifier.width(12.dp))
@@ -14897,7 +15456,7 @@ fun ExpressiveShapesSettingsScreen(onBackClick: () -> Unit) {
                                 Icon(
                                     imageVector = Icons.Filled.CheckCircle,
                                     contentDescription = "Selected",
-                                    tint = MaterialTheme.colorScheme.primary,
+                                    
                                     modifier = Modifier.size(24.dp)
                                 )
                             }
@@ -15047,7 +15606,7 @@ fun ExpressiveShapesSettingsScreen(onBackClick: () -> Unit) {
                                         Icon(
                                             imageVector = Icons.Filled.CheckCircle,
                                             contentDescription = "Selected",
-                                            tint = MaterialTheme.colorScheme.primary,
+                                            
                                             modifier = Modifier.size(24.dp)
                                         )
                                     }
@@ -15058,6 +15617,57 @@ fun ExpressiveShapesSettingsScreen(onBackClick: () -> Unit) {
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun ColorPreviewItem(
+    label: String,
+    color: Color,
+    isSelected: Boolean,
+    onClick: () -> Unit
+) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+            .width(80.dp)
+            .clickable(onClick = onClick)
+    ) {
+        Surface(
+            shape = RoundedCornerShape(16.dp),
+            color = color,
+            modifier = Modifier
+                .size(48.dp)
+                .border(
+                    width = if (isSelected) 3.dp else 1.dp,
+                    color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outlineVariant,
+                    shape = RoundedCornerShape(16.dp)
+                )
+        ) {
+            if (isSelected) {
+                Box(
+                    contentAlignment = Alignment.Center,
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    Icon(
+                        imageVector = Icons.Filled.Check,
+                        contentDescription = "Selected",
+                        tint = if (color.luminance() > 0.5f) Color.Black else Color.White,
+                        modifier = Modifier.size(20.dp)
+                    )
+                }
+            }
+        }
+        
+        Spacer(modifier = Modifier.height(8.dp))
+        
+        Text(
+            text = label,
+            style = MaterialTheme.typography.labelSmall,
+            color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
+            textAlign = TextAlign.Center,
+            fontWeight = if (isSelected) FontWeight.SemiBold else FontWeight.Normal
+        )
     }
 }
 
@@ -15087,7 +15697,6 @@ fun PlaceholderSettingsScreen() {
                 Icon(
                     imageVector = RhythmIcons.Settings,
                     contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onPrimaryContainer,
                     modifier = Modifier.size(64.dp)
                 )
             }
@@ -15138,7 +15747,7 @@ fun PlaceholderSettingsScreen() {
                 Icon(
                     imageVector = Icons.Default.Lightbulb,
                     contentDescription = null,
-                    tint = MaterialTheme.colorScheme.primary,
+                    
                     modifier = Modifier.size(48.dp)
                 )
 

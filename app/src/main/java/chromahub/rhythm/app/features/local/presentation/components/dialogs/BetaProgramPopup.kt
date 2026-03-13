@@ -343,7 +343,7 @@ private fun BetaFeatureCard(feature: BetaFeature) {
                 Icon(
                     imageVector = feature.icon,
                     contentDescription = feature.title,
-                    tint = MaterialTheme.colorScheme.primary,
+                    
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(8.dp)

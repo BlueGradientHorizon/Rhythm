@@ -3488,7 +3488,7 @@ fun PlayerScreen(
                                         Text(
                                             text = location?.name ?: "Device Output",
                                             style = MaterialTheme.typography.titleSmall,
-                                            color = MaterialTheme.colorScheme.onSurface,
+                                            color = MaterialTheme.colorScheme.onPrimaryContainer,
                                             maxLines = 1,
                                             overflow = TextOverflow.Ellipsis
                                         )
@@ -3497,7 +3497,7 @@ fun PlayerScreen(
                                         Text(
                                             text = "${(displayVolume * 100).toInt()}% $volumeText",
                                             style = MaterialTheme.typography.bodySmall,
-                                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                            color = MaterialTheme.colorScheme.onPrimaryContainer,
                                             maxLines = 1,
                                             overflow = TextOverflow.Ellipsis
                                         )
@@ -3551,7 +3551,7 @@ fun PlayerScreen(
                                             Icon(
                                                 imageVector = Icons.Default.KeyboardArrowUp,
                                                 contentDescription = "Show actions",
-                                                tint = MaterialTheme.colorScheme.onTertiaryContainer,
+                                                
                                                 modifier = Modifier.size(if (isCompactHeight) 20.dp else 22.dp)
                                             )
                                         }
@@ -3647,14 +3647,14 @@ fun PlayerScreen(
                                         Text(
                                             text = context.getString(R.string.player_queue),
                                             style = MaterialTheme.typography.titleSmall,
-                                            color = MaterialTheme.colorScheme.onSurface,
+                                            color = MaterialTheme.colorScheme.onPrimaryContainer,
                                             maxLines = 1,
                                             overflow = TextOverflow.Ellipsis
                                         )
                                         Text(
                                             text = "$queuePosition of $queueTotal",
                                             style = MaterialTheme.typography.bodySmall,
-                                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                            color = MaterialTheme.colorScheme.onPrimaryContainer,
                                             maxLines = 1,
                                             overflow = TextOverflow.Ellipsis
                                         )

@@ -801,7 +801,6 @@ fun PlaylistDetailScreen(
                                         Icon(
                                             imageVector = if (isReorderMode) Icons.Default.Check else Icons.Default.Reorder,
                                             contentDescription = null,
-                                            tint = MaterialTheme.colorScheme.onPrimaryContainer,
                                             modifier = Modifier
                                                 .fillMaxSize()
                                                 .padding(6.dp)
@@ -849,7 +848,6 @@ fun PlaylistDetailScreen(
                                         Icon(
                                             imageVector = if (isMultiSelectMode) Icons.Default.Close else Icons.Default.CheckBox,
                                             contentDescription = null,
-                                            tint = MaterialTheme.colorScheme.onPrimaryContainer,
                                             modifier = Modifier
                                                 .fillMaxSize()
                                                 .padding(6.dp)
@@ -898,7 +896,6 @@ fun PlaylistDetailScreen(
                                         Icon(
                                             imageVector = Icons.Default.FileUpload,
                                             contentDescription = null,
-                                            tint = MaterialTheme.colorScheme.onPrimaryContainer,
                                             modifier = Modifier
                                                 .fillMaxSize()
                                                 .padding(6.dp)
@@ -941,7 +938,6 @@ fun PlaylistDetailScreen(
                                         Icon(
                                             imageVector = RhythmIcons.Actions.Download,
                                             contentDescription = null,
-                                            tint = MaterialTheme.colorScheme.onPrimaryContainer,
                                             modifier = Modifier
                                                 .fillMaxSize()
                                                 .padding(6.dp)
@@ -1196,7 +1192,6 @@ fun PlaylistDetailScreen(
                                     Icon(
                                         imageVector = RhythmIcons.PlaylistFilled,
                                         contentDescription = null,
-                                        tint = MaterialTheme.colorScheme.onPrimaryContainer,
                                         modifier = Modifier.size(90.dp)
                                     )
                                 }

@@ -270,6 +270,16 @@ fun buildSettingsSearchIndex(context: Context): List<SearchableSettingItem> {
             settingKey = "useSystemVolume"
         ))
         add(SearchableSettingItem(
+            id = "resume_on_device_reconnect",
+            title = context.getString(R.string.settings_resume_on_device_reconnect),
+            description = context.getString(R.string.settings_resume_on_device_reconnect_desc),
+            keywords = listOf("resume", "device", "reconnect", "bluetooth", "headphones", "audio device", "playback"),
+            icon = RhythmIcons.Devices.Bluetooth,
+            route = null,
+            parentScreen = "Audio & Lyrics",
+            settingKey = "resumeOnDeviceReconnect"
+        ))
+        add(SearchableSettingItem(
             id = "show_lyrics",
             title = context.getString(R.string.settings_show_lyrics),
             description = context.getString(R.string.settings_show_lyrics_desc),
@@ -973,8 +983,55 @@ fun buildSettingsSearchIndex(context: Context): List<SearchableSettingItem> {
             route = SettingsRoutes.EXPERIMENTAL_FEATURES,
             parentScreen = "Experimental"
         ))
-        
-        // ======================== HOME SCREEN CUSTOMIZATION ========================
+        add(SearchableSettingItem(
+            id = "exp_test_crash",
+            title = "Test Crash",
+            description = "Forcibly crash the app to test crash handling and reporting",
+            keywords = listOf("crash", "test", "debug", "error", "reporting"),
+            icon = Icons.Default.BugReport,
+            route = SettingsRoutes.EXPERIMENTAL_FEATURES,
+            parentScreen = "Experimental"
+        ))
+        add(SearchableSettingItem(
+            id = "scrobbling_enabled",
+            title = "Enable Scrobbling",
+            description = "Send listening data to Last.fm and other services",
+            keywords = listOf("scrobbling", "last.fm", "listening data", "music tracking"),
+            icon = Icons.Default.MusicNote,
+            route = SettingsRoutes.EXPERIMENTAL_FEATURES,
+            parentScreen = "Experimental",
+            settingKey = "scrobblingEnabled"
+        ))
+        add(SearchableSettingItem(
+            id = "discord_enabled",
+            title = "Enable Discord Rich Presence",
+            description = "Show what you're listening to on Discord",
+            keywords = listOf("discord", "rich presence", "status", "show listening"),
+            icon = Icons.Default.Public,
+            route = SettingsRoutes.EXPERIMENTAL_FEATURES,
+            parentScreen = "Experimental",
+            settingKey = "discordRichPresenceEnabled"
+        ))
+        add(SearchableSettingItem(
+            id = "broadcast_status_enabled",
+            title = "Enable Status Broadcasting",
+            description = "Broadcast playback status to other apps",
+            keywords = listOf("broadcast", "status", "playback", "share", "other apps"),
+            icon = Icons.Default.Public,
+            route = SettingsRoutes.EXPERIMENTAL_FEATURES,
+            parentScreen = "Experimental",
+            settingKey = "broadcastStatusEnabled"
+        ))
+        add(SearchableSettingItem(
+            id = "exp_cellular_streaming",
+            title = "Allow Cellular Streaming",
+            description = "Stream music over mobile data",
+            keywords = listOf("cellular", "mobile data", "streaming", "data", "network"),
+            icon = Icons.Default.Public,
+            route = SettingsRoutes.EXPERIMENTAL_FEATURES,
+            parentScreen = "Experimental",
+            settingKey = "allowCellularStreaming"
+        ))
         add(SearchableSettingItem(
             id = "home_section_order",
             title = "Section Order",

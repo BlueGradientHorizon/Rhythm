@@ -1391,7 +1391,7 @@ fun LibraryScreen(
 //                                else -> Icons.Default.Sync
 //                            },
 //                            contentDescription = null,
-//                            tint = MaterialTheme.colorScheme.primary,
+//                            
 //                            modifier = Modifier
 //                                .size(16.dp)
 //                                .graphicsLayer {
@@ -1610,7 +1610,6 @@ fun LibraryScreen(
                                     Icon(
                                         imageVector = RhythmIcons.Refresh,
                                         contentDescription = "Scanning",
-                                        tint = MaterialTheme.colorScheme.onPrimaryContainer,
                                         modifier = Modifier
                                             .size(24.dp)
                                             .graphicsLayer { rotationZ = rotation }
@@ -3717,7 +3716,6 @@ fun LibrarySongItem(
                                 Icon(
                                     imageVector = Icons.Rounded.SkipNext,
                                     contentDescription = null,
-                                    tint = MaterialTheme.colorScheme.onPrimaryContainer,
                                     modifier = Modifier
                                         .fillMaxSize()
                                         .padding(6.dp)
@@ -3758,7 +3756,6 @@ fun LibrarySongItem(
                                 Icon(
                                     imageVector = RhythmIcons.Queue,
                                     contentDescription = null,
-                                    tint = MaterialTheme.colorScheme.onPrimaryContainer,
                                     modifier = Modifier
                                         .fillMaxSize()
                                         .padding(6.dp)
@@ -3799,7 +3796,7 @@ fun LibrarySongItem(
                                 Icon(
                                     imageVector = if (isFavorite) Icons.Filled.Favorite else Icons.Rounded.FavoriteBorder,
                                     contentDescription = null,
-                                    tint = MaterialTheme.colorScheme.onTertiaryContainer,
+                                    
                                     modifier = Modifier
                                         .fillMaxSize()
                                         .padding(6.dp)
@@ -3840,7 +3837,6 @@ fun LibrarySongItem(
                                 Icon(
                                     imageVector = Icons.AutoMirrored.Filled.PlaylistAdd,
                                     contentDescription = null,
-                                    tint = MaterialTheme.colorScheme.onPrimaryContainer,
                                     modifier = Modifier
                                         .fillMaxSize()
                                         .padding(6.dp)
@@ -3968,7 +3964,7 @@ fun LibrarySongItem(
                                         Icon(
                                             imageVector = Icons.Filled.Star,
                                             contentDescription = null,
-                                            tint = MaterialTheme.colorScheme.onTertiaryContainer,
+                                            
                                             modifier = Modifier
                                                 .fillMaxSize()
                                                 .padding(6.dp)
@@ -4262,7 +4258,6 @@ fun PlaylistItem(
                             Icon(
                                 imageVector = RhythmIcons.PlaylistFilled,
                                 contentDescription = null,
-                                tint = MaterialTheme.colorScheme.onPrimaryContainer,
                                 modifier = Modifier.size(40.dp)
                             )
                         }
@@ -4339,7 +4334,7 @@ fun PlaylistItem(
                                 Icon(
                                     imageVector = Icons.Default.AccessTime,
                                     contentDescription = null,
-                                    tint = MaterialTheme.colorScheme.onTertiaryContainer,
+                                    
                                     modifier = Modifier.size(12.dp)
                                 )
                                 Text(
@@ -4660,7 +4655,7 @@ fun LibraryAlbumItem(
                                 Icon(
                                     imageVector = Icons.Default.DateRange,
                                     contentDescription = null,
-                                    tint = MaterialTheme.colorScheme.onTertiaryContainer,
+                                    
                                     modifier = Modifier.size(12.dp)
                                 )
                                 Text(
@@ -4754,7 +4749,7 @@ fun EmptyState(
                         Icon(
                             imageVector = icon,
                             contentDescription = null,
-                            tint = MaterialTheme.colorScheme.primary,
+                            
                             modifier = Modifier
                                 .size(64.dp)
                                 .graphicsLayer { alpha = animatedAlpha }
@@ -4918,7 +4913,6 @@ fun PlaylistGridItem(
                         Icon(
                             imageVector = RhythmIcons.PlaylistFilled,
                             contentDescription = null,
-                            tint = MaterialTheme.colorScheme.onPrimaryContainer,
                             modifier = Modifier.size(52.dp)
                         )
                     }
@@ -5121,7 +5115,7 @@ fun AlbumGridItem(
                                 Icon(
                                     imageVector = Icons.Default.DateRange,
                                     contentDescription = null,
-                                    tint = MaterialTheme.colorScheme.onTertiaryContainer,
+                                    
                                     modifier = Modifier.size(10.dp)
                                 )
                                 Text(
@@ -5643,7 +5637,7 @@ private fun ArtistGridCard(
                                 Icon(
                                     imageVector = RhythmIcons.Album,
                                     contentDescription = null,
-                                    tint = MaterialTheme.colorScheme.onTertiaryContainer,
+                                    
                                     modifier = Modifier.size(10.dp)
                                 )
                                 Text(
@@ -5759,7 +5753,7 @@ private fun ArtistListCard(
                                 Icon(
                                     imageVector = RhythmIcons.Album,
                                     contentDescription = null,
-                                    tint = MaterialTheme.colorScheme.onTertiaryContainer,
+                                    
                                     modifier = Modifier.size(12.dp)
                                 )
                                 Text(
@@ -5893,7 +5887,6 @@ fun SingleCardExplorerContent(
                             Icon(
                                 imageVector = Icons.Default.Folder,
                                 contentDescription = null,
-                                tint = MaterialTheme.colorScheme.onPrimaryContainer,
                                 modifier = Modifier.size(36.dp)
                             )
                         }
@@ -5978,7 +5971,7 @@ fun SingleCardExplorerContent(
                                 Icon(
                                     imageVector = Icons.Default.Info,
                                     contentDescription = null,
-                                    tint = MaterialTheme.colorScheme.primary,
+                                    
                                     modifier = Modifier.size(20.dp)
                                 )
                                 Text(
@@ -6418,7 +6411,7 @@ fun SingleCardExplorerContent(
                             Icon(
                                 imageVector = Icons.Default.Storage,
                                 contentDescription = "Storage",
-                                tint = MaterialTheme.colorScheme.primary,
+                                
                                 modifier = Modifier.size(22.dp)
                             )
                             Spacer(modifier = Modifier.width(10.dp))
@@ -6892,7 +6885,7 @@ fun SingleCardExplorerContent(
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.PlaylistAdd,
                     contentDescription = null,
-                    tint = MaterialTheme.colorScheme.primary,
+                    
                     modifier = Modifier.size(28.dp)
                 )
             },
@@ -7883,7 +7876,7 @@ fun FolderItem(
                     Icon(
                         imageVector = Icons.Default.Folder,
                         contentDescription = "Folder",
-                        tint = MaterialTheme.colorScheme.onTertiaryContainer,
+                        
                         modifier = Modifier.size(36.dp)
                     )
                 }
@@ -7938,7 +7931,6 @@ fun FolderItem(
                     Icon(
                         imageVector = Icons.AutoMirrored.Rounded.ArrowForward,
                         contentDescription = "Open folder",
-                        tint = MaterialTheme.colorScheme.onPrimaryContainer,
                         modifier = Modifier.size(22.dp)
                     )
                 }
@@ -8463,7 +8455,6 @@ fun ExplorerItemCard(
                                     else -> Icons.Default.SdStorage
                                 },
                                 contentDescription = "${item.name} icon",
-                                tint = MaterialTheme.colorScheme.onPrimaryContainer,
                                 modifier = Modifier.size(36.dp)
                             )
                         }
@@ -8501,7 +8492,6 @@ fun ExplorerItemCard(
                             Icon(
                                 imageVector = Icons.AutoMirrored.Rounded.ArrowForward,
                                 contentDescription = "Open storage",
-                                tint = MaterialTheme.colorScheme.onPrimaryContainer,
                                 modifier = Modifier.size(22.dp)
                             )
                         }
@@ -8544,7 +8534,7 @@ fun ExplorerItemCard(
                             Icon(
                                 imageVector = Icons.Default.Folder,
                                 contentDescription = "Folder",
-                                tint = MaterialTheme.colorScheme.onTertiaryContainer,
+                                
                                 modifier = Modifier.size(28.dp) // Reduced proportionally
                             )
                         }
@@ -8690,7 +8680,6 @@ fun ExplorerItemCard(
                                                     Icon(
                                                         imageVector = Icons.AutoMirrored.Filled.PlaylistAdd,
                                                         contentDescription = null,
-                                                        tint = MaterialTheme.colorScheme.onPrimaryContainer,
                                                         modifier = Modifier
                                                             .fillMaxSize()
                                                             .padding(6.dp)
@@ -8733,7 +8722,6 @@ fun ExplorerItemCard(
                                                     Icon(
                                                         imageVector = RhythmIcons.Queue,
                                                         contentDescription = null,
-                                                        tint = MaterialTheme.colorScheme.onPrimaryContainer,
                                                         modifier = Modifier
                                                             .fillMaxSize()
                                                             .padding(6.dp)
@@ -8764,7 +8752,6 @@ fun ExplorerItemCard(
                     //         Icon(
                     //             imageVector = Icons.AutoMirrored.Rounded.ArrowForward,
                     //             contentDescription = "Open folder",
-                    //             tint = MaterialTheme.colorScheme.onPrimaryContainer,
                     //             modifier = Modifier.size(18.dp)
                     //         )
                     //     }

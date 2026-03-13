@@ -2045,7 +2045,6 @@ fun ExpressiveSongItem(
                                     Icon(
                                         imageVector = Icons.Rounded.SkipNext,
                                         contentDescription = null,
-                                        tint = MaterialTheme.colorScheme.onPrimaryContainer,
                                         modifier = Modifier
                                             .fillMaxSize()
                                             .padding(6.dp)
@@ -2086,7 +2085,6 @@ fun ExpressiveSongItem(
                                     Icon(
                                         imageVector = RhythmIcons.Queue,
                                         contentDescription = null,
-                                        tint = MaterialTheme.colorScheme.onPrimaryContainer,
                                         modifier = Modifier
                                             .fillMaxSize()
                                             .padding(6.dp)
@@ -2127,7 +2125,7 @@ fun ExpressiveSongItem(
                                     Icon(
                                         imageVector = if (isFavorite) Icons.Filled.Favorite else Icons.Rounded.FavoriteBorder,
                                         contentDescription = null,
-                                        tint = MaterialTheme.colorScheme.onTertiaryContainer,
+                                        
                                         modifier = Modifier
                                             .fillMaxSize()
                                             .padding(6.dp)
@@ -2168,7 +2166,6 @@ fun ExpressiveSongItem(
                                     Icon(
                                         imageVector = Icons.AutoMirrored.Filled.PlaylistAdd,
                                         contentDescription = null,
-                                        tint = MaterialTheme.colorScheme.onPrimaryContainer,
                                         modifier = Modifier
                                             .fillMaxSize()
                                             .padding(6.dp)

@@ -491,7 +491,6 @@ private fun ActiveDeviceCard(
                     Icon(
                         imageVector = RhythmIcons.Refresh,
                         contentDescription = "Refresh devices",
-                        tint = MaterialTheme.colorScheme.onPrimaryContainer,
                         modifier = Modifier
                             .size(18.dp)
                             .graphicsLayer {
@@ -519,7 +518,6 @@ private fun ActiveDeviceCard(
                             Icon(
                                 imageVector = getDeviceIcon(location),
                                 contentDescription = null,
-                                tint = MaterialTheme.colorScheme.onPrimaryContainer,
                                 modifier = Modifier.size(22.dp)
                             )
                         }
@@ -570,7 +568,7 @@ private fun ActiveDeviceCard(
                             Icon(
                                 imageVector = Icons.Rounded.SyncAlt,
                                 contentDescription = "Switch device",
-                                tint = MaterialTheme.colorScheme.primary,
+                                
                                 modifier = Modifier.size(18.dp)
                             )
                         }
@@ -914,7 +912,6 @@ private fun VolumeControlCard(
                         Icon(
                             imageVector = RhythmIcons.VolumeUp,
                             contentDescription = context.getString(R.string.bottomsheet_max),
-                            tint = MaterialTheme.colorScheme.onPrimaryContainer,
                             modifier = Modifier.size(20.dp)
                         )
                         Spacer(modifier = Modifier.width(8.dp))
@@ -968,7 +965,7 @@ private fun PlaybackSpeedCard(
                 Icon(
                     imageVector = Icons.Filled.Speed,
                     contentDescription = "Playback Speed",
-                    tint = MaterialTheme.colorScheme.primary,
+                    
                     modifier = Modifier.size(24.dp)
                 )
                 
@@ -1161,7 +1158,7 @@ private fun PlaybackQuickSettingsCard(
                 Icon(
                     imageVector = RhythmIcons.Settings,
                     contentDescription = "Quick Settings",
-                    tint = MaterialTheme.colorScheme.primary,
+                    
                     modifier = Modifier.size(24.dp)
                 )
 
@@ -1330,7 +1327,7 @@ private fun PlaybackPitchCard(
                 Icon(
                     imageVector = Icons.Filled.GraphicEq,
                     contentDescription = "Playback Pitch",
-                    tint = MaterialTheme.colorScheme.primary,
+                    
                     modifier = Modifier.size(24.dp)
                 )
                 
@@ -1566,7 +1563,7 @@ private fun AnimatedAudioSwitch(
                 Icon(
                     imageVector = RhythmIcons.Check,
                     contentDescription = null,
-                    tint = MaterialTheme.colorScheme.primary,
+                    
                     modifier = Modifier.size(16.dp)
                 )
             }
@@ -1674,7 +1671,7 @@ private fun AudioEffectsCard(
                 Icon(
                     imageVector = RhythmIcons.Equalizer,
                     contentDescription = null,
-                    tint = MaterialTheme.colorScheme.primary,
+                    
                     modifier = Modifier.size(24.dp)
                 )
                 Spacer(modifier = Modifier.width(12.dp))

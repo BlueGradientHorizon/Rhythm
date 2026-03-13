@@ -580,7 +580,6 @@ fun EqualizerScreen(
                                 Icon(
                                     imageVector = Icons.Rounded.AutoMode,
                                     contentDescription = null,
-                                    tint = MaterialTheme.colorScheme.onPrimaryContainer,
                                     modifier = Modifier
                                         .fillMaxSize()
                                         .padding(6.dp)
@@ -621,7 +620,6 @@ fun EqualizerScreen(
                                 Icon(
                                     imageVector = Icons.Rounded.DeviceHub,
                                     contentDescription = null,
-                                    tint = MaterialTheme.colorScheme.onPrimaryContainer,
                                     modifier = Modifier
                                         .fillMaxSize()
                                         .padding(6.dp)
@@ -662,7 +660,6 @@ fun EqualizerScreen(
                                 Icon(
                                     imageVector = Icons.Rounded.Equalizer,
                                     contentDescription = null,
-                                    tint = MaterialTheme.colorScheme.onPrimaryContainer,
                                     modifier = Modifier
                                         .fillMaxSize()
                                         .padding(6.dp)

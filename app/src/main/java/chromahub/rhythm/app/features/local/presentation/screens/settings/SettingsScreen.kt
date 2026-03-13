@@ -192,6 +192,7 @@ fun SettingsScreen(
     val useSystemVolume by appSettings.useSystemVolume.collectAsState()
     val audioNormalization by appSettings.audioNormalization.collectAsState()
     val replayGain by appSettings.replayGain.collectAsState()
+    val resumeOnDeviceReconnect by appSettings.resumeOnDeviceReconnect.collectAsState()
     val defaultScreen by appSettings.defaultScreen.collectAsState()
     val showAlphabetBar by appSettings.showAlphabetBar.collectAsState()
     val showScrollToTop by appSettings.showScrollToTop.collectAsState()
@@ -293,6 +294,13 @@ fun SettingsScreen(
                         context.getString(R.string.settings_system_volume_desc), 
                         toggleState = useSystemVolume,
                         onToggleChange = { appSettings.setUseSystemVolume(it) }
+                    ))
+                    add(SettingItem(
+                        RhythmIcons.Devices.Bluetooth,
+                        context.getString(R.string.settings_resume_on_device_reconnect),
+                        context.getString(R.string.settings_resume_on_device_reconnect_desc),
+                        toggleState = resumeOnDeviceReconnect,
+                        onToggleChange = { appSettings.setResumeOnDeviceReconnect(it) }
                     ))
                     //add(SettingItem(Icons.Default.GraphicEq, context.getString(R.string.audio_normalization), context.getString(R.string.audio_normalization_desc), toggleState = audioNormalization, onToggleChange = { appSettings.setAudioNormalization(it) }))
                     //add(SettingItem(Icons.Default.GraphicEq, context.getString(R.string.replay_gain), context.getString(R.string.replay_gain_desc), toggleState = replayGain, onToggleChange = { appSettings.setReplayGain(it) }))
@@ -437,7 +445,7 @@ fun SettingsScreen(
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(18.dp),
                     colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.4f)
+                        containerColor = MaterialTheme.colorScheme.primaryContainer
                     )
                 ) {
                     Column(
@@ -448,8 +456,8 @@ fun SettingsScreen(
                         ) {
                             Icon(
                                 imageVector = Icons.Filled.Lightbulb,
-                                contentDescription = null,
                                 tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                                contentDescription = null,
                                 modifier = Modifier.size(24.dp)
                             )
                             Spacer(modifier = Modifier.width(12.dp))
@@ -600,7 +608,7 @@ fun SettingsScreen(
                                 Icon(
                                     imageVector = Icons.Default.CheckCircle,
                                     contentDescription = "Selected",
-                                    tint = MaterialTheme.colorScheme.primary,
+                                    
                                     modifier = Modifier.size(24.dp)
                                 )
                             }
@@ -667,7 +675,7 @@ fun SettingsScreen(
                                 Icon(
                                     imageVector = Icons.Default.CheckCircle,
                                     contentDescription = "Selected",
-                                    tint = MaterialTheme.colorScheme.primary,
+                                    
                                     modifier = Modifier.size(24.dp)
                                 )
                             }
@@ -1177,7 +1185,7 @@ private fun AnimatedSwitch(
                 Icon(
                     imageVector = Icons.Default.CheckCircle,
                     contentDescription = null,
-                    tint = MaterialTheme.colorScheme.primary,
+                    
                     modifier = Modifier.size(16.dp)
                 )
             }

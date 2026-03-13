@@ -114,7 +114,7 @@ fun AutoEQSuggestionDialog(
                                     Icon(
                                         imageVector = Icons.Rounded.GraphicEq,
                                         contentDescription = null,
-                                        tint = MaterialTheme.colorScheme.primary,
+                                        
                                         modifier = Modifier.size(20.dp)
                                     )
                                 }
@@ -144,7 +144,7 @@ fun AutoEQSuggestionDialog(
                             Icon(
                                 imageVector = Icons.Rounded.AutoMode,
                                 contentDescription = null,
-                                tint = MaterialTheme.colorScheme.primary,
+                                
                                 modifier = Modifier.size(16.dp)
                             )
                             Text(

@@ -418,7 +418,7 @@ fun SearchScreen(
                                 Icon(
                                     imageVector = RhythmIcons.Search,
                                     contentDescription = "Search",
-                                    tint = MaterialTheme.colorScheme.primary,
+                                    
                                     modifier = Modifier.size(20.dp)
                                 )
                             }
@@ -1012,7 +1012,6 @@ fun SearchResults(
                         Icon(
                             imageVector = RhythmIcons.Search,
                             contentDescription = null,
-                            tint = MaterialTheme.colorScheme.onPrimaryContainer,
                             modifier = Modifier
                                 .size(24.dp)
                                 .padding(12.dp)
@@ -1051,7 +1050,7 @@ fun SearchResults(
                             Icon(
                                 imageVector = RhythmIcons.Song,
                                 contentDescription = "Songs",
-                                tint = MaterialTheme.colorScheme.primary,
+                                
                                 modifier = Modifier.size(28.dp)
                             )
                             Spacer(modifier = Modifier.width(12.dp))
@@ -1123,7 +1122,7 @@ fun SearchResults(
                                 Icon(
                                     imageVector = RhythmIcons.Forward,
                                     contentDescription = "View all",
-                                    tint = MaterialTheme.colorScheme.primary,
+                                    
                                     modifier = Modifier.size(24.dp)
                                 )
                             }
@@ -1148,7 +1147,7 @@ fun SearchResults(
                             Icon(
                                 imageVector = RhythmIcons.Album,
                                 contentDescription = "Albums",
-                                tint = MaterialTheme.colorScheme.primary,
+                                
                                 modifier = Modifier.size(28.dp)
                             )
                             Spacer(modifier = Modifier.width(12.dp))
@@ -1198,7 +1197,7 @@ fun SearchResults(
                             Icon(
                                 imageVector = RhythmIcons.Artist,
                                 contentDescription = "Artists",
-                                tint = MaterialTheme.colorScheme.primary,
+                                
                                 modifier = Modifier.size(28.dp)
                             )
                             Spacer(modifier = Modifier.width(12.dp))
@@ -1250,7 +1249,7 @@ fun SearchResults(
                             Icon(
                                 imageVector = RhythmIcons.PlaylistFilled,
                                 contentDescription = "Playlists",
-                                tint = MaterialTheme.colorScheme.primary,
+                                
                                 modifier = Modifier.size(28.dp)
                             )
                             Spacer(modifier = Modifier.width(12.dp))
@@ -1443,7 +1442,7 @@ fun SearchBrowseContent(
                             Icon(
                                 imageVector = RhythmIcons.Queue,
                                 contentDescription = null,
-                                tint = MaterialTheme.colorScheme.primary,
+                                
                                 modifier = Modifier
                                     .size(32.dp)
                                     .padding(16.dp)
@@ -1514,7 +1513,7 @@ fun RecentSearchItem(
                 Icon(
                     imageVector = RhythmIcons.Search,
                     contentDescription = null,
-                    tint = MaterialTheme.colorScheme.primary,
+                    
                     modifier = Modifier.size(22.dp)
                 )
             }
@@ -1541,7 +1540,7 @@ fun RecentSearchItem(
                 Icon(
                     imageVector = RhythmIcons.Forward,
                     contentDescription = "Search",
-                    tint = MaterialTheme.colorScheme.primary,
+                    
                     modifier = Modifier.size(16.dp)
                 )
             }
@@ -1818,7 +1817,6 @@ fun SearchPlaylistItem(
                         Icon(
                             imageVector = RhythmIcons.PlaylistFilled,
                             contentDescription = null,
-                            tint = MaterialTheme.colorScheme.onPrimaryContainer,
                             modifier = Modifier.size(44.dp)
                         )
                     }
@@ -2068,7 +2066,7 @@ private fun RecentlyPlayedSection(
                     Icon(
                         imageVector = RhythmIcons.Queue,
                         contentDescription = null,
-                        tint = MaterialTheme.colorScheme.primary,
+                        
                         modifier = Modifier.size(24.dp)
                     )
                     Text(
@@ -2131,7 +2129,7 @@ private fun EnhancedRecentChip(
             onClick()
         },
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.4f)
+            containerColor = MaterialTheme.colorScheme.primaryContainer
         ),
         shape = RoundedCornerShape(16.dp),
         modifier = Modifier.width(160.dp)
@@ -2227,7 +2225,7 @@ private fun DefaultSearchContent(
                                 Icon(
                                     imageVector = RhythmIcons.Search,
                                     contentDescription = null,
-                                    tint = MaterialTheme.colorScheme.primary,
+                                    
                                     modifier = Modifier.size(24.dp)
                                 )
                                 Text(
@@ -2281,7 +2279,6 @@ private fun DefaultSearchContent(
                                         Icon(
                                             imageVector = RhythmIcons.Search,
                                             contentDescription = null,
-                                            tint = MaterialTheme.colorScheme.onPrimaryContainer,
                                             modifier = Modifier.size(16.dp)
                                         )
                                         Text(
@@ -2321,7 +2318,7 @@ private fun DefaultSearchContent(
                             Icon(
                                 imageVector = RhythmIcons.Search,
                                 contentDescription = null,
-                                tint = MaterialTheme.colorScheme.primary,
+                                
                                 modifier = Modifier
                                     .size(32.dp)
                                     .padding(16.dp)
@@ -2383,7 +2380,7 @@ private fun DefaultSearchContent(
                             Icon(
                                 imageVector = RhythmIcons.Queue,
                                 contentDescription = null,
-                                tint = MaterialTheme.colorScheme.primary,
+                                
                                 modifier = Modifier
                                     .size(32.dp)
                                     .padding(16.dp)
@@ -2534,7 +2531,7 @@ private fun NoSearchResults(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(18.dp),
                 colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.4f)
+                    containerColor = MaterialTheme.colorScheme.primaryContainer
                 )
             ) {
                 Column(
@@ -2545,8 +2542,8 @@ private fun NoSearchResults(
                     ) {
                         Icon(
                             imageVector = Icons.Filled.Lightbulb,
+                                tint = MaterialTheme.colorScheme.onPrimaryContainer,
                             contentDescription = null,
-                            tint = MaterialTheme.colorScheme.onPrimaryContainer,
                             modifier = Modifier.size(24.dp)
                         )
                         Spacer(modifier = Modifier.width(12.dp))
@@ -2937,7 +2934,7 @@ private fun GenreBrowseSection(
                 Icon(
                     imageVector = RhythmIcons.Actions.Tune,
                     contentDescription = null,
-                    tint = MaterialTheme.colorScheme.primary,
+                    
                     modifier = Modifier.size(24.dp)
                 )
                 Text(
@@ -3025,7 +3022,7 @@ private fun GenreBrowseSection(
                                     onGenreClick(genre)
                                 },
                                 colors = CardDefaults.cardColors(
-                                    containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.4f)
+                                    containerColor = MaterialTheme.colorScheme.primaryContainer
                                 ),
                                 shape = RoundedCornerShape(16.dp),
                                 modifier = Modifier.fillMaxWidth()
