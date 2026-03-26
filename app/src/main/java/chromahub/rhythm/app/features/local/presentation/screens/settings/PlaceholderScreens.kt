@@ -8206,6 +8206,7 @@ fun MiniPlayerCustomizationSettingsScreen(onBackClick: () -> Unit) {
     val miniPlayerShowTime by appSettings.miniPlayerShowTime.collectAsState()
     val miniPlayerUseCircularProgress by appSettings.miniPlayerUseCircularProgress.collectAsState()
     val miniPlayerAlwaysShowTablet by appSettings.miniPlayerAlwaysShowTablet.collectAsState()
+    val expressiveShapesEnabled by appSettings.expressiveShapesEnabled.collectAsState()
 
     var showMiniPlayerProgressStyleSheet by remember { mutableStateOf(false) }
     var showMiniPlayerArtworkSizeSheet by remember { mutableStateOf(false) }
@@ -8418,12 +8419,21 @@ fun MiniPlayerCustomizationSettingsScreen(onBackClick: () -> Unit) {
                             modifier = Modifier.padding(horizontal = 20.dp),
                             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f)
                         )
-                        SettingRow(
-                            icon = Icons.Default.RoundedCorner,
-                            title = "Corner Radius",
-                            description = "${miniPlayerCornerRadius}dp",
-                            onClick = { showMiniPlayerCornerRadiusSheet = true }
-                        )
+                        if (expressiveShapesEnabled) {
+                            SettingRow(
+                                icon = Icons.Default.RoundedCorner,
+                                title = "Corner Radius",
+                                description = "Managed by Expressive Shapes",
+                                onClick = null
+                            )
+                        } else {
+                            SettingRow(
+                                icon = Icons.Default.RoundedCorner,
+                                title = "Corner Radius",
+                                description = "${miniPlayerCornerRadius}dp",
+                                onClick = { showMiniPlayerCornerRadiusSheet = true }
+                            )
+                        }
                     }
                 }
             }
@@ -8691,6 +8701,7 @@ fun PlayerCustomizationSettingsScreen(onBackClick: () -> Unit) {
     val playerShowSongInfoOnArtwork by appSettings.playerShowSongInfoOnArtwork.collectAsState()
     val playerArtworkCornerRadius by appSettings.playerArtworkCornerRadius.collectAsState()
     val playerShowAudioQualityBadges by appSettings.playerShowAudioQualityBadges.collectAsState()
+    val expressiveShapesEnabled by appSettings.expressiveShapesEnabled.collectAsState()
 
     // Progress bar settings
     val playerProgressStyle by appSettings.playerProgressStyle.collectAsState()
@@ -9175,12 +9186,21 @@ fun PlayerCustomizationSettingsScreen(onBackClick: () -> Unit) {
                     colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
                     elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
                 ) {
-                    SettingRow(
-                        icon = Icons.Default.RoundedCorner,
-                        title = "Corner Radius",
-                        description = "${playerArtworkCornerRadius}dp",
-                        onClick = { showCornerRadiusSheet = true }
-                    )
+                    if (expressiveShapesEnabled) {
+                        SettingRow(
+                            icon = Icons.Default.RoundedCorner,
+                            title = "Corner Radius",
+                            description = "Managed by Expressive Shapes",
+                            onClick = null
+                        )
+                    } else {
+                        SettingRow(
+                            icon = Icons.Default.RoundedCorner,
+                            title = "Corner Radius",
+                            description = "${playerArtworkCornerRadius}dp",
+                            onClick = { showCornerRadiusSheet = true }
+                        )
+                    }
                 }
             }
 
@@ -15416,6 +15436,50 @@ fun ExpressiveShapesSettingsScreen(onBackClick: () -> Unit) {
                                     )
                                 }
                             }
+                        }
+                    }
+                }
+            }
+            
+            // Randomize Button
+            item(key = "randomize_shapes") {
+                AnimatedVisibility(
+                    visible = expressiveShapesEnabled,
+                    enter = fadeIn() + expandVertically(),
+                    exit = fadeOut() + shrinkVertically()
+                ) {
+                    Card(
+                        onClick = {
+                            HapticUtils.performHapticFeedback(context, haptic, HapticFeedbackType.LongPress)
+                            appSettings.randomizeExpressiveShapes()
+                        },
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(18.dp),
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.tertiaryContainer
+                        ),
+                        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 20.dp, vertical = 18.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.Center
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Shuffle,
+                                contentDescription = "Randomize shapes",
+                                modifier = Modifier.size(22.dp),
+                                tint = MaterialTheme.colorScheme.onTertiaryContainer
+                            )
+                            Spacer(modifier = Modifier.width(12.dp))
+                            Text(
+                                text = "Randomize All Shapes",
+                                style = MaterialTheme.typography.titleSmall,
+                                fontWeight = FontWeight.SemiBold,
+                                color = MaterialTheme.colorScheme.onTertiaryContainer
+                            )
                         }
                     }
                 }

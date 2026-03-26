@@ -3693,7 +3693,7 @@ private val _autoCheckForUpdates = MutableStateFlow(prefs.getBoolean(KEY_AUTO_CH
     }
     
     // Individual shape settings for each artwork target
-    private val _expressiveShapeAlbumArt = MutableStateFlow(prefs.getString(KEY_EXPRESSIVE_SHAPE_ALBUM_ART, "COOKIE_6") ?: "COOKIE_6")
+    private val _expressiveShapeAlbumArt = MutableStateFlow(prefs.getString(KEY_EXPRESSIVE_SHAPE_ALBUM_ART, "GHOSTISH") ?: "GHOSTISH")
     val expressiveShapeAlbumArt: StateFlow<String> = _expressiveShapeAlbumArt.asStateFlow()
     fun setExpressiveShapeAlbumArt(value: String) {
         _expressiveShapeAlbumArt.value = value
@@ -3704,7 +3704,7 @@ private val _autoCheckForUpdates = MutableStateFlow(prefs.getBoolean(KEY_AUTO_CH
         }
     }
     
-    private val _expressiveShapePlayerArt = MutableStateFlow(prefs.getString(KEY_EXPRESSIVE_SHAPE_PLAYER_ART, "COOKIE_6") ?: "COOKIE_6")
+    private val _expressiveShapePlayerArt = MutableStateFlow(prefs.getString(KEY_EXPRESSIVE_SHAPE_PLAYER_ART, "BUN") ?: "BUN")
     val expressiveShapePlayerArt: StateFlow<String> = _expressiveShapePlayerArt.asStateFlow()
     fun setExpressiveShapePlayerArt(value: String) {
         _expressiveShapePlayerArt.value = value
@@ -3724,7 +3724,7 @@ private val _autoCheckForUpdates = MutableStateFlow(prefs.getBoolean(KEY_AUTO_CH
         }
     }
     
-    private val _expressiveShapePlaylistArt = MutableStateFlow(prefs.getString(KEY_EXPRESSIVE_SHAPE_PLAYLIST_ART, "COOKIE_4") ?: "COOKIE_4")
+    private val _expressiveShapePlaylistArt = MutableStateFlow(prefs.getString(KEY_EXPRESSIVE_SHAPE_PLAYLIST_ART, "CLOVER_4_LEAF") ?: "CLOVER_4_LEAF")
     val expressiveShapePlaylistArt: StateFlow<String> = _expressiveShapePlaylistArt.asStateFlow()
     fun setExpressiveShapePlaylistArt(value: String) {
         _expressiveShapePlaylistArt.value = value
@@ -3734,7 +3734,7 @@ private val _autoCheckForUpdates = MutableStateFlow(prefs.getBoolean(KEY_AUTO_CH
         }
     }
     
-    private val _expressiveShapeArtistArt = MutableStateFlow(prefs.getString(KEY_EXPRESSIVE_SHAPE_ARTIST_ART, "CIRCLE") ?: "CIRCLE")
+    private val _expressiveShapeArtistArt = MutableStateFlow(prefs.getString(KEY_EXPRESSIVE_SHAPE_ARTIST_ART, "PIXEL_CIRCLE") ?: "PIXEL_CIRCLE")
     val expressiveShapeArtistArt: StateFlow<String> = _expressiveShapeArtistArt.asStateFlow()
     fun setExpressiveShapeArtistArt(value: String) {
         _expressiveShapeArtistArt.value = value
@@ -3744,7 +3744,7 @@ private val _autoCheckForUpdates = MutableStateFlow(prefs.getBoolean(KEY_AUTO_CH
         }
     }
     
-    private val _expressiveShapePlayerControls = MutableStateFlow(prefs.getString(KEY_EXPRESSIVE_SHAPE_PLAYER_CONTROLS, "CIRCLE") ?: "CIRCLE")
+    private val _expressiveShapePlayerControls = MutableStateFlow(prefs.getString(KEY_EXPRESSIVE_SHAPE_PLAYER_CONTROLS, "COOKIE_12") ?: "COOKIE_12")
     val expressiveShapePlayerControls: StateFlow<String> = _expressiveShapePlayerControls.asStateFlow()
     fun setExpressiveShapePlayerControls(value: String) {
         _expressiveShapePlayerControls.value = value
@@ -3770,12 +3770,12 @@ private val _autoCheckForUpdates = MutableStateFlow(prefs.getBoolean(KEY_AUTO_CH
     fun applyExpressiveShapePreset(preset: String) {
         when (preset) {
             "DEFAULT" -> {
-                _expressiveShapeAlbumArt.value = "COOKIE_6"
-                _expressiveShapePlayerArt.value = "COOKIE_6"
+                _expressiveShapeAlbumArt.value = "GHOSTISH"
+                _expressiveShapePlayerArt.value = "BUN"
                 _expressiveShapeSongArt.value = "CLOVER_8_LEAF"
-                _expressiveShapePlaylistArt.value = "COOKIE_4"
-                _expressiveShapeArtistArt.value = "CIRCLE"
-                _expressiveShapePlayerControls.value = "CIRCLE"
+                _expressiveShapePlaylistArt.value = "CLOVER_4_LEAF"
+                _expressiveShapeArtistArt.value = "PIXEL_CIRCLE"
+                _expressiveShapePlayerControls.value = "COOKIE_12"
                 _expressiveShapeMiniPlayer.value = "COOKIE_4"
             }
             "FRIENDLY" -> {
@@ -3855,5 +3855,41 @@ private val _autoCheckForUpdates = MutableStateFlow(prefs.getBoolean(KEY_AUTO_CH
             putString(KEY_EXPRESSIVE_SHAPE_MINI_PLAYER, _expressiveShapeMiniPlayer.value)
         }.apply()
         _expressiveShapePreset.value = preset
+    }
+    
+    /**
+     * Randomize all expressive shape targets with randomly picked shapes.
+     * Sets the preset to CUSTOM after randomizing.
+     */
+    fun randomizeExpressiveShapes() {
+        val allShapes = listOf(
+            "CIRCLE", "SQUARE", "OVAL", "PILL", "DIAMOND", "TRIANGLE", "PENTAGON",
+            "FLOWER", "CLOVER_4_LEAF", "CLOVER_8_LEAF", "HEART", "BOOM", "SOFT_BOOM",
+            "BURST", "SOFT_BURST", "SUNNY", "VERY_SUNNY",
+            "COOKIE_4", "COOKIE_6", "COOKIE_7", "COOKIE_9", "COOKIE_12",
+            "GHOSTISH", "PUFFY", "PUFFY_DIAMOND", "BUN", "FAN",
+            "ARCH", "CLAM_SHELL", "GEM", "SLANTED", "PIXEL_CIRCLE", "PIXEL_TRIANGLE"
+        )
+        
+        _expressiveShapeAlbumArt.value = allShapes.random()
+        _expressiveShapePlayerArt.value = allShapes.random()
+        _expressiveShapeSongArt.value = allShapes.random()
+        _expressiveShapePlaylistArt.value = allShapes.random()
+        _expressiveShapeArtistArt.value = allShapes.random()
+        _expressiveShapePlayerControls.value = allShapes.random()
+        _expressiveShapeMiniPlayer.value = allShapes.random()
+        
+        // Save as CUSTOM preset
+        prefs.edit().apply {
+            putString(KEY_EXPRESSIVE_SHAPE_PRESET, "CUSTOM")
+            putString(KEY_EXPRESSIVE_SHAPE_ALBUM_ART, _expressiveShapeAlbumArt.value)
+            putString(KEY_EXPRESSIVE_SHAPE_PLAYER_ART, _expressiveShapePlayerArt.value)
+            putString(KEY_EXPRESSIVE_SHAPE_SONG_ART, _expressiveShapeSongArt.value)
+            putString(KEY_EXPRESSIVE_SHAPE_PLAYLIST_ART, _expressiveShapePlaylistArt.value)
+            putString(KEY_EXPRESSIVE_SHAPE_ARTIST_ART, _expressiveShapeArtistArt.value)
+            putString(KEY_EXPRESSIVE_SHAPE_PLAYER_CONTROLS, _expressiveShapePlayerControls.value)
+            putString(KEY_EXPRESSIVE_SHAPE_MINI_PLAYER, _expressiveShapeMiniPlayer.value)
+        }.apply()
+        _expressiveShapePreset.value = "CUSTOM"
     }
 }
