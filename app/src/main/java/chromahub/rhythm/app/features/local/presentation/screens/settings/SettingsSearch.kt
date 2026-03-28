@@ -70,6 +70,7 @@ import androidx.compose.material.icons.filled.QueueMusic
 import androidx.compose.material.icons.filled.Reorder
 import androidx.compose.material.icons.filled.RestartAlt
 import androidx.compose.material.icons.filled.RoundedCorner
+import androidx.compose.material.icons.filled.Schedule
 import androidx.compose.material.icons.filled.Science
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Security
@@ -448,6 +449,16 @@ fun buildSettingsSearchIndex(context: Context): List<SearchableSettingItem> {
             settingKey = "rhythmGuardMode"
         ))
         add(SearchableSettingItem(
+            id = "rhythm_guard_enable",
+            title = context.getString(R.string.settings_rhythm_guard_enable_search_title),
+            description = context.getString(R.string.settings_rhythm_guard_enable_search_desc),
+            keywords = listOf("enable", "disable", "on", "off", "protection switch", "guard toggle"),
+            icon = Icons.Default.Security,
+            route = SettingsRoutes.RHYTHM_GUARD,
+            parentScreen = context.getString(R.string.settings_rhythm_guard),
+            settingKey = "rhythmGuardMode"
+        ))
+        add(SearchableSettingItem(
             id = "rhythm_guard_age",
             title = context.getString(R.string.settings_rhythm_guard_age_search_title),
             description = context.getString(R.string.settings_rhythm_guard_age_search_desc),
@@ -476,6 +487,46 @@ fun buildSettingsSearchIndex(context: Context): List<SearchableSettingItem> {
             route = SettingsRoutes.RHYTHM_GUARD,
             parentScreen = context.getString(R.string.settings_rhythm_guard),
             settingKey = "rhythmGuardManualVolumeThreshold"
+        ))
+        add(SearchableSettingItem(
+            id = "rhythm_guard_alert_threshold",
+            title = context.getString(R.string.settings_rhythm_guard_alert_threshold_search_title),
+            description = context.getString(R.string.settings_rhythm_guard_alert_threshold_search_desc),
+            keywords = listOf("exposure", "alert threshold", "daily limit", "minutes", "safety alert"),
+            icon = Icons.Default.Timer,
+            route = SettingsRoutes.RHYTHM_GUARD,
+            parentScreen = context.getString(R.string.settings_rhythm_guard),
+            settingKey = "rhythmGuardAlertThresholdMinutes"
+        ))
+        add(SearchableSettingItem(
+            id = "rhythm_guard_warning_timeout",
+            title = context.getString(R.string.settings_rhythm_guard_warning_timeout_search_title),
+            description = context.getString(R.string.settings_rhythm_guard_warning_timeout_search_desc),
+            keywords = listOf("cooldown", "alert timeout", "repeat warning", "warning interval"),
+            icon = Icons.Default.AccessTime,
+            route = SettingsRoutes.RHYTHM_GUARD,
+            parentScreen = context.getString(R.string.settings_rhythm_guard),
+            settingKey = "rhythmGuardWarningTimeoutMinutes"
+        ))
+        add(SearchableSettingItem(
+            id = "rhythm_guard_break_resume",
+            title = context.getString(R.string.settings_rhythm_guard_break_resume_search_title),
+            description = context.getString(R.string.settings_rhythm_guard_break_resume_search_desc),
+            keywords = listOf("break", "resume", "timeout length", "scheduled break", "pause duration"),
+            icon = Icons.Default.Schedule,
+            route = SettingsRoutes.RHYTHM_GUARD,
+            parentScreen = context.getString(R.string.settings_rhythm_guard),
+            settingKey = "rhythmGuardBreakResumeMinutes"
+        ))
+        add(SearchableSettingItem(
+            id = "rhythm_guard_zero_volume",
+            title = context.getString(R.string.settings_stop_playback_on_zero_volume),
+            description = context.getString(R.string.settings_stop_playback_on_zero_volume_desc),
+            keywords = listOf("zero volume", "pause on zero", "mute protection", "auto pause"),
+            icon = Icons.Default.Stop,
+            route = SettingsRoutes.RHYTHM_GUARD,
+            parentScreen = context.getString(R.string.settings_rhythm_guard),
+            settingKey = "stopPlaybackOnZeroVolume"
         ))
         
         // Updates & Info Section

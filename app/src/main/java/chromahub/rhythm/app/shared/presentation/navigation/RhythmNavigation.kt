@@ -32,6 +32,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccessTime
 import androidx.compose.material.icons.filled.Check
@@ -204,17 +207,26 @@ private enum class RhythmGuardWarningType {
     EXPOSURE
 }
 
+enum class RhythmGuardRiskLevel {
+    LOW,
+    MODERATE,
+    HIGH,
+    SEVERE
+}
+
 private data class RhythmGuardVolumeWarningDialogState(
     val mode: String,
     val currentVolumePercent: Int,
     val safeThresholdPercent: Int,
-    val suggestedVolume: Float
+    val suggestedVolume: Float,
+    val riskLevel: RhythmGuardRiskLevel
 )
 
 private data class RhythmGuardBreakDialogState(
     val mode: String,
     val estimatedTodayMinutes: Int,
-    val recommendedDailyMinutes: Int
+    val recommendedDailyMinutes: Int,
+    val riskLevel: RhythmGuardRiskLevel
 )
 
 @Composable
@@ -265,24 +277,34 @@ private fun RhythmGuardWarningHost(
         AppSettings.RHYTHM_GUARD_MODE_MANUAL -> manualWarningsEnabled
         else -> false
     }
+    val exposureWarningEnabled = when (auraMode) {
+        AppSettings.RHYTHM_GUARD_MODE_AUTO -> true
+        AppSettings.RHYTHM_GUARD_MODE_MANUAL -> manualWarningsEnabled
+        else -> false
+    }
     val needsVolumeWarning =
         rulesEnabled && !isListeningTimeoutActive && volumeWarningEnabled && currentSystemVolume > activeThreshold
     val needsExposureWarning =
         rulesEnabled &&
             !isListeningTimeoutActive &&
-            auraMode == AppSettings.RHYTHM_GUARD_MODE_AUTO &&
+            exposureWarningEnabled &&
             todayExposureMinutes > effectiveExposureLimitMinutes
 
     var volumeDialogState by remember { mutableStateOf<RhythmGuardVolumeWarningDialogState?>(null) }
     var breakDialogState by remember { mutableStateOf<RhythmGuardBreakDialogState?>(null) }
-    var lastWarningFingerprint by remember { mutableStateOf<String?>(null) }
+    var lastWarningType by remember { mutableStateOf<RhythmGuardWarningType?>(null) }
     var lastWarningAt by remember { mutableLongStateOf(0L) }
+    var lastWarningVolumePercent by remember { mutableIntStateOf(-1) }
+    var lastWarningExposureMinutes by remember { mutableIntStateOf(-1) }
     var breakResumeMinutes by remember(configuredBreakResumeMinutes) {
         mutableIntStateOf(configuredBreakResumeMinutes)
     }
     var resumeCountdownSeconds by remember { mutableLongStateOf(0L) }
     var timeoutStartedAtMs by remember { mutableLongStateOf(0L) }
-    var bubbleOffsetXDp by remember { mutableFloatStateOf(0f) }
+    var lastAutoClampAtMs by remember { mutableLongStateOf(0L) }
+    var lastAutoClampThresholdPercent by remember { mutableIntStateOf(-1) }
+    var isBubbleOnLeft by remember { mutableStateOf(false) }
+    var rawDragXDp by remember { mutableFloatStateOf(0f) }
     var bubbleOffsetYDp by remember { mutableFloatStateOf(0f) }
 
     val formattedTodayExposure = remember(todayExposureMinutes) {
@@ -305,10 +327,14 @@ private fun RhythmGuardWarningHost(
         if (auraMode == AppSettings.RHYTHM_GUARD_MODE_OFF) {
             volumeDialogState = null
             breakDialogState = null
-            lastWarningFingerprint = null
+            lastWarningType = null
             appSettings.clearRhythmGuardListeningTimeout()
             resumeCountdownSeconds = 0L
             timeoutStartedAtMs = 0L
+            lastWarningVolumePercent = -1
+            lastWarningExposureMinutes = -1
+            lastAutoClampAtMs = 0L
+            lastAutoClampThresholdPercent = -1
         }
         if (currentSong == null) {
             volumeDialogState = null
@@ -316,12 +342,16 @@ private fun RhythmGuardWarningHost(
         }
         if (auraMode == AppSettings.RHYTHM_GUARD_MODE_MANUAL && !manualWarningsEnabled) {
             volumeDialogState = null
+            breakDialogState = null
         }
     }
 
     LaunchedEffect(timeoutUntilMs, configuredBreakResumeMinutes, auraMode) {
         val now = System.currentTimeMillis()
         if (timeoutUntilMs <= now) {
+            if (timeoutUntilMs > 0L) {
+                appSettings.clearRhythmGuardListeningTimeout()
+            }
             resumeCountdownSeconds = 0L
             timeoutStartedAtMs = 0L
             return@LaunchedEffect
@@ -340,7 +370,8 @@ private fun RhythmGuardWarningHost(
             delay(1000)
         }
 
-        if (appSettings.isRhythmGuardTimeoutActive()) {
+        val timeoutExpired = timeoutUntilMs <= System.currentTimeMillis()
+        if (timeoutExpired) {
             appSettings.clearRhythmGuardListeningTimeout()
             if (auraMode == AppSettings.RHYTHM_GUARD_MODE_AUTO) {
                 musicViewModel.resumeMusic()
@@ -361,10 +392,21 @@ private fun RhythmGuardWarningHost(
             return@LaunchedEffect
         }
 
-        if (currentSystemVolume > activeThreshold) {
+        val volumeOvershoot = currentSystemVolume - activeThreshold
+        if (volumeOvershoot > 0.01f) {
+            val now = System.currentTimeMillis()
+            val thresholdChanged = lastAutoClampThresholdPercent != activeThresholdPercent
+            val largeOvershoot = volumeOvershoot > 0.03f
+            val cooldownElapsed = now - lastAutoClampAtMs >= 1_500L
+
+            if (!thresholdChanged && !largeOvershoot && !cooldownElapsed) {
+                return@LaunchedEffect
+            }
+
             setSystemMusicVolumeFraction(context, activeThreshold)
             musicViewModel.setVolume(activeThreshold)
-            appSettings.applyRhythmGuardAutoProfileForAge(auraAge)
+            lastAutoClampAtMs = now
+            lastAutoClampThresholdPercent = activeThresholdPercent
         }
     }
 
@@ -417,18 +459,15 @@ private fun RhythmGuardWarningHost(
             }
         }
 
-        val fingerprint = listOf(
-            warningType.name,
-            auraMode,
-            activeThresholdPercent,
-            currentVolumePercent / 4,
-            todayExposureMinutes / 10,
-            effectiveExposureLimitMinutes
-        ).joinToString("-")
-
         val now = System.currentTimeMillis()
         val warningCooldownMs = warningTimeoutMinutes.coerceIn(1, 60) * 60 * 1000L
-        val canShow = fingerprint != lastWarningFingerprint || now - lastWarningAt > warningCooldownMs
+        val cooldownElapsed = now - lastWarningAt > warningCooldownMs
+        val warningTypeChanged = warningType != lastWarningType
+        val riskStepIncreased = when (warningType) {
+            RhythmGuardWarningType.VOLUME -> currentVolumePercent >= (lastWarningVolumePercent + 5)
+            RhythmGuardWarningType.EXPOSURE -> todayExposureMinutes >= (lastWarningExposureMinutes + 15)
+        }
+        val canShow = warningTypeChanged || cooldownElapsed || riskStepIncreased
 
         if (canShow && volumeDialogState == null && breakDialogState == null) {
             when (warningType) {
@@ -437,7 +476,13 @@ private fun RhythmGuardWarningHost(
                         mode = auraMode,
                         currentVolumePercent = currentVolumePercent,
                         safeThresholdPercent = activeThresholdPercent,
-                        suggestedVolume = activeThreshold
+                        suggestedVolume = activeThreshold,
+                        riskLevel = rhythmGuardResolveRiskLevel(
+                            currentVolumePercent = currentVolumePercent,
+                            safeThresholdPercent = activeThresholdPercent,
+                            exposureMinutes = todayExposureMinutes,
+                            exposureLimitMinutes = effectiveExposureLimitMinutes
+                        )
                     )
                 }
                 RhythmGuardWarningType.EXPOSURE -> {
@@ -464,13 +509,21 @@ private fun RhythmGuardWarningHost(
                         breakDialogState = RhythmGuardBreakDialogState(
                             mode = auraMode,
                             estimatedTodayMinutes = todayExposureMinutes,
-                            recommendedDailyMinutes = effectiveExposureLimitMinutes
+                            recommendedDailyMinutes = effectiveExposureLimitMinutes,
+                            riskLevel = rhythmGuardResolveRiskLevel(
+                                currentVolumePercent = currentVolumePercent,
+                                safeThresholdPercent = activeThresholdPercent,
+                                exposureMinutes = todayExposureMinutes,
+                                exposureLimitMinutes = effectiveExposureLimitMinutes
+                            )
                         )
                     }
                 }
             }
-            lastWarningFingerprint = fingerprint
+            lastWarningType = warningType
             lastWarningAt = now
+            lastWarningVolumePercent = currentVolumePercent
+            lastWarningExposureMinutes = todayExposureMinutes
         }
     }
 
@@ -497,15 +550,33 @@ private fun RhythmGuardWarningHost(
                 )
             },
             text = {
-                Text(
-                    text = context.getString(
-                        R.string.settings_rhythm_guard_warning_dialog_volume_message,
-                        volumeState.currentVolumePercent,
-                        volumeState.safeThresholdPercent
-                    ),
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onPrimaryContainer
-                )
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Text(
+                        text = context.getString(
+                            R.string.settings_rhythm_guard_warning_dialog_volume_message,
+                            volumeState.currentVolumePercent,
+                            volumeState.safeThresholdPercent
+                        ),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onPrimaryContainer
+                    )
+                    Text(
+                        text = context.getString(
+                            R.string.settings_rhythm_guard_risk_level_label,
+                            rhythmGuardRiskLabel(context, volumeState.riskLevel)
+                        ),
+                        style = MaterialTheme.typography.labelLarge,
+                        color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.9f)
+                    )
+                    Text(
+                        text = context.getString(
+                            R.string.settings_rhythm_guard_risk_action_label,
+                            rhythmGuardRiskAction(context, volumeState.riskLevel)
+                        ),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.88f)
+                    )
+                }
             },
             confirmButton = {
                 Button(
@@ -575,6 +646,22 @@ private fun RhythmGuardWarningHost(
                         ),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSecondaryContainer
+                    )
+                    Text(
+                        text = context.getString(
+                            R.string.settings_rhythm_guard_risk_level_label,
+                            rhythmGuardRiskLabel(context, breakState.riskLevel)
+                        ),
+                        style = MaterialTheme.typography.labelLarge,
+                        color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.9f)
+                    )
+                    Text(
+                        text = context.getString(
+                            R.string.settings_rhythm_guard_risk_action_label,
+                            rhythmGuardRiskAction(context, breakState.riskLevel)
+                        ),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.88f)
                     )
                     Text(
                         text = context.getString(R.string.settings_rhythm_guard_break_dialog_schedule_title),
@@ -672,7 +759,8 @@ private fun RhythmGuardWarningHost(
     BoxWithConstraints(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 16.dp, vertical = 18.dp)
+            .padding(horizontal = 16.dp)
+            .windowInsetsPadding(WindowInsets.systemBars)
     ) {
         AnimatedVisibility(
             visible = timeoutUntilMs > System.currentTimeMillis() && resumeCountdownSeconds > 0L,
@@ -693,20 +781,76 @@ private fun RhythmGuardWarningHost(
                 progress = timeoutProgress,
                 label = bubbleLabel,
                 modifier = Modifier
-                    .align(Alignment.BottomEnd)
-                    .padding(bottom = 84.dp)
-                    .offset(x = bubbleOffsetXDp.dp, y = bubbleOffsetYDp.dp)
+                    .align(if (isBubbleOnLeft) Alignment.CenterStart else Alignment.CenterEnd)
+                    .offset(x = rawDragXDp.dp, y = bubbleOffsetYDp.dp)
                     .pointerInput(Unit) {
-                        detectDragGestures { _, dragAmount ->
+                        detectDragGestures(
+                            onDragEnd = {
+                                if (isBubbleOnLeft && rawDragXDp > 80f) {
+                                    isBubbleOnLeft = false
+                                } else if (!isBubbleOnLeft && rawDragXDp < -80f) {
+                                    isBubbleOnLeft = true
+                                }
+                                rawDragXDp = 0f
+                            }
+                        ) { change, dragAmount ->
+                            change.consume()
                             val deltaXDp = dragAmount.x / density.density
                             val deltaYDp = dragAmount.y / density.density
-                            bubbleOffsetXDp = (bubbleOffsetXDp + deltaXDp).coerceIn(-260f, 24f)
-                            bubbleOffsetYDp = (bubbleOffsetYDp + deltaYDp).coerceIn(-420f, 48f)
+                            rawDragXDp += deltaXDp
+                            bubbleOffsetYDp = (bubbleOffsetYDp + deltaYDp).coerceIn(-350f, 350f)
                         }
                     }
             )
         }
     }
+}
+
+fun rhythmGuardResolveRiskLevel(
+    currentVolumePercent: Int,
+    safeThresholdPercent: Int,
+    exposureMinutes: Int,
+    exposureLimitMinutes: Int
+): RhythmGuardRiskLevel {
+    val safeVolume = safeThresholdPercent.coerceAtLeast(1)
+    val safeExposure = exposureLimitMinutes.coerceAtLeast(1)
+
+    val volumeRatio = currentVolumePercent.toFloat() / safeVolume.toFloat()
+    val exposureRatio = exposureMinutes.toFloat() / safeExposure.toFloat()
+    val combinedRatio = maxOf(volumeRatio, exposureRatio, (volumeRatio + exposureRatio) / 2f)
+
+    return when {
+        combinedRatio >= 1.50f -> RhythmGuardRiskLevel.SEVERE
+        combinedRatio >= 1.25f -> RhythmGuardRiskLevel.HIGH
+        combinedRatio >= 1.00f -> RhythmGuardRiskLevel.MODERATE
+        else -> RhythmGuardRiskLevel.LOW
+    }
+}
+
+private fun rhythmGuardRiskLabel(
+    context: android.content.Context,
+    level: RhythmGuardRiskLevel
+): String {
+    val labelResId = when (level) {
+        RhythmGuardRiskLevel.LOW -> R.string.settings_rhythm_guard_risk_level_low
+        RhythmGuardRiskLevel.MODERATE -> R.string.settings_rhythm_guard_risk_level_moderate
+        RhythmGuardRiskLevel.HIGH -> R.string.settings_rhythm_guard_risk_level_high
+        RhythmGuardRiskLevel.SEVERE -> R.string.settings_rhythm_guard_risk_level_severe
+    }
+    return context.getString(labelResId)
+}
+
+private fun rhythmGuardRiskAction(
+    context: android.content.Context,
+    level: RhythmGuardRiskLevel
+): String {
+    val actionResId = when (level) {
+        RhythmGuardRiskLevel.LOW -> R.string.settings_rhythm_guard_risk_action_low
+        RhythmGuardRiskLevel.MODERATE -> R.string.settings_rhythm_guard_risk_action_moderate
+        RhythmGuardRiskLevel.HIGH -> R.string.settings_rhythm_guard_risk_action_high
+        RhythmGuardRiskLevel.SEVERE -> R.string.settings_rhythm_guard_risk_action_severe
+    }
+    return context.getString(actionResId)
 }
 
 private fun rhythmGuardFormatDurationFromMinutes(minutes: Int): String {
@@ -748,6 +892,7 @@ private fun RhythmGuardResumeCountdownBubble(
 ) {
     val context = LocalContext.current
     val progressValue = progress.coerceIn(0f, 1f)
+    val currentProgress by androidx.compose.runtime.rememberUpdatedState(progressValue)
 
     Surface(
         modifier = modifier,
@@ -766,7 +911,7 @@ private fun RhythmGuardResumeCountdownBubble(
                 contentAlignment = Alignment.Center
             ) {
                 CircularWavyProgressIndicator(
-                    progress = { progressValue },
+                    progress = { currentProgress },
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.onPrimaryContainer,
                     trackColor = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.2f)

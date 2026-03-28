@@ -461,6 +461,7 @@ class AppSettings private constructor(context: Context) {
         private const val KEY_EXPRESSIVE_SHAPE_ARTIST_ART = "expressive_shape_artist_art" // Shape for artist artwork
         private const val KEY_EXPRESSIVE_SHAPE_PLAYER_CONTROLS = "expressive_shape_player_controls" // Shape for player controls
         private const val KEY_EXPRESSIVE_SHAPE_MINI_PLAYER = "expressive_shape_mini_player" // Shape for mini player
+        private const val KEY_SHOW_SETTINGS_SUGGESTIONS = "show_settings_suggestions"
         
         @Volatile
         private var INSTANCE: AppSettings? = null
@@ -4017,6 +4018,17 @@ private val _autoCheckForUpdates = MutableStateFlow(prefs.getBoolean(KEY_AUTO_CH
     // Shape preset selection
     private val _expressiveShapePreset = MutableStateFlow(prefs.getString(KEY_EXPRESSIVE_SHAPE_PRESET, "DEFAULT") ?: "DEFAULT")
     val expressiveShapePreset: StateFlow<String> = _expressiveShapePreset.asStateFlow()
+
+
+
+
+    private val _showSettingsSuggestions = MutableStateFlow(prefs.getBoolean(KEY_SHOW_SETTINGS_SUGGESTIONS, true))
+    val showSettingsSuggestions: StateFlow<Boolean> = _showSettingsSuggestions.asStateFlow()
+    fun setShowSettingsSuggestions(show: Boolean) {
+        prefs.edit().putBoolean(KEY_SHOW_SETTINGS_SUGGESTIONS, show).apply()
+        _showSettingsSuggestions.value = show
+    }
+
     fun setExpressiveShapePreset(value: String) {
         _expressiveShapePreset.value = value
         prefs.edit().putString(KEY_EXPRESSIVE_SHAPE_PRESET, value).apply()

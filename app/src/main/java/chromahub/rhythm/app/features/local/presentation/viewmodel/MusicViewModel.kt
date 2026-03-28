@@ -855,9 +855,12 @@ class MusicViewModel(application: Application) : AndroidViewModel(application) {
                     !isRhythmGuardTimeoutActive()
                 ) {
                     Log.d(TAG, "Audio device reconnected ($deviceName), resuming playback")
-                    mediaController?.play()
-                    _isPlaying.value = true
-                    startProgressUpdates()
+                    mediaController?.let { controller ->
+                        if (!canStartPlayback("deviceReconnected.resume")) return@let
+                        controller.play()
+                        _isPlaying.value = true
+                        startProgressUpdates()
+                    }
                 }
             }
         }
@@ -2885,6 +2888,7 @@ class MusicViewModel(application: Application) : AndroidViewModel(application) {
             _isFavorite.value = _favoriteSongs.value.contains(song.id)
             
             controller.prepare()
+            if (!canStartPlayback("playSongAtIndex.prepare")) return@let
             controller.play()
             _isPlaying.value = true
             startProgressUpdates()
@@ -2981,6 +2985,7 @@ class MusicViewModel(application: Application) : AndroidViewModel(application) {
             }
 
             controller.prepare()
+            if (!canStartPlayback("playSong.prepare")) return@let
             controller.play()
 
             _currentSong.value = song
@@ -3089,8 +3094,11 @@ class MusicViewModel(application: Application) : AndroidViewModel(application) {
             // Seek to the newly added song
             val newIndex = _currentQueue.value.songs.indexOfFirst { it.id == song.id }
             if (newIndex != -1) {
-                mediaController?.seekToDefaultPosition(newIndex)
-                mediaController?.play()
+                mediaController?.let { controller ->
+                    controller.seekToDefaultPosition(newIndex)
+                    if (!canStartPlayback("playSongWithQueueOption")) return
+                    controller.play()
+                }
             }
         }
     }
@@ -3491,6 +3499,7 @@ class MusicViewModel(application: Application) : AndroidViewModel(application) {
                         
                         // Start playback from the specified index
                         controller.seekToDefaultPosition(validStartIndex)
+                        if (!canStartPlayback("playQueue.prepare")) return@withContext
                         controller.play()
                         
                         // Update current song and state to the song at startIndex
@@ -3840,6 +3849,7 @@ class MusicViewModel(application: Application) : AndroidViewModel(application) {
                     saveQueueToPersistence()
 
                     if (wasPlaying && !controller.isPlaying) {
+                        if (!canStartPlayback("toggleShuffle.restoreExo")) return@let
                         controller.play()
                     }
                 } else {
@@ -3871,6 +3881,7 @@ class MusicViewModel(application: Application) : AndroidViewModel(application) {
                             _isShuffleEnabled.value = true
 
                             if (wasPlaying && !controller.isPlaying) {
+                                if (!canStartPlayback("toggleShuffle.restoreManual")) return@withContext
                                 controller.play()
                             }
                         }
@@ -3928,6 +3939,7 @@ class MusicViewModel(application: Application) : AndroidViewModel(application) {
                 queueStateHolder.clearOriginalQueue()
 
                 if (wasPlaying && !controller.isPlaying) {
+                    if (!canStartPlayback("toggleShuffle.disable")) return@let
                     controller.play()
                 }
             }
@@ -5520,6 +5532,7 @@ class MusicViewModel(application: Application) : AndroidViewModel(application) {
                 // If nothing is currently playing, start playback
                 if (controller.playbackState == Player.STATE_IDLE || controller.playbackState == Player.STATE_ENDED) {
                     controller.prepare()
+                    if (!canStartPlayback("addSongToQueue")) return@let
                     controller.play()
                 }
                 
@@ -5599,6 +5612,7 @@ class MusicViewModel(application: Application) : AndroidViewModel(application) {
                 // If nothing is currently playing, start playback
                 if (controller.playbackState == Player.STATE_IDLE || controller.playbackState == Player.STATE_ENDED) {
                     controller.prepare()
+                    if (!canStartPlayback("playNext")) return@let
                     controller.play()
                 }
                 
@@ -5871,6 +5885,7 @@ class MusicViewModel(application: Application) : AndroidViewModel(application) {
                     // If nothing is currently playing, start playback
                     if (controller.playbackState == Player.STATE_IDLE || controller.playbackState == Player.STATE_ENDED) {
                         controller.prepare()
+                        if (!canStartPlayback("addSongsToQueue")) return@launch
                         controller.play()
                     }
                     
@@ -6105,6 +6120,12 @@ class MusicViewModel(application: Application) : AndroidViewModel(application) {
             controller.clearMediaItems()
             controller.setMediaItem(mediaItem)
             controller.prepare()
+            if (!canStartPlayback("playExternalAudioFile")) {
+                _isPlaying.value = false
+                _currentSong.value = song
+                _currentQueue.value = Queue(listOf(song), 0)
+                return
+            }
             controller.play()
             
             // Update UI state
@@ -6132,6 +6153,9 @@ class MusicViewModel(application: Application) : AndroidViewModel(application) {
                     delay(500)
                     if (!controller.isPlaying) {
                         Log.d(TAG, "Playback didn't start, retry #${retryCount + 1}")
+                        if (!canStartPlayback("playExternalAudioFile.retry")) {
+                            break
+                        }
                         controller.play()
                         retryCount++
                     } else {

@@ -824,6 +824,9 @@
     <string name="settings_tip_theme">Customize your theme with colors, fonts, and festive effects</string>
     <string name="settings_tip_haptic">Enable haptic feedback for tactile responses</string>
     <string name="settings_tip_media_scan">Use media scan to hide unwanted files from your library</string>
+    <string name="settings_tip_rhythm_guard_off">Protect your hearing by enabling Rhythm Guard</string>
+    <string name="settings_tip_rhythm_guard_auto">Rhythm Guard automatically manages safe listening limits</string>
+    <string name="settings_tip_rhythm_guard_manual">You are manually controlling Rhythm Guard limits</string>
     <string name="settings_default_screen">Default Landing Screen</string>
     <string name="settings_default_screen_desc">Choose your starting screen</string>
     <string name="settings_home_desc">Discover new music and recommendations</string>
@@ -1730,6 +1733,16 @@
     <string name="settings_rhythm_guard_warning_dialog_volume_message">System media volume is %1$d%% in real time, above your current protection limit of %2$d%%. Lower volume to reduce hearing risk.</string>
     <string name="settings_rhythm_aura_warning_dialog_exposure_message">Estimated listening today is %1$d minutes, above your recommended %2$d minutes. Consider a short break and lower volume for the next session.</string>
     <string name="settings_rhythm_guard_warning_dialog_exposure_message">Estimated listening today is %1$d minutes, above your recommended %2$d minutes. Consider a short break and lower volume for the next session.</string>
+    <string name="settings_rhythm_guard_risk_level_label">Risk severity: %1$s</string>
+    <string name="settings_rhythm_guard_risk_action_label">Recommended action: %1$s</string>
+    <string name="settings_rhythm_guard_risk_level_low">Low</string>
+    <string name="settings_rhythm_guard_risk_level_moderate">Moderate</string>
+    <string name="settings_rhythm_guard_risk_level_high">High</string>
+    <string name="settings_rhythm_guard_risk_level_severe">Severe</string>
+    <string name="settings_rhythm_guard_risk_action_low">Keep listening at or below your threshold.</string>
+    <string name="settings_rhythm_guard_risk_action_moderate">Lower volume soon and avoid long sessions.</string>
+    <string name="settings_rhythm_guard_risk_action_high">Reduce volume now and take a short break.</string>
+    <string name="settings_rhythm_guard_risk_action_severe">Pause playback now and resume at a safer level.</string>
     <string name="settings_rhythm_aura_warning_dialog_apply">Reduce To Safe Level</string>
     <string name="settings_rhythm_guard_warning_dialog_apply">Reduce To Safe Level</string>
     <string name="settings_rhythm_aura_warning_dialog_dismiss">Ignore For Now</string>
@@ -1747,7 +1760,7 @@
     <string name="settings_rhythm_aura_break_dialog_schedule_action">Pause and resume in %1$s</string>
     <string name="settings_rhythm_guard_break_dialog_schedule_action">Pause and resume in %1$s</string>
     <string name="settings_rhythm_guard_timeout_reason_auto">Listening break triggered: today %1$s exceeds recommended %2$s.</string>
-    <string name="settings_rhythm_guard_timeout_reason_manual">Listening break started: today %1$s vs recommended %2$s.</string>
+    <string name="settings_rhythm_guard_timeout_reason_manual">Listening break started</string>
     <string name="settings_rhythm_guard_resume_countdown_label">Listening Timeout</string>
     <string name="settings_rhythm_guard_resume_countdown_value">Resume in %1$s</string>
     <string name="settings_rhythm_guard_snapshot_widget_above_limit">Above recommended limit</string>
@@ -1776,6 +1789,14 @@
     <string name="settings_rhythm_guard_manual_threshold_search_title">Manual Warning Threshold</string>
     <string name="settings_rhythm_aura_manual_threshold_search_desc">Choose high-volume warning limit</string>
     <string name="settings_rhythm_guard_manual_threshold_search_desc">Choose high-volume warning limit</string>
+    <string name="settings_rhythm_guard_alert_threshold_search_title">Exposure Alert Threshold</string>
+    <string name="settings_rhythm_guard_alert_threshold_search_desc">Set how much daily listening triggers a safety alert</string>
+    <string name="settings_rhythm_guard_warning_timeout_search_title">Alert Cooldown</string>
+    <string name="settings_rhythm_guard_warning_timeout_search_desc">Set the cooldown between repeated Rhythm Guard alerts</string>
+    <string name="settings_rhythm_guard_break_resume_search_title">Default Break Resume</string>
+    <string name="settings_rhythm_guard_break_resume_search_desc">Set how long scheduled listening breaks last by default</string>
+    <string name="settings_rhythm_guard_enable_search_title">Rhythm Guard Power</string>
+    <string name="settings_rhythm_guard_enable_search_desc">Enable or disable Rhythm Guard protections</string>
     <string name="label_enabled">Enabled</string>
     <string name="label_disabled">Disabled</string>
     

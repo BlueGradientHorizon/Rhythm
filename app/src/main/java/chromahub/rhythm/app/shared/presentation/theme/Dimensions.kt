@@ -42,7 +42,7 @@ object MusicDimensions {
                 density < 2.5f -> 1.1f  // Medium density devices: moderately larger
                 else -> 0.9f            // High density devices: slightly smaller to save screen space
             }
-            (80f * scaleFactor).dp
+            (66f * scaleFactor).dp
         }
     
     val topAppBarHeight = 64.dp

@@ -38,7 +38,19 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.runtime.LaunchedEffect
+import chromahub.rhythm.app.shared.data.repository.PlaybackStatsRepository
+import chromahub.rhythm.app.shared.presentation.navigation.RhythmGuardRiskLevel
+import chromahub.rhythm.app.shared.presentation.navigation.rhythmGuardResolveRiskLevel
+import androidx.compose.ui.draw.clip
+import androidx.compose.material3.SuggestionChip
+import androidx.compose.material3.SuggestionChipDefaults
+
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -204,6 +216,8 @@ fun SettingsScreen(
     val showAlphabetBar by appSettings.showAlphabetBar.collectAsState()
     val showScrollToTop by appSettings.showScrollToTop.collectAsState()
     val appMode by appSettings.appMode.collectAsState()
+    val rhythmGuardMode by appSettings.rhythmGuardMode.collectAsState()
+    val showSettingsSuggestions by appSettings.showSettingsSuggestions.collectAsState()
     
     var showDefaultScreenDialog by remember { mutableStateOf(false) }
     var showLanguageSwitcher by remember { mutableStateOf(false) }
@@ -278,6 +292,13 @@ fun SettingsScreen(
                         context.getString(R.string.settings_gestures),
                         context.getString(R.string.settings_gestures_desc),
                         onClick = { onNavigateTo(SettingsRoutes.GESTURES) }
+                    ))
+                    add(SettingItem(
+                        Icons.Default.Lightbulb,
+                        "Settings Suggestions",
+                        "Show contextual suggestions at the top",
+                        toggleState = showSettingsSuggestions,
+                        onToggleChange = { appSettings.setShowSettingsSuggestions(it) }
                     ))
                 }
             ),
@@ -419,6 +440,18 @@ fun SettingsScreen(
                         .fillMaxSize()
                         .padding(horizontal = if (isTablet) 32.dp else 24.dp)
                 ) {
+                    item {
+                        if (showSettingsSuggestions) {
+                            SettingsTipsRow(
+                                onNavigateTo = onNavigateTo,
+                                rhythmGuardMode = rhythmGuardMode,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(vertical = 16.dp)
+                            )
+                        }
+                    }
+
                     items(settingGroups, key = { "setting_${it.title}" }) { group ->
                         Spacer(modifier = Modifier.height(28.dp))
                         Text(
@@ -446,63 +479,16 @@ fun SettingsScreen(
                                             modifier = Modifier.padding(horizontal = 20.dp),
                                             thickness = 1.dp,
                                             color = MaterialTheme.colorScheme.surfaceContainerHighest
-                                )
+                                        )
+                                    }
+                                }
                             }
                         }
+                    
+                        
+                    
                     }
                 }
-                            }
-
-            // Quick Tips Card
-            item {
-                Spacer(modifier = Modifier.height(24.dp))
-                Card(
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(18.dp),
-                    colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.primaryContainer
-                    )
-                ) {
-                    Column(
-                        modifier = Modifier.padding(20.dp)
-                    ) {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Icon(
-                                imageVector = Icons.Filled.Lightbulb,
-                                tint = MaterialTheme.colorScheme.onPrimaryContainer,
-                                contentDescription = null,
-                                modifier = Modifier.size(24.dp)
-                            )
-                            Spacer(modifier = Modifier.width(12.dp))
-                            Text(
-                                text = context.getString(R.string.settings_quick_tips),
-                                style = MaterialTheme.typography.titleMedium,
-                                fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.onPrimaryContainer
-                            )
-                        }
-                        Spacer(modifier = Modifier.height(12.dp))
-
-                        TipItem(
-                            icon = Icons.Default.Palette,
-                            text = context.getString(R.string.settings_tip_theme)
-                        )
-                        TipItem(
-                            icon = Icons.Default.TouchApp,
-                            text = context.getString(R.string.settings_tip_haptic)
-                        )
-                        TipItem(
-                            icon = Icons.Default.Folder,
-                            text = context.getString(R.string.settings_tip_media_scan)
-                        )
-                    }
-                }
-                Spacer(modifier = Modifier.height(24.dp))
-//                Spacer(modifier = Modifier.height(24.dp)) // Space at the bottom
-            }
-        }
             } // End of else branch for search
         } // End of Column
         
@@ -1210,27 +1196,290 @@ private fun AnimatedSwitch(
     )
 }
 
+data class SettingsTipData(
+    val id: String,
+    val icon: ImageVector,
+    val title: String,
+    val text: String,
+    val route: String? = null,
+    val isPrimary: Boolean = false,
+    val riskLevel: RhythmGuardRiskLevel? = null,
+    val fillProgress: Float? = null
+)
+
 @Composable
-private fun TipItem(
-    icon: ImageVector,
-    text: String
+fun SettingsTipsRow(
+    onNavigateTo: (String) -> Unit,
+    rhythmGuardMode: String,
+    modifier: Modifier = Modifier
 ) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.padding(vertical = 6.dp)
-    ) {
-        Icon(
-            imageVector = icon,
-            contentDescription = null,
-            tint = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.7f),
-            modifier = Modifier.size(18.dp)
-        )
-        Spacer(modifier = Modifier.width(12.dp))
-        Text(
-            text = text,
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onPrimaryContainer
-        )
+    val context = LocalContext.current
+    var dismissedIds by rememberSaveable { mutableStateOf(setOf<String>()) }
+    
+    // Playback stats
+    var todayExposureMinutes by remember { mutableStateOf(0) }
+    var currentRiskLevel by remember { mutableStateOf(RhythmGuardRiskLevel.LOW) }
+    
+    val appSettings = remember { chromahub.rhythm.app.shared.data.model.AppSettings.getInstance(context) }
+    val limitMinutes by appSettings.rhythmGuardAlertThresholdMinutes.collectAsState()
+    val manualVolumeFloat by appSettings.rhythmGuardManualVolumeThreshold.collectAsState()
+
+    LaunchedEffect(limitMinutes, manualVolumeFloat) {
+        val statsRepo = chromahub.rhythm.app.shared.data.repository.PlaybackStatsRepository.getInstance(context)
+        val audioManager = context.getSystemService(android.content.Context.AUDIO_SERVICE) as android.media.AudioManager
+        
+        while (true) {
+            val stats = statsRepo.loadSummary(chromahub.rhythm.app.shared.data.repository.StatsTimeRange.TODAY)
+            todayExposureMinutes = (stats.totalDurationMs / 60000).toInt()
+            
+            val maxVol = audioManager.getStreamMaxVolume(android.media.AudioManager.STREAM_MUSIC)
+            val currentVol = audioManager.getStreamVolume(android.media.AudioManager.STREAM_MUSIC)
+            val currentVolumePercent = if (maxVol > 0) ((currentVol.toFloat() / maxVol) * 100).toInt() else 0
+            
+            val safeLimit = if (limitMinutes > 0) limitMinutes else 90
+            val safeThreshold = (manualVolumeFloat * 100).toInt().coerceAtLeast(1)
+            
+            currentRiskLevel = chromahub.rhythm.app.shared.presentation.navigation.rhythmGuardResolveRiskLevel(
+                currentVolumePercent = currentVolumePercent, 
+                safeThresholdPercent = safeThreshold,
+                exposureMinutes = todayExposureMinutes,
+                exposureLimitMinutes = safeLimit
+            )
+            kotlinx.coroutines.delay(2000)
+        }
+    }
+    
+    // Generate a fixed seed when the view enters to keep shuffle stable during recompositions
+    val shuffleSeed = rememberSaveable { kotlin.random.Random.nextInt() }
+    
+    val tips = remember(rhythmGuardMode, dismissedIds, todayExposureMinutes, currentRiskLevel) {
+        val random = kotlin.random.Random(shuffleSeed)
+        buildList {
+            if ("rhythm_guard" !in dismissedIds) {
+                val desc = when (rhythmGuardMode) {
+                    "OFF" -> context.getString(R.string.settings_tip_rhythm_guard_off)
+                    "MANUAL" -> context.getString(R.string.settings_tip_rhythm_guard_manual)
+                    else -> context.getString(R.string.settings_tip_rhythm_guard_auto)
+                }
+                
+                val progress = (todayExposureMinutes.toFloat() / 90f).coerceIn(0.05f, 1f)
+
+                add(
+                    SettingsTipData(
+                        id = "rhythm_guard",
+                        icon = Icons.Default.Security,
+                        title = "Rhythm Guard",
+                        text = desc,
+                        route = SettingsRoutes.RHYTHM_GUARD,
+                        isPrimary = true,
+                        riskLevel = if (rhythmGuardMode == "OFF") null else currentRiskLevel,
+                        fillProgress = if (rhythmGuardMode == "OFF") null else progress
+                    )
+                )
+            }
+            if ("theme" !in dismissedIds) {
+                val descs = listOf(
+                    context.getString(R.string.settings_tip_theme),
+                    "Refresh your music player with lively AMOLED black and beautiful pastel colors.",
+                    "Make Rhythm truly yours by matching the app's accent to your system."
+                )
+                add(
+                    SettingsTipData(
+                        id = "theme",
+                        icon = Icons.Default.Palette,
+                        title = "Personalization",
+                        text = descs.random(random),
+                        route = SettingsRoutes.THEME_CUSTOMIZATION
+                    )
+                )
+            }
+            if ("haptic" !in dismissedIds) {
+                val descs = listOf(
+                    context.getString(R.string.settings_tip_haptic),
+                    "Immerse yourself by turning on subtle physical feedback across the playback controls.",
+                    "Enhance your navigation with engaging haptic device vibrations."
+                )
+                add(
+                    SettingsTipData(
+                        id = "haptic",
+                        icon = Icons.Default.TouchApp,
+                        title = "Haptics",
+                        text = descs.random(random),
+                        route = null
+                    )
+                )
+            }
+            if ("media_scan" !in dismissedIds) {
+                val descs = listOf(
+                    context.getString(R.string.settings_tip_media_scan),
+                    "Avoid unwanted audio clips. Explicitly define which folders we should scan for music.",
+                    "Keep voice notes and ringtones away from your playlists using focus folders."
+                )
+                add(
+                    SettingsTipData(
+                        id = "media_scan",
+                        icon = Icons.Default.Folder,
+                        title = "Library Focus",
+                        text = descs.random(random),
+                        route = SettingsRoutes.MEDIA_SCAN
+                    )
+                )
+            }
+            if ("sleep_timer" !in dismissedIds) {
+                val descs = listOf(
+                    "Drift off to sleep while your music is playing. We'll automatically pause it.",
+                    "Set an automated sleep timer before bed so playback stops perfectly."
+                )
+                add(
+                    SettingsTipData(
+                        id = "sleep_timer",
+                        icon = Icons.Default.AccessTime,
+                        title = "Sleep Timer",
+                        text = descs.random(random),
+                        route = SettingsRoutes.SLEEP_TIMER
+                    )
+                )
+            }
+            if ("equalizer" !in dismissedIds) {
+                val descs = listOf(
+                    "Elevate your experience. Boost the bass and adjust frequencies using the Equalizer.",
+                    "Tune the sound to your headphones securely with our advanced audio effects."
+                )
+                add(
+                    SettingsTipData(
+                        id = "equalizer",
+                        icon = Icons.Default.Equalizer,
+                        title = "Audio Equalizer",
+                        text = descs.random(random),
+                        route = SettingsRoutes.EQUALIZER
+                    )
+                )
+            }
+        }.shuffled(random)
+    }
+
+    if (tips.isNotEmpty()) {
+        LazyRow(
+            modifier = modifier,
+            horizontalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(16.dp),
+            contentPadding = androidx.compose.foundation.layout.PaddingValues(horizontal = 16.dp, vertical = 8.dp)
+        ) {
+            items(tips, key = { it.id }) { tip ->
+                SettingsTipCard(
+                    tip = tip,
+                    onDismiss = { dismissedIds = dismissedIds + tip.id },
+                    onClick = { tip.route?.let { onNavigateTo(it) } }
+                )
+            }
+        }
     }
 }
 
+@Composable
+fun SettingsTipCard(
+    tip: SettingsTipData,
+    onDismiss: () -> Unit,
+    onClick: () -> Unit
+) {
+    val isPrimary = tip.isPrimary
+    val containerColor = if (isPrimary) {
+        MaterialTheme.colorScheme.tertiaryContainer
+    } else {
+        MaterialTheme.colorScheme.surfaceContainerHigh
+    }
+    val contentColor = if (isPrimary) {
+        MaterialTheme.colorScheme.onTertiaryContainer
+    } else {
+        MaterialTheme.colorScheme.onSurfaceVariant
+    }
+    
+    val defaultIconBg = if (isPrimary) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.secondaryContainer
+    val iconColor = if (isPrimary) MaterialTheme.colorScheme.onTertiary else MaterialTheme.colorScheme.onSecondaryContainer
+
+    // Use health status directly for icon background if available, looks much cleaner than partial filling!
+    val indicatorColor = if (tip.riskLevel != null) {
+        when (tip.riskLevel) {
+            RhythmGuardRiskLevel.LOW -> androidx.compose.ui.graphics.Color(0xFF4CAF50)
+            RhythmGuardRiskLevel.MODERATE -> androidx.compose.ui.graphics.Color(0xFFFF9800)
+            RhythmGuardRiskLevel.HIGH -> androidx.compose.ui.graphics.Color(0xFFFF5722)
+            RhythmGuardRiskLevel.SEVERE -> MaterialTheme.colorScheme.error
+        }
+    } else null
+
+    Card(
+        modifier = Modifier
+            .width(320.dp)
+            .height(160.dp)
+            .clickable(onClick = onClick),
+        shape = RoundedCornerShape(32.dp),
+        colors = CardDefaults.cardColors(containerColor = containerColor),
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
+    ) {
+        Row(modifier = Modifier.fillMaxSize()) {
+            Column(
+                modifier = Modifier
+                    .padding(20.dp)
+                    .fillMaxSize()
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = androidx.compose.foundation.layout.Arrangement.SpaceBetween,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    // Expressive icon
+                    Box(
+                        modifier = Modifier
+                            .size(40.dp)
+                            .clip(RoundedCornerShape(12.dp))
+                            .background(indicatorColor ?: defaultIconBg),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(
+                            imageVector = tip.icon,
+                            contentDescription = null,
+                            tint = if (indicatorColor != null) androidx.compose.ui.graphics.Color.White else iconColor,
+                            modifier = Modifier.size(24.dp)
+                        )
+                    }
+                    
+                    androidx.compose.material3.IconButton(
+                        onClick = onDismiss,
+                        modifier = Modifier
+                            .size(32.dp)
+                            .clip(CircleShape)
+                            .background(MaterialTheme.colorScheme.surface.copy(alpha = 0.4f))
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Close,
+                            contentDescription = "Dismiss",
+                            tint = contentColor,
+                            modifier = Modifier.size(16.dp)
+                        )
+                    }
+                }
+                
+                Spacer(modifier = Modifier.weight(1f))
+                
+                Text(
+                    text = tip.title,
+                    style = MaterialTheme.typography.titleLarge, 
+                    fontWeight = FontWeight.Bold,
+                    color = contentColor,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+                
+                Spacer(modifier = Modifier.height(2.dp))
+                
+                Text(
+                    text = tip.text,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = contentColor.copy(alpha = 0.85f),
+                    lineHeight = 18.sp,
+                    maxLines = 3,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
+        }
+    }
+}

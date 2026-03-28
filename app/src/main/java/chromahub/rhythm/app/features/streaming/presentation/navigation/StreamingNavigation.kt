@@ -388,7 +388,7 @@ private fun StreamingBottomNavBar(
                 shape = RoundedCornerShape(25.dp),
                 tonalElevation = 3.dp,
                 modifier = Modifier
-                    .height(64.dp)
+                    .height(60.dp)
                     .weight(1f)
             ) {
                 Row(
