@@ -14,6 +14,7 @@ import android.net.Uri
 import android.provider.MediaStore
 import android.util.Log
 import android.util.LruCache
+import androidx.core.net.toUri
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.media3.common.C
@@ -1807,8 +1808,8 @@ class MusicViewModel(application: Application) : AndroidViewModel(application) {
             _albums.value = repository.loadAlbums()
             _artists.value = repository.loadArtists()
             
-            // Persist updated metadata to disk cache
-            repository.persistSongCacheToDisk()
+            // Persist the updated songs list so metadata/artwork edits survive restarts.
+            repository.updateAndPersistSongs(updatedSongs)
             
             Log.d(TAG, "Updated song metadata: ${updatedSong.title} by ${updatedSong.artist}")
         }
@@ -1827,6 +1828,7 @@ class MusicViewModel(application: Application) : AndroidViewModel(application) {
         year: Int,
         trackNumber: Int,
         artworkUri: Uri? = null,
+        removeArtwork: Boolean = false,
         onSuccess: (fileWriteSucceeded: Boolean) -> Unit,
         onError: (String) -> Unit,
         onPermissionRequired: ((PendingWriteRequest) -> Unit)? = null
@@ -1863,8 +1865,29 @@ class MusicViewModel(application: Application) : AndroidViewModel(application) {
                         newAlbum = album,
                         newGenre = genre,
                         newYear = year,
-                        newTrackNumber = trackNumber
+                        newTrackNumber = trackNumber,
+                        artworkUri = artworkUri,
+                        removeArtwork = removeArtwork
                     )
+                }
+
+                val updatedArtworkUri = when {
+                    removeArtwork -> {
+                        clearCachedArtwork(context, song.id)
+                        persistArtworkOverrideRemoved(context, song.id)
+                        null
+                    }
+                    artworkUri != null -> {
+                        try {
+                            val cachedUri = saveArtworkToCache(context, song, artworkUri) ?: artworkUri
+                            persistArtworkOverrideUri(context, song.id, cachedUri)
+                            cachedUri
+                        } catch (e: Exception) {
+                            Log.w(TAG, "Failed to cache updated artwork for ${song.title}", e)
+                            artworkUri
+                        }
+                    }
+                    else -> song.artworkUri
                 }
                 
                 // Always update in-memory data
@@ -1874,7 +1897,8 @@ class MusicViewModel(application: Application) : AndroidViewModel(application) {
                     album = album,
                     genre = genre,
                     year = year,
-                    trackNumber = trackNumber
+                    trackNumber = trackNumber,
+                    artworkUri = updatedArtworkUri
                 )
                 
                 // Update the song using existing function
@@ -1887,17 +1911,6 @@ class MusicViewModel(application: Application) : AndroidViewModel(application) {
                         genrePrefs.edit().putString("genre_${song.id}", genre).apply()
                     } catch (e: Exception) {
                         Log.w(TAG, "Failed to update genre cache for song ${song.id}", e)
-                    }
-                }
-                
-                // Handle artwork saving if provided
-                if (artworkUri != null && success) {
-                    try {
-                        // Save artwork to cache directory for now
-                        saveArtworkToCache(context, song, artworkUri)
-                        Log.d(TAG, "Artwork saved to cache for: $title")
-                    } catch (e: Exception) {
-                        Log.w(TAG, "Failed to save artwork, but metadata was saved successfully", e)
                     }
                 }
                 
@@ -1918,7 +1931,9 @@ class MusicViewModel(application: Application) : AndroidViewModel(application) {
                                     newAlbum = album,
                                     newGenre = genre,
                                     newYear = year,
-                                    newTrackNumber = trackNumber
+                                    newTrackNumber = trackNumber,
+                                    artworkUri = artworkUri,
+                                    removeArtwork = removeArtwork
                                 )
                             }
                             
@@ -1951,7 +1966,24 @@ class MusicViewModel(application: Application) : AndroidViewModel(application) {
                     album = album,
                     genre = genre,
                     year = year,
-                    trackNumber = trackNumber
+                    trackNumber = trackNumber,
+                    artworkUri = when {
+                        removeArtwork -> {
+                            clearCachedArtwork(context, song.id)
+                            persistArtworkOverrideRemoved(context, song.id)
+                            null
+                        }
+                        artworkUri != null -> {
+                            try {
+                                val cachedUri = saveArtworkToCache(context, song, artworkUri) ?: artworkUri
+                                persistArtworkOverrideUri(context, song.id, cachedUri)
+                                cachedUri
+                            } catch (_: Exception) {
+                                artworkUri
+                            }
+                        }
+                        else -> song.artworkUri
+                    }
                 )
                 updateCurrentSongMetadata(updatedSong)
                 
@@ -1966,7 +1998,9 @@ class MusicViewModel(application: Application) : AndroidViewModel(application) {
                             newAlbum = album,
                             newGenre = genre,
                             newYear = year,
-                            newTrackNumber = trackNumber
+                            newTrackNumber = trackNumber,
+                            artworkUri = artworkUri,
+                            removeArtwork = removeArtwork
                         )
                     }
                     
@@ -2023,6 +2057,29 @@ class MusicViewModel(application: Application) : AndroidViewModel(application) {
                 _pendingWriteRequest.value = null
                 
                 if (success) {
+                    val updatedArtworkUri = when {
+                        pendingRequest.removeArtwork -> {
+                            clearCachedArtwork(context, pendingRequest.song.id)
+                            persistArtworkOverrideRemoved(context, pendingRequest.song.id)
+                            null
+                        }
+                        !pendingRequest.artworkUriString.isNullOrBlank() -> {
+                            val pendingArtworkUri = pendingRequest.artworkUriString.toUri()
+                            try {
+                                val cachedUri = saveArtworkToCache(
+                                    context,
+                                    pendingRequest.song,
+                                    pendingArtworkUri
+                                ) ?: pendingArtworkUri
+                                persistArtworkOverrideUri(context, pendingRequest.song.id, cachedUri)
+                                cachedUri
+                            } catch (_: Exception) {
+                                pendingArtworkUri
+                            }
+                        }
+                        else -> pendingRequest.song.artworkUri
+                    }
+
                     // Update in-memory data
                     val updatedSong = pendingRequest.song.copy(
                         title = pendingRequest.newTitle,
@@ -2030,7 +2087,8 @@ class MusicViewModel(application: Application) : AndroidViewModel(application) {
                         album = pendingRequest.newAlbum,
                         genre = pendingRequest.newGenre,
                         year = pendingRequest.newYear,
-                        trackNumber = pendingRequest.newTrackNumber
+                        trackNumber = pendingRequest.newTrackNumber,
+                        artworkUri = updatedArtworkUri
                     )
                     updateCurrentSongMetadata(updatedSong)
                     
@@ -2078,6 +2136,8 @@ class MusicViewModel(application: Application) : AndroidViewModel(application) {
         album: String?,
         genre: String?,
         year: Int?,
+        artworkUri: Uri? = null,
+        removeArtwork: Boolean = false,
         onProgress: (Int, Int) -> Unit,
         onComplete: (successCount: Int, failCount: Int) -> Unit
     ) {
@@ -2094,6 +2154,7 @@ class MusicViewModel(application: Application) : AndroidViewModel(application) {
                     val newAlbum = album ?: song.album
                     val newGenre = genre ?: (song.genre ?: "")
                     val newYear = year ?: song.year
+                    val hasArtworkEdit = artworkUri != null || removeArtwork
 
                     // Check if file format is supported before attempting write
                     val fileExtension = try {
@@ -2110,7 +2171,7 @@ class MusicViewModel(application: Application) : AndroidViewModel(application) {
 
                     val success = if (formatSupported) {
                         try {
-                            withContext(Dispatchers.IO) {
+                            val fileWriteSuccess = withContext(Dispatchers.IO) {
                                 chromahub.rhythm.app.util.MediaUtils.updateSongMetadata(
                                     context = context,
                                     song = song,
@@ -2119,8 +2180,22 @@ class MusicViewModel(application: Application) : AndroidViewModel(application) {
                                     newAlbum = newAlbum,
                                     newGenre = newGenre,
                                     newYear = newYear,
-                                    newTrackNumber = song.trackNumber
+                                    newTrackNumber = song.trackNumber,
+                                    artworkUri = artworkUri,
+                                    removeArtwork = removeArtwork
                                 )
+                            }
+
+                            if (!fileWriteSuccess && Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                                // Batch flow cannot open per-item permission dialogs like single-edit.
+                                // Count this as partial success when MediaStore/app-level state is still updated.
+                                Log.w(
+                                    TAG,
+                                    "Batch edit: file tag write blocked by scoped storage for ${song.title}; counting as partial success"
+                                )
+                                true
+                            } else {
+                                fileWriteSuccess
                             }
                         } catch (e: chromahub.rhythm.app.util.RecoverableSecurityExceptionWrapper) {
                             // On Android 11+, file write requires per-file user permission (scoped storage).
@@ -2131,7 +2206,7 @@ class MusicViewModel(application: Application) : AndroidViewModel(application) {
                         }
                     } else {
                         // Unsupported format — update MediaStore only via ContentValues
-                        try {
+                        val mediaStoreSuccess = try {
                             withContext(Dispatchers.IO) {
                                 val values = android.content.ContentValues().apply {
                                     put(android.provider.MediaStore.Audio.Media.ARTIST, newArtist)
@@ -2149,13 +2224,42 @@ class MusicViewModel(application: Application) : AndroidViewModel(application) {
                             Log.w(TAG, "Batch edit: MediaStore-only update failed for ${song.title}", e)
                             false
                         }
+
+                        if (hasArtworkEdit) {
+                            Log.w(
+                                TAG,
+                                "Batch artwork update skipped for unsupported format .$fileExtension (${song.title})"
+                            )
+                            false
+                        } else {
+                            mediaStoreSuccess
+                        }
+                    }
+
+                    val updatedArtworkUri = when {
+                        removeArtwork -> {
+                            clearCachedArtwork(context, song.id)
+                            persistArtworkOverrideRemoved(context, song.id)
+                            null
+                        }
+                        artworkUri != null -> {
+                            try {
+                                val cachedUri = saveArtworkToCache(context, song, artworkUri) ?: artworkUri
+                                persistArtworkOverrideUri(context, song.id, cachedUri)
+                                cachedUri
+                            } catch (_: Exception) {
+                                artworkUri
+                            }
+                        }
+                        else -> song.artworkUri
                     }
 
                     val updatedSong = song.copy(
                         artist = newArtist,
                         album = newAlbum,
                         genre = newGenre,
-                        year = newYear
+                        year = newYear,
+                        artworkUri = updatedArtworkUri
                     )
                     // Track for bulk update
                     updatedSongs[song.id] = updatedSong
@@ -2192,19 +2296,56 @@ class MusicViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
     
-    private suspend fun saveArtworkToCache(context: Context, song: Song, artworkUri: Uri) {
+    private suspend fun saveArtworkToCache(context: Context, song: Song, artworkUri: Uri): Uri? {
         try {
-            val inputStream = context.contentResolver.openInputStream(artworkUri)
-            if (inputStream != null) {
+            context.contentResolver.openInputStream(artworkUri)?.use { inputStream ->
                 val artworkFile = File(context.cacheDir, "artwork_${song.id}.jpg")
                 artworkFile.outputStream().use { output ->
                     inputStream.copyTo(output)
                 }
                 Log.d(TAG, "Artwork saved to cache: ${artworkFile.absolutePath}")
+                return artworkFile.toUri()
             }
+            return null
         } catch (e: Exception) {
             Log.e(TAG, "Failed to save artwork to cache", e)
             throw e
+        }
+    }
+
+    private fun persistArtworkOverrideRemoved(context: Context, songId: String) {
+        try {
+            context.getSharedPreferences("artwork_overrides", Context.MODE_PRIVATE)
+                .edit()
+                .putBoolean("removed_$songId", true)
+                .remove("uri_$songId")
+                .apply()
+        } catch (e: Exception) {
+            Log.w(TAG, "Failed to persist removed artwork override for song $songId", e)
+        }
+    }
+
+    private fun persistArtworkOverrideUri(context: Context, songId: String, artworkUri: Uri?) {
+        if (artworkUri == null) return
+        try {
+            context.getSharedPreferences("artwork_overrides", Context.MODE_PRIVATE)
+                .edit()
+                .putBoolean("removed_$songId", false)
+                .putString("uri_$songId", artworkUri.toString())
+                .apply()
+        } catch (e: Exception) {
+            Log.w(TAG, "Failed to persist artwork override URI for song $songId", e)
+        }
+    }
+
+    private fun clearCachedArtwork(context: Context, songId: String) {
+        try {
+            val cachedArtwork = File(context.cacheDir, "artwork_${songId}.jpg")
+            if (cachedArtwork.exists()) {
+                cachedArtwork.delete()
+            }
+        } catch (e: Exception) {
+            Log.w(TAG, "Failed to clear cached artwork for song $songId", e)
         }
     }
     

@@ -900,7 +900,7 @@ fun PlayerScreen(
             song = song,
             onDismiss = { showSongInfoSheet = false },
             appSettings = appSettings,
-            onEditSong = { title, artist, album, genre, year, trackNumber ->
+            onEditSong = { title, artist, album, genre, year, trackNumber, artworkUri, removeArtwork ->
                 try {
                     // Use the ViewModel's new metadata saving function
                     musicViewModel.saveMetadataChanges(
@@ -911,6 +911,8 @@ fun PlayerScreen(
                         genre = genre,
                         year = year,
                         trackNumber = trackNumber,
+                        artworkUri = artworkUri,
+                        removeArtwork = removeArtwork,
                         onSuccess = { fileWriteSucceeded ->
                             if (fileWriteSucceeded) {
                                 Toast.makeText(context, "Metadata saved successfully to file!", Toast.LENGTH_SHORT).show()

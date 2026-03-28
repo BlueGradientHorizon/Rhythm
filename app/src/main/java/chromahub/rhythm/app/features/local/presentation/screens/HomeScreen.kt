@@ -411,7 +411,7 @@ fun HomeScreen(
             song = selectedSongForPlaylist,
             onDismiss = { showSongInfoSheet = false },
             appSettings = AppSettings.getInstance(context),
-            onEditSong = { title, artist, album, genre, year, trackNumber ->
+            onEditSong = { title, artist, album, genre, year, trackNumber, artworkUri, removeArtwork ->
                 musicViewModel.saveMetadataChanges(
                     song = selectedSongForPlaylist!!,
                     title = title,
@@ -420,6 +420,8 @@ fun HomeScreen(
                     genre = genre,
                     year = year,
                     trackNumber = trackNumber,
+                    artworkUri = artworkUri,
+                    removeArtwork = removeArtwork,
                     onSuccess = { fileWriteSucceeded ->
                         if (fileWriteSucceeded) {
                             Toast.makeText(context, "Metadata saved successfully to file!", Toast.LENGTH_SHORT).show()

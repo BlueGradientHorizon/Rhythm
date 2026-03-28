@@ -2165,7 +2165,7 @@ private fun LocalNavigationContent(
                                 selectedSongForInfo = null
                             },
                             appSettings = appSettings,
-                            onEditSong = { title, artist, album, genre, year, trackNumber ->
+                            onEditSong = { title, artist, album, genre, year, trackNumber, artworkUri, removeArtwork ->
                                 viewModel.saveMetadataChanges(
                                     song = selectedSongForInfo!!,
                                     title = title,
@@ -2174,6 +2174,8 @@ private fun LocalNavigationContent(
                                     genre = genre,
                                     year = year,
                                     trackNumber = trackNumber,
+                                    artworkUri = artworkUri,
+                                    removeArtwork = removeArtwork,
                                     onSuccess = { fileWriteSucceeded ->
                                         if (fileWriteSucceeded) {
                                             android.widget.Toast.makeText(context, "Metadata saved successfully to file!", android.widget.Toast.LENGTH_SHORT).show()

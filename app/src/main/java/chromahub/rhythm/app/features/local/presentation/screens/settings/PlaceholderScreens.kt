@@ -96,8 +96,10 @@ import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import kotlin.system.exitProcess
 import chromahub.rhythm.app.shared.presentation.components.common.CollapsibleHeaderScreen
+import chromahub.rhythm.app.shared.presentation.components.common.ButtonGroupStyle
 import chromahub.rhythm.app.shared.presentation.components.common.ExpressiveScrollBar
 import chromahub.rhythm.app.shared.presentation.components.common.ExpressiveButtonGroup
+import chromahub.rhythm.app.shared.presentation.components.common.ExpressiveGroupButton
 import chromahub.rhythm.app.shared.presentation.components.icons.RhythmIcons
 import chromahub.rhythm.app.features.local.presentation.components.bottomsheets.StandardBottomSheetHeader
 import chromahub.rhythm.app.shared.presentation.components.common.StyledProgressBar
@@ -9205,36 +9207,36 @@ private fun BackupRestoreSectionPickerBottomSheet(
 
             Spacer(modifier = Modifier.height(18.dp))
 
-            Row(
+            ExpressiveButtonGroup(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 20.dp),
-                horizontalArrangement = Arrangement.spacedBy(10.dp)
+                style = ButtonGroupStyle.Tonal
             ) {
-                OutlinedButton(
+                ExpressiveGroupButton(
                     onClick = onDismiss,
                     modifier = Modifier.weight(1f),
                     enabled = !isProcessing,
-                    shape = RoundedCornerShape(14.dp)
+                    isStart = true
                 ) {
                     Icon(
                         imageVector = Icons.Default.Close,
                         contentDescription = null,
-                        modifier = Modifier.size(16.dp)
+                        modifier = Modifier.size(18.dp)
                     )
-                    Spacer(modifier = Modifier.width(8.dp))
+                    Spacer(modifier = Modifier.width(6.dp))
                     Text(context.getString(R.string.ui_cancel))
                 }
 
-                Button(
+                ExpressiveGroupButton(
                     onClick = { onConfirm(sections) },
                     modifier = Modifier.weight(1f),
                     enabled = sections.hasAtLeastOneSectionSelected && !isProcessing,
-                    shape = RoundedCornerShape(14.dp)
+                    isEnd = true
                 ) {
                     if (isProcessing) {
                         CircularProgressIndicator(
-                            modifier = Modifier.size(16.dp),
+                            modifier = Modifier.size(18.dp),
                             strokeWidth = 2.dp,
                             color = MaterialTheme.colorScheme.onPrimary
                         )
@@ -9242,9 +9244,9 @@ private fun BackupRestoreSectionPickerBottomSheet(
                         Icon(
                             imageVector = confirmIcon,
                             contentDescription = null,
-                            modifier = Modifier.size(16.dp)
+                            modifier = Modifier.size(18.dp)
                         )
-                        Spacer(modifier = Modifier.width(8.dp))
+                        Spacer(modifier = Modifier.width(6.dp))
                         Text(confirmLabel)
                     }
                 }
@@ -9450,51 +9452,66 @@ private fun BackupRestoreResultBottomSheet(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 20.dp),
-                horizontalArrangement = Arrangement.spacedBy(10.dp)
-            ) {
-                if (!state.requiresRestart) {
-                    FilledTonalButton(
+            if (!state.requiresRestart) {
+                ExpressiveButtonGroup(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 20.dp),
+                    style = ButtonGroupStyle.Tonal
+                ) {
+                    ExpressiveGroupButton(
                         onClick = onDismiss,
                         modifier = Modifier.weight(1f),
-                        shape = RoundedCornerShape(14.dp)
+                        isStart = true
                     ) {
                         Icon(
                             imageVector = Icons.Default.Close,
                             contentDescription = null,
-                            modifier = Modifier.size(16.dp)
+                            modifier = Modifier.size(18.dp)
                         )
-                        Spacer(modifier = Modifier.width(8.dp))
+                        Spacer(modifier = Modifier.width(6.dp))
                         Text(context.getString(R.string.ui_close))
                     }
+
+                    ExpressiveGroupButton(
+                        onClick = onPrimaryAction,
+                        modifier = Modifier.weight(1f),
+                        isEnd = true
+                    ) {
+                        Icon(
+                            imageVector = if (state.isError) {
+                                Icons.Default.Refresh
+                            } else {
+                                Icons.Default.Check
+                            },
+                            contentDescription = null,
+                            modifier = Modifier.size(18.dp)
+                        )
+                        Spacer(modifier = Modifier.width(6.dp))
+                        Text(context.getString(R.string.ui_ok))
+                    }
                 }
-                Button(
-                    onClick = onPrimaryAction,
-                    modifier = Modifier.weight(1f),
-                    shape = RoundedCornerShape(14.dp)
+            } else {
+                ExpressiveButtonGroup(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 20.dp),
+                    style = ButtonGroupStyle.Tonal
                 ) {
-                    Icon(
-                        imageVector = if (state.requiresRestart) {
-                            Icons.Default.RestartAlt
-                        } else if (state.isError) {
-                            Icons.Default.Refresh
-                        } else {
-                            Icons.Default.Check
-                        },
-                        contentDescription = null,
-                        modifier = Modifier.size(16.dp)
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(
-                        if (state.requiresRestart) {
-                            context.getString(R.string.settings_restart_now)
-                        } else {
-                            context.getString(R.string.ui_ok)
-                        }
-                    )
+                    ExpressiveGroupButton(
+                        onClick = onPrimaryAction,
+                        modifier = Modifier.weight(1f),
+                        isStart = true,
+                        isEnd = true
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.RestartAlt,
+                            contentDescription = null,
+                            modifier = Modifier.size(18.dp)
+                        )
+                        Spacer(modifier = Modifier.width(6.dp))
+                        Text(context.getString(R.string.settings_restart_now))
+                    }
                 }
             }
         }

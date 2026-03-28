@@ -884,7 +884,7 @@ fun SearchScreen(
             song = selectedSong,
             onDismiss = { showSongInfoSheet = false },
             appSettings = AppSettings.getInstance(context),
-            onEditSong = { title, artist, album, genre, year, trackNumber ->
+            onEditSong = { title, artist, album, genre, year, trackNumber, artworkUri, removeArtwork ->
                 viewModel.saveMetadataChanges(
                     song = selectedSong!!,
                     title = title,
@@ -893,6 +893,8 @@ fun SearchScreen(
                     genre = genre,
                     year = year,
                     trackNumber = trackNumber,
+                    artworkUri = artworkUri,
+                    removeArtwork = removeArtwork,
                     onSuccess = { fileWriteSucceeded ->
                         if (fileWriteSucceeded) {
                             Toast.makeText(context, "Metadata saved successfully to file!", Toast.LENGTH_SHORT).show()

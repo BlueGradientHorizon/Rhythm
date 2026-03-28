@@ -121,6 +121,7 @@ class MusicRepository(context: Context) {
     
     // Genre cache using SharedPreferences
     private val genrePrefs: SharedPreferences by lazy { context.getSharedPreferences("genre_cache", Context.MODE_PRIVATE) }
+    private val artworkPrefs: SharedPreferences by lazy { context.getSharedPreferences("artwork_overrides", Context.MODE_PRIVATE) }
     
     // Scan progress tracking
     private val _scanProgress = MutableStateFlow(ScanProgress(0, 0, "Idle"))
@@ -899,6 +900,10 @@ class MusicRepository(context: Context) {
                 Uri.parse("content://media/external/audio/albumart"),
                 albumId
             )
+            val artworkRemovedOverride = artworkPrefs.getBoolean("removed_${id}", false)
+            val artworkUriOverride = artworkPrefs.getString("uri_${id}", null)
+                ?.let { runCatching { Uri.parse(it) }.getOrNull() }
+
             val useEmbeddedArt = appSettings.ignoreMediaStoreCovers.value || appSettings.losslessArtwork.value
             val effectiveArtUri = if (useEmbeddedArt) {
                 // Check if embedded art was previously extracted to cache
@@ -924,6 +929,23 @@ class MusicRepository(context: Context) {
                 }
             } else {
                 albumArtUri
+            }
+
+            val finalArtworkUri = when {
+                artworkRemovedOverride -> null
+                artworkUriOverride != null -> {
+                    val isUsable = when (artworkUriOverride.scheme) {
+                        "file", null -> artworkUriOverride.path?.let { File(it).exists() } == true
+                        else -> true
+                    }
+                    if (isUsable) {
+                        artworkUriOverride
+                    } else {
+                        artworkPrefs.edit().remove("uri_${id}").apply()
+                        effectiveArtUri
+                    }
+                }
+                else -> effectiveArtUri
             }
 
             // Load cached genre if available
@@ -954,7 +976,7 @@ class MusicRepository(context: Context) {
                 albumId = albumId.toString(),
                 duration = duration,
                 uri = contentUri,
-                artworkUri = effectiveArtUri,
+                artworkUri = finalArtworkUri,
                 trackNumber = track,
                 year = year,
                 dateAdded = dateAdded,

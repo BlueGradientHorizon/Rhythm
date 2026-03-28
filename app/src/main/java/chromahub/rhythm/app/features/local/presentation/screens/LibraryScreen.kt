@@ -520,7 +520,7 @@ fun LibraryScreen(
             song = displaySong!!,
             onDismiss = { showSongInfoSheet = false },
             appSettings = appSettings,
-            onEditSong = { title, artist, album, genre, year, trackNumber ->
+            onEditSong = { title, artist, album, genre, year, trackNumber, artworkUri, removeArtwork ->
                 // Use the ViewModel's new metadata saving function with callbacks
                 musicViewModel.saveMetadataChanges(
                     song = displaySong!!,
@@ -530,6 +530,8 @@ fun LibraryScreen(
                     genre = genre,
                     year = year,
                     trackNumber = trackNumber,
+                    artworkUri = artworkUri,
+                    removeArtwork = removeArtwork,
                     onSuccess = { fileWriteSucceeded ->
                         if (fileWriteSucceeded) {
                             Toast.makeText(context, "Metadata saved successfully to file!", Toast.LENGTH_SHORT).show()
@@ -719,13 +721,15 @@ fun LibraryScreen(
                 showBatchEditSheet = false
                 multiSelectionState.clearSelection()
             },
-            onSave = { artist, album, genre, year ->
+            onSave = { artist, album, genre, year, artworkUri, removeArtwork ->
                 musicViewModel.batchEditMetadata(
                     songs = selectedSongs,
                     artist = artist,
                     album = album,
                     genre = genre,
                     year = year,
+                    artworkUri = artworkUri,
+                    removeArtwork = removeArtwork,
                     onProgress = { _, _ -> },
                     onComplete = { successCount, failCount ->
                         showBatchEditSheet = false
