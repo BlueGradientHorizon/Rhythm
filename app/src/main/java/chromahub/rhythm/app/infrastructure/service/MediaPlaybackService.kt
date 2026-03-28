@@ -5,6 +5,9 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.content.BroadcastReceiver
 import android.content.Context
+import android.media.AudioDeviceInfo
+import android.media.AudioManager
+import android.media.AudioMixerAttributes
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -370,6 +373,7 @@ class MediaPlaybackService : MediaLibraryService(), Player.Listener {
         // Enable bit-perfect when explicitly set OR when audio routing mode is "app" (direct DAC output)
         val audioRoutingMode = appSettings.audioRoutingMode.value
         val bitPerfectEnabled = appSettings.bitPerfectMode.value || audioRoutingMode == "app"
+        applyUsbExclusiveRoutingPreference()
         Log.d(TAG, "Initializing player with bit-perfect mode: $bitPerfectEnabled (routing: $audioRoutingMode)")
         rhythmPlayerEngine = RhythmPlayerEngine(
             this, 
@@ -902,8 +906,81 @@ class MediaPlaybackService : MediaLibraryService(), Player.Listener {
             updateCustomLayout()
         }
     }
+
+    /**
+     * Requests Android 14+ preferred mixer attributes for USB output when app routing is selected.
+     * This is the platform-side requirement for exclusive/bit-perfect mixer behavior when available.
+     */
+    private fun applyUsbExclusiveRoutingPreference() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            return
+        }
+
+        val audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
+        val mediaAttributes = android.media.AudioAttributes.Builder()
+            .setUsage(android.media.AudioAttributes.USAGE_MEDIA)
+            .setContentType(android.media.AudioAttributes.CONTENT_TYPE_MUSIC)
+            .build()
+
+        if (appSettings.audioRoutingMode.value != "app") {
+            clearUsbPreferredMixerAttributes(audioManager, mediaAttributes)
+            return
+        }
+
+        val usbOutput = audioManager.getDevices(AudioManager.GET_DEVICES_OUTPUTS)
+            .firstOrNull {
+                it.type == AudioDeviceInfo.TYPE_USB_DEVICE ||
+                    it.type == AudioDeviceInfo.TYPE_USB_HEADSET
+            }
+
+        if (usbOutput == null) {
+            Log.i(TAG, "App routing enabled but no USB output device is connected")
+            return
+        }
+
+        try {
+            val supportedMixerAttributes = audioManager.getSupportedMixerAttributes(usbOutput)
+            val bitPerfectMixer = supportedMixerAttributes.firstOrNull {
+                it.mixerBehavior == AudioMixerAttributes.MIXER_BEHAVIOR_BIT_PERFECT
+            }
+
+            if (bitPerfectMixer == null) {
+                Log.w(TAG, "USB device does not expose a bit-perfect mixer profile")
+                return
+            }
+
+            audioManager.setPreferredMixerAttributes(mediaAttributes, usbOutput, bitPerfectMixer)
+            Log.i(TAG, "Requested bit-perfect USB mixer attributes for app routing mode")
+        } catch (e: Exception) {
+            Log.w(TAG, "Failed to request USB preferred mixer attributes", e)
+        }
+    }
+
+    private fun clearUsbPreferredMixerAttributes(
+        audioManager: AudioManager,
+        mediaAttributes: android.media.AudioAttributes
+    ) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            return
+        }
+
+        audioManager.getDevices(AudioManager.GET_DEVICES_OUTPUTS)
+            .filter {
+                it.type == AudioDeviceInfo.TYPE_USB_DEVICE ||
+                    it.type == AudioDeviceInfo.TYPE_USB_HEADSET
+            }
+            .forEach { device ->
+                try {
+                    audioManager.clearPreferredMixerAttributes(mediaAttributes, device)
+                } catch (e: Exception) {
+                    Log.w(TAG, "Failed to clear preferred mixer attributes for USB device", e)
+                }
+            }
+    }
     
     private fun applyPlayerSettings() {
+        applyUsbExclusiveRoutingPreference()
+
         player.apply {
             // Apply audio normalization
             if (appSettings.audioNormalization.value) {
@@ -1186,6 +1263,15 @@ class MediaPlaybackService : MediaLibraryService(), Player.Listener {
 
     override fun onDestroy() {
         Log.d(TAG, "Service being destroyed")
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            val audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
+            val mediaAttributes = android.media.AudioAttributes.Builder()
+                .setUsage(android.media.AudioAttributes.USAGE_MEDIA)
+                .setContentType(android.media.AudioAttributes.CONTENT_TYPE_MUSIC)
+                .build()
+            clearUsbPreferredMixerAttributes(audioManager, mediaAttributes)
+        }
         
         // Unregister BroadcastReceiver
         try {
