@@ -587,7 +587,7 @@
     <string name="onboarding_tuner_2">Настройка шрифтов и типографики</string>
     <string name="onboarding_tuner_3">Расширенные опции темы в Настройки > Темы</string>
     <string name="onboarding_rhythm_guard_title">Защитить ваш слух</string>
-    <string name="onboarding_rhythm_guard_desc">Настроить Rhythm Guard, чтобы сделать прослушивание безопаснее с помощью возрастных настроек по умолчанию и ручного контроля защиты.</string>
+    <string name="onboarding_rhythm_guard_desc">Настройте Rhythm Guard, чтобы сделать прослушивание безопаснее с помощью возрастных настроек по умолчанию и ручного контроля защиты.</string>
     <string name="onboarding_rhythm_guard_age_hint">Возрастной профиль помогает Rhythm Guard рекомендовать безопасные лимиты прослушивания.</string>
     <string name="onboarding_rhythm_guard_tip_1">Автоматический режим применяет более безопасные настройки по умолчанию с минимальной настройкой.</string>
     <string name="onboarding_rhythm_guard_tip_2">Позже вы можете настроить оповещения и напоминания о перерывах в Настройках.</string>
@@ -751,7 +751,7 @@
     
     <!-- Onboarding: Gestures Step -->
     <string name="onboarding_gestures_title">Сенсорные жесты</string>
-    <string name="onboarding_gestures_desc">Навигировать по медиатеке быстрее с помощью интуитивных свайпов и касаний. Настроить жесты для мини-плеера и полного экрана плеера.</string>
+    <string name="onboarding_gestures_desc">Перемещаться по медиатеке быстрее с помощью интуитивных свайпов и касаний. Настроить жесты для мини-плеера и полного экрана плеера.</string>
     <string name="onboarding_gestures_miniplayer">Мини-плеер</string>
     <string name="onboarding_gestures_player">Полный плеер</string>
     <string name="onboarding_gesture_swipe">Свайп по мини-плееру</string>
@@ -768,7 +768,7 @@
     
     <!-- Onboarding: Widgets Step -->
     <string name="onboarding_widgets_title">Виджеты на главном экране</string>
-    <string name="onboarding_widgets_desc">Добавить виджеты Rhythm на главный экран для быстрого управления музыкой. Настроить отображаемую информацию и внешний вид виджета.</string>
+    <string name="onboarding_widgets_desc">Добавьте виджеты Rhythm на главный экран для быстрого управления музыкой. Настроить отображаемую информацию и внешний вид виджета.</string>
     <string name="onboarding_widget_album_art">Показать обложку альбома</string>
     <string name="onboarding_widget_album_art_desc">Отображать обложку альбома в виджете</string>
     <string name="onboarding_widget_artist">Показать имя исполнителя</string>
@@ -784,7 +784,7 @@
     
     <!-- Onboarding: Integrations Step -->
     <string name="onboarding_integrations_title">Подключить ваши сервисы</string>
-    <string name="onboarding_integrations_desc">Улучшить ваш опыт прослушивания, подключив внешние сервисы. Получать обложки альбомов, тексты песен, скробблить прослушивания и делиться тем, что вы слушаете.</string>
+    <string name="onboarding_integrations_desc">Улучшите ваш опыт прослушивания, подключив внешние сервисы. Получайте обложки альбомов, тексты песен, скробблите прослушивания и делитесь тем, что вы слушаете.</string>
     <string name="onboarding_integrations_apis">Сервисы API</string>
     <string name="onboarding_integrations_social">Социальные функции</string>
     <string name="onboarding_integration_deezer">Deezer API</string>
@@ -806,16 +806,16 @@
     
     <!-- Onboarding: Rhythm Stats Step -->
     <string name="onboarding_stats_title">Статистика Rhythm</string>
-    <string name="onboarding_stats_desc">Узнать инсайты о ваших музыкальных привычках. Отслеживать время прослушивания, самые прослушиваемые песни, любимых исполнителей и многое другое с красивыми визуализациями.</string>
+    <string name="onboarding_stats_desc">Узнавайте инсайты о ваших музыкальных привычках. Отслеживайте время прослушивания, самые прослушиваемые песни, любимых исполнителей и многое другое с красивыми визуализациями.</string>
     <string name="onboarding_stats_show_home">Показывать статистику на главной</string>
     <string name="onboarding_stats_show_home_desc">Отображать виджет статистики прослушивания на главном экране</string>
     <string name="onboarding_stats_rating">Включить оценки песен</string>
     <string name="onboarding_stats_rating_desc">Оценивать песни для отслеживания избранного и создания умных плейлистов</string>
     <string name="onboarding_stats_features_title">Функции статистики</string>
-    <string name="onboarding_stats_feature_1">Отслеживать общее время прослушивания по дням, неделям или месяцам</string>
-    <string name="onboarding_stats_feature_2">Видеть самые прослушиваемые песни</string>
-    <string name="onboarding_stats_feature_3">Открывать своих топовых исполнителей</string>
-    <string name="onboarding_stats_feature_4">Изучать паттерны прослушивания альбомов</string>
+    <string name="onboarding_stats_feature_1">Отслеживает общее время прослушивания по дням, неделям или месяцам</string>
+    <string name="onboarding_stats_feature_2">Видит самые прослушиваемые песни</string>
+    <string name="onboarding_stats_feature_3">Открывает своих топовых исполнителей</string>
+    <string name="onboarding_stats_feature_4">Изучает паттерны прослушивания альбомов</string>
     <string name="onboarding_stats_info_title">Как это работает</string>
     <string name="onboarding_stats_info_desc">Статистика рассчитывается локально на вашем устройстве на основе истории воспроизведения. Данные не отправляются на внешние серверы. Получить доступ к подробной статистике можно в любое время на главном экране или в настройках.</string>
     
@@ -1658,8 +1658,8 @@
     <string name="settings_rhythm_guard_desc">Использовать активность статистики Rhythm для сохранения безопасности привычек прослушивания с помощью возрастных рекомендаций и ручных предупреждений.</string>
     <string name="settings_rhythm_aura_mode_title">Режим защиты</string>
     <string name="settings_rhythm_guard_mode_title">Режим защиты</string>
-    <string name="settings_rhythm_aura_mode_desc">Выбрать, как Rhythm Guard управляет здоровьем слуха</string>
-    <string name="settings_rhythm_guard_mode_desc">Выбрать, как Rhythm Guard управляет здоровьем слуха</string>
+    <string name="settings_rhythm_aura_mode_desc">Выберите, как Rhythm Guard управляет здоровьем слуха</string>
+    <string name="settings_rhythm_guard_mode_desc">Выберите, как Rhythm Guard управляет здоровьем слуха</string>
     <string name="settings_rhythm_aura_mode_auto">Авто</string>
     <string name="settings_rhythm_guard_mode_auto">Авто</string>
     <string name="settings_rhythm_aura_mode_manual">Вручную</string>
